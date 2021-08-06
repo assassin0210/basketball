@@ -6,9 +6,9 @@ import {NavLink} from 'react-router-dom';
 import {ErrorText} from "../../assets/ErrorText/ErrorText";
 import closeEye from '../../assets/icon/close_eye.svg'
 import openEye from '../../assets/icon/open_eye.svg'
-import {RootState} from "../../Redux";
+
 import {useDispatch, useSelector} from "react-redux";
-import {getConfirmationAuthUser, SING_UP} from "../../Redux/reducers/authReducer";
+import {getConfirmationAuthUser, SING_UP, testDeb} from "../../Redux/reducers/authReducer";
 
 
 type onSubmitDataFormType = {
@@ -27,8 +27,10 @@ export const SingUp: React.FC<MapDispatchPropsType> = (props: any) => {
     const [showPass, setShowPass] = useState(false)
     const [showDoublePass, setShowDoublePass] = useState(false)
     const [repeatPassword, setRepeatPassword] = useState(false)
-    const auth = useSelector((state: RootState) => state.auth)
+    const auth = useSelector((state: any) => state.auth)
+
     const dispatch = useDispatch()
+
 
 
     const showPassHandler = () => {
@@ -50,10 +52,10 @@ export const SingUp: React.FC<MapDispatchPropsType> = (props: any) => {
     const {register, handleSubmit, watch, formState: {errors}} = useForm<Inputs>({mode: "onSubmit"});
 
     const onSubmit: SubmitHandler<Inputs> = data => {
-        console.log(data)
-
         if (data.password === data.doublePass) {
             getConfirmationAuthUser(data)
+            testDeb()
+
         } else {
             setRepeatPassword(true)
         }
@@ -98,7 +100,7 @@ export const SingUp: React.FC<MapDispatchPropsType> = (props: any) => {
                             <p>I accept the agreement</p>
                         </div>
                         {errors.policy && <ErrorText>You didn’t accept the agreement</ErrorText>}
-                        <input onClick={()=>{ dispatch(SING_UP)}} value='Sing In' type="submit"/>
+                        <input onClick={()=>{dispatch(SING_UP())}} value='Sing In' type="submit"/>
                         <label style={{textAlign: "center"}}>Not a member yet? <NavLink to='/'>Sign
                             up</NavLink></label>
                     </form>

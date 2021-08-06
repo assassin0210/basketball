@@ -27,9 +27,9 @@ type authApiType = {
 }
 export const authApi: authApiType = {
 
-    async singUp(data) {
+     singUp(data) {
         debugger
-        const promise = await instance.post('/api/Auth/SignUp', {
+        const promise =  instance.post('/api/Auth/SignUp', {
             "userName": data.userName,
             "login": data.login,
             "password": data.password

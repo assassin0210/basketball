@@ -1,24 +1,18 @@
 import authReducer from './reducers/authReducer'
-import {configureStore, getDefaultMiddleware} from "@reduxjs/toolkit";
+import { createStore , applyMiddleware, combineReducers } from 'redux';
+import {composeWithDevTools} from "redux-devtools-extension";
+import thunk from "redux-thunk";
 
 
-const middleware = getDefaultMiddleware({
-    immutableCheck: false,
-    serializableCheck: false,
-    thunk: true,
-});
+const rootReducer = combineReducers({
+    auth: authReducer
+})
 
 
-export const store = configureStore({
-
-        reducer: {
-            auth:authReducer,
-        },
-        middleware,
-        devTools: process.env.NODE_ENV !== 'production',
-
-
-    }
+export const store = createStore(
+    rootReducer,
+    composeWithDevTools(applyMiddleware(thunk))
 )
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+
+
+

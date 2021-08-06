@@ -15,6 +15,10 @@ export type InitialStateType = typeof initialState
 export const SING_UP: any = createAction('SING_UP')
 export const SING_IN: any = createAction('SING_IN')
 
+export const testDeb=()=>{
+    console.log('попал в редюсер')
+}
+
 
 export const getConfirmationAuthUser = (data:getConfirmationAuthUserType) => async (dispatch: any) => {
     debugger
