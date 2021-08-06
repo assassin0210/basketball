@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {useForm, SubmitHandler} from "react-hook-form";
 import si from "./../SingIn/SingIn.module.scss";
 import SingUnPic from "../../assets/img/SingUpPic.svg";
@@ -6,9 +6,11 @@ import {NavLink} from 'react-router-dom';
 import {ErrorText} from "../../assets/ErrorText/ErrorText";
 import closeEye from '../../assets/icon/close_eye.svg'
 import openEye from '../../assets/icon/open_eye.svg'
+import {useDispatch} from "react-redux";
+import { registered } from "../../Redux/reducers/authSlice";
 
-import {useDispatch, useSelector} from "react-redux";
-import {getConfirmationAuthUser, SING_UP, testDeb} from "../../Redux/reducers/authReducer";
+
+
 
 
 type onSubmitDataFormType = {
@@ -16,6 +18,7 @@ type onSubmitDataFormType = {
     login: string
     password: string
     doublePass: string
+
 }
 
 interface MapDispatchPropsType {
@@ -27,11 +30,7 @@ export const SingUp: React.FC<MapDispatchPropsType> = (props: any) => {
     const [showPass, setShowPass] = useState(false)
     const [showDoublePass, setShowDoublePass] = useState(false)
     const [repeatPassword, setRepeatPassword] = useState(false)
-    const auth = useSelector((state: any) => state.auth)
-
     const dispatch = useDispatch()
-
-
 
     const showPassHandler = () => {
         setShowPass(!showPass)
@@ -54,9 +53,9 @@ export const SingUp: React.FC<MapDispatchPropsType> = (props: any) => {
     const onSubmit: SubmitHandler<Inputs> = data => {
         if (data.password === data.doublePass) {
             console.log(data)
-            testDeb()
-            getConfirmationAuthUser(data)
-
+            debugger
+            // @ts-ignore
+            dispatch(registered(data))
 
         } else {
             setRepeatPassword(true)
@@ -102,7 +101,7 @@ export const SingUp: React.FC<MapDispatchPropsType> = (props: any) => {
                             <p>I accept the agreement</p>
                         </div>
                         {errors.policy && <ErrorText>You didn’t accept the agreement</ErrorText>}
-                        <input onClick={()=>{dispatch(SING_UP())}} value='Sing In' type="submit"/>
+                        <input onClick={()=>{}} value='Sing In' type="submit"/>
                         <label style={{textAlign: "center"}}>Not a member yet? <NavLink to='/'>Sign
                             up</NavLink></label>
                     </form>
