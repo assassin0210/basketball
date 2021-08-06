@@ -15,13 +15,14 @@ export type InitialStateType = typeof initialState
 export const SING_UP: any = createAction('SING_UP')
 export const SING_IN: any = createAction('SING_IN')
 
+
 export const testDeb=()=>{
     console.log('попал в редюсер')
 }
 
 
 export const getConfirmationAuthUser = (data:getConfirmationAuthUserType) => async (dispatch: any) => {
-    debugger
+    console.log('попал в санку')
     try {
         let response = await authApi.singUp(data)
         if (response.status === 200) {
@@ -62,10 +63,10 @@ export const getAuthUserData = (data: getAuthUserDataType) => async (dispatch: a
 
 
 export default createReducer(initialState,{
-    [SING_UP]: (state, action) => {
+    [SING_UP]: function (state, action) {
         state.isRegistered = true
     },
-    [SING_IN]: (state, action) => {
+    [SING_IN]:function (state, action) {
         state.isAuth = true
         state.name = action.payload.name
         state.token = action.payload.token

@@ -53,8 +53,10 @@ export const SingUp: React.FC<MapDispatchPropsType> = (props: any) => {
 
     const onSubmit: SubmitHandler<Inputs> = data => {
         if (data.password === data.doublePass) {
-            getConfirmationAuthUser(data)
+            console.log(data)
             testDeb()
+            getConfirmationAuthUser(data)
+
 
         } else {
             setRepeatPassword(true)
