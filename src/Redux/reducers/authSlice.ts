@@ -131,7 +131,7 @@ const authSlice = createSlice({
         },
         logOut(state: any, action: PayloadAction) {
             localStorage.removeItem('currentUser')
-            state.user = null
+            state.isAuth = false
         },
         authFailed(state: any, action: PayloadAction<string | null | undefined | object>) {
             state.showError = true

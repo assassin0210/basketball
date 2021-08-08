@@ -31,7 +31,7 @@ export const SingIn = (props: any) => {
         setShowPass(!showPass)
         if (localStorage.getItem('currentUser')) {
             isAuth()
-            props.history.push('/basketball')
+            history.push('/basketball')
         } else {
             console.log('не удалось проверить локал')
         }

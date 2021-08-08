@@ -1,3 +1,34 @@
 .menu_Container{
+padding: 32px 40px ;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
+}
+.mod{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  font-size: 12px;
+  width: 3rem;
+  &:hover{
+    p{
+      color:#FF768E;
+    }
+    path{
+      fill: #FF768E;
+    }
+  }
+  p{
+    margin-top: 7px;
+  }
+
+}
+.exit_button{
+
+}
+.player_button{
+  margin-top: 50px;
 }
