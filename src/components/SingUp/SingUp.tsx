@@ -6,31 +6,22 @@ import {NavLink} from 'react-router-dom';
 import {ErrorText} from "../../assets/ErrorText/ErrorText";
 import closeEye from '../../assets/icon/close_eye.svg'
 import openEye from '../../assets/icon/open_eye.svg'
-import {useDispatch} from "react-redux";
-import { registered } from "../../Redux/reducers/authSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {authSlice, registered} from "../../Redux/reducers/authSlice";
+import {RootState} from "../../Redux";
 
 
 
 
 
-type onSubmitDataFormType = {
-    userName: string
-    login: string
-    password: string
-    doublePass: string
 
-}
 
-interface MapDispatchPropsType {
-
-    getConfirmationAuthUser: (data: onSubmitDataFormType) => void
-}
-
-export const SingUp: React.FC<MapDispatchPropsType> = (props: any) => {
+export const SingUp = () => {
     const [showPass, setShowPass] = useState(false)
     const [showDoublePass, setShowDoublePass] = useState(false)
     const [repeatPassword, setRepeatPassword] = useState(false)
     const dispatch = useDispatch()
+    const showError = useSelector((state:authSlice & RootState )=>state.auth.showError)
 
     const showPassHandler = () => {
         setShowPass(!showPass)
@@ -46,15 +37,18 @@ export const SingUp: React.FC<MapDispatchPropsType> = (props: any) => {
         doublePass: string,
         policy: boolean,
     };
+     type onSubmitDataFormType = {
+        userName: string
+        login: string
+        password: string
+        doublePass: string
+    }
 
 
     const {register, handleSubmit, watch, formState: {errors}} = useForm<Inputs>({mode: "onSubmit"});
 
-    const onSubmit: SubmitHandler<Inputs> = data => {
+    const onSubmit: SubmitHandler<Inputs> = (data:onSubmitDataFormType) => {
         if (data.password === data.doublePass) {
-            console.log(data)
-            debugger
-            // @ts-ignore
             dispatch(registered(data))
 
         } else {
@@ -104,6 +98,8 @@ export const SingUp: React.FC<MapDispatchPropsType> = (props: any) => {
                         <input onClick={()=>{}} value='Sing In' type="submit"/>
                         <label style={{textAlign: "center"}}>Not a member yet? <NavLink to='/'>Sign
                             up</NavLink></label>
+                        { showError?<span>Invalid data, or this user already exists</span>: ''}
+
                     </form>
                 </div>
 
