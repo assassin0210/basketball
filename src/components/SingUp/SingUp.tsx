@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useForm, SubmitHandler} from "react-hook-form";
 import si from "./../SingIn/SingIn.module.scss";
 import SingUnPic from "../../assets/img/SingUpPic.svg";
-import {NavLink} from 'react-router-dom';
+import {NavLink, useHistory} from 'react-router-dom';
 import {ErrorText} from "../../assets/ErrorText/ErrorText";
 import closeEye from '../../assets/icon/close_eye.svg'
 import openEye from '../../assets/icon/open_eye.svg'
@@ -22,6 +22,15 @@ export const SingUp = () => {
     const [repeatPassword, setRepeatPassword] = useState(false)
     const dispatch = useDispatch()
     const showError = useSelector((state:authSlice & RootState )=>state.auth.showError)
+    const auth = useSelector((state: authSlice & RootState) => state.auth.isAuth)
+    const history = useHistory();
+
+    useEffect(() => {
+        if (auth===true ) {
+            history.push('/basketball')
+        }
+
+    }, [auth])
 
     const showPassHandler = () => {
         setShowPass(!showPass)
