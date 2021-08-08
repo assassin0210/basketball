@@ -1,25 +1,25 @@
 import menu from './Menu.module.scss'
-import exit from '../../assets/icon/exit.svg'
-import {Exit} from '../../utils/SVGexport'
 import {useDispatch, useSelector} from "react-redux";
 import {authSlice, logOut} from '../../Redux/reducers/authSlice';
-import {useEffect} from "react";
+import {FC, useEffect, useState} from "react";
 import {useHistory} from "react-router";
 import {RootState} from "../../Redux";
-import {log} from "util";
 
+type MenuPropType={
+    toggleSetPlayersMod: ()=> void
+    toggleSetTeamsMod: ()=> void
+    teamsMod:boolean
+    playersMod:boolean
+}
 
-export const Menu = () => {
+export const Menu: FC<MenuPropType> = ({toggleSetPlayersMod,toggleSetTeamsMod,teamsMod,playersMod}) => {
 
 
 
     const isAuth = useSelector((state: authSlice & RootState) => state.auth.isAuth)
     const dispatch = useDispatch()
     const history = useHistory()
-    const handlTest =(e:any)=>{
-        console.log(e)
 
-    }
 
     const handleExit = () => {
         dispatch(logOut())
@@ -32,7 +32,8 @@ export const Menu = () => {
     return (
         <div className={menu.menu_Container}>
             <div className={menu.wrapper_for_mod}>
-                <div className={`${menu.mod} ${menu.teams_button}`}>
+                <div onClick={toggleSetTeamsMod}
+                     className={`${menu.mod} ${menu.teams_button} ${teamsMod ? menu.active_mod : ''}`}>
                     <svg width="24" height="24" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g id="group_person">
                             <path id="group_person_2" fill-rule="evenodd" clip-rule="evenodd"
@@ -42,7 +43,8 @@ export const Menu = () => {
                     </svg>
                     <p>Teams</p>
                 </div>
-                <div className={`${menu.mod} ${menu.player_button}`}>
+                <div onClick={toggleSetPlayersMod}
+                     className={`${menu.mod} ${menu.player_button} ${playersMod ? menu.active_mod : ''}`}>
                     <svg width="24" height="24" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g id="person">
                             <path id="person_2" fill-rule="evenodd" clip-rule="evenodd"
@@ -53,7 +55,7 @@ export const Menu = () => {
                     <p>Players</p>
                 </div>
             </div>
-            <div  onClick={handleExit} className={`${menu.mod} ${menu.exit_button}`}>
+            <div onClick={handleExit} className={`${menu.mod} ${menu.exit_button}`}>
                 <svg width="24" height="24" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g id="input">
                         <path id="input_2" fill-rule="evenodd" clip-rule="evenodd"

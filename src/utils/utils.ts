@@ -26,6 +26,8 @@ export const examinationAuth =(status:boolean|undefined| null)=>{
     return false
 }
 
+export const currentUser = JSON.parse(localStorage.getItem('currentUser') as any)
+
 export const instance = axios.create({
     baseURL: 'http://dev.trainee.dex-it.ru',
     headers: {

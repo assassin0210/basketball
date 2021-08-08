@@ -1,17 +1,46 @@
+import { AllTeams } from '../../components/AllTeams/AllTeams'
 import {Header} from '../../components/Header/Header'
 import {Menu} from '../../components/Menu/Menu'
 import mp from './MainPage.module.scss'
+import {FC, useState} from "react";
+import {AllPlayer} from "../../components/AllPlayers/AllPlayer";
 
-export const MainPage = () => {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser') as any)
-    //
+type MainPagePropsType={
+
+}
+
+
+
+export const MainPage: FC<MainPagePropsType> = () => {
+
+
+    const [teamsMod, setTeamsMod] = useState(true)
+    const [playersMod, setPlayersMod] = useState(false)
+
+    const toggleSetTeamsMod = () => {
+        setTeamsMod(true)
+        setPlayersMod(false)
+    }
+    const toggleSetPlayersMod = () => {
+        setPlayersMod(true)
+        setTeamsMod(false )
+    }
+
+
     return (
         <div className={mp.main_container}>
-            {/*@ts-ignore*/}
-            <Header currentUser={currentUser}/>
+            <Header />
             <div className={mp.main_container_children}>
-                <Menu/>
-                <h1>players or</h1>
+                <Menu toggleSetTeamsMod={toggleSetTeamsMod}
+                      toggleSetPlayersMod={toggleSetPlayersMod}
+                      teamsMod={teamsMod}
+                      playersMod={playersMod}
+                />
+
+                    {teamsMod?<AllTeams teamsMod={teamsMod}/>:<AllPlayer teamsMod={teamsMod}/> }
+
+
+
             </div>
         </div>
     )

@@ -65,25 +65,7 @@ export const login = createAsyncThunk(
     }
 )
 
-export const getTeams = createAsyncThunk(
-    'auth/getTeams',
-    async function (_, {dispatch}) {
-        const testLocalToken = localStorage.getItem('token')
-        try {
-            const response = await instance.get('/api/Team/GetTeams', {
-                headers: {
-                    'Authorization': `Bearer  ${testLocalToken}`
-                }
-            })
-            /*localStorage.setItem('token', local.toString())*/
-            //console.log(response)
-            dispatch(registration())
-            /* const get = localStorage.getItem('token')*/
-        } catch {
 
-        }
-    }
-)
 
 export interface authSlice {
     user: {
@@ -116,7 +98,7 @@ const initialState = {
     ChangeUser: null,
     isRegister: false,
     isAuth: null,
-    token: null as string | null,
+    token: null ,
 } as authSlice
 
 const authSlice = createSlice({

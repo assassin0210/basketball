@@ -11,4 +11,21 @@ body{
   font-size: 16px
 }
 
+.red-button{
+  padding: 8px 27px 8px 24px ;
+  border: none;
+  border-radius: 4px;
+  background: #E4163A;
+  color: #FFFFFF;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  &:hover{
+    background: #FF5761;
+    &:active{
+      background: #C60E2E;
+    }
+  }
+}
+
+
 @import 'pages/SingPage/SingPage.module';

@@ -26,7 +26,7 @@ export const SingUp = () => {
     const history = useHistory();
 
     useEffect(() => {
-        if (auth===true ) {
+        if (auth) {
             history.push('/basketball')
         }
 
@@ -107,7 +107,7 @@ export const SingUp = () => {
                         <input onClick={()=>{}} value='Sing In' type="submit"/>
                         <label style={{textAlign: "center"}}>Not a member yet? <NavLink to='/'>Sign
                             up</NavLink></label>
-                        { showError?<span>Invalid data, or this user already exists</span>: ''}
+                        { showError&&<span>Invalid data, or this user already exists</span>}
 
                     </form>
                 </div>

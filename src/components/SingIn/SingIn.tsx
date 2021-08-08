@@ -1,14 +1,14 @@
 import {useForm, SubmitHandler} from "react-hook-form";
 import si from "./SingIn.module.scss";
 import SingInPic from "../../assets/img/SingInPic.svg";
-import {Link, NavLink, useHistory} from 'react-router-dom';
+import {Link,  useHistory} from 'react-router-dom';
 import {ErrorText} from "../../assets/ErrorText/ErrorText";
 import React, {useEffect, useState} from "react";
 import openEye from "../../assets/icon/open_eye.svg";
 import closeEye from "../../assets/icon/close_eye.svg";
-import {DefaultRootState, useDispatch, useSelector} from "react-redux";
-import {authSlice, getTeams, login} from "../../Redux/reducers/authSlice";
-import {examinationAuth, isAuth} from "../../utils/utils";
+import { useDispatch, useSelector} from "react-redux";
+import {authSlice,  login} from "../../Redux/reducers/authSlice";
+import { isAuth} from "../../utils/utils";
 import {RootState} from "../../Redux";
 
 
@@ -21,7 +21,7 @@ export const SingIn = (props: any) => {
     const history = useHistory();
 
     useEffect(() => {
-        if (auth===true ) {
+        if (auth) {
             history.push('/basketball')
         }
 
@@ -65,7 +65,7 @@ export const SingIn = (props: any) => {
 
 
                         <label style={{textAlign: "center"}}>Not a member yet? <Link to='/singUp'>Sign up</Link></label>
-                        {showError ? <span>User with the specified username / password was not found.</span> : ''}
+                        {showError && <span>User with the specified username / password was not found.</span> }
                     </form>
                 </div>
 
