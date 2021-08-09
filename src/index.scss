@@ -10,19 +10,127 @@ body{
   font-family: 'Lato', sans-serif;
   font-size: 16px
 }
+.input_Error{
+  border: 1px solid var(--lightestRed);
+}
+
+input[type='text'] {
+  width: 100%;
+
+}
+
+input[type='password'] {
+  font-size: 14px;
+  font-weight: 500;
+  width: 100%;
+
+}
+input[type='submit'] {
+  background: var(--red);
+  color: white;
+  cursor: pointer;
+  margin-top: 25px;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background: var(--lightRed);
+
+  }
+
+  &:focus {
+    background: var(--darkRed);
+  }
+
+  &:disabled {
+    background: var(--lightestGrey);
+  }
+}
+
+input {
+  background: var(--lightestGrey1);
+  border: none;
+  height: 40px;
+  padding-left: 12px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  color: #303030;
+  outline: none;
+  border-radius: 4px;
+  position: relative;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    transition: background 0.2s ease-in-out;
+    background:var(--lightestGrey);
+  }
+}
+
+.input_error-text{
+  position: relative;
+}
+.linkSing{
+  text-decoration: none;
+  position: relative;
+  div{
+    position: absolute;
+    width: 60px;
+    height: 1px;
+    left: -1px;
+    bottom: 2px;
+    background: var(--red);
+  }
+}
+
+.input_search{
+  background: white;
+  &:hover{
+    background: white;
+  }
+}
+
+
+
+.error_message_login {
+  position: absolute;
+  right: 36px;
+  top: 36px;
+  background: var(--lightRed);
+  z-index: 10;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+
+}
+
+:root {
+  --darkGrey: #303030;
+  --grey: #707070;
+  --lightGrey: #9C9C9C;
+  --lightestGrey: #D1D1D1;
+  --lightestGrey1: #F6F6F6;
+  --darkRed: #C60E2E;
+  --red: #e4163a;
+  --lightRed: #FF5761;
+  --lightestRed: #FF768E;
+  --blue: #344472;
+}
 
 .red-button{
   padding: 8px 27px 8px 24px ;
   border: none;
   border-radius: 4px;
-  background: #E4163A;
-  color: #FFFFFF;
+  background: var(--red);
+  color: white;
   transition: all 0.2s ease;
   cursor: pointer;
   &:hover{
-    background: #FF5761;
+    background: var(--lightRed);
     &:active{
-      background: #C60E2E;
+      background: var(--darkRed);
     }
   }
 }

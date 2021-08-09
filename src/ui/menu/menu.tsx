@@ -4,26 +4,23 @@ import {logOut} from '../../modules/autorization/authSlice';
 import {FC, useEffect} from "react";
 import {useHistory} from "react-router";
 import { MenuPropType,  RootStateType} from '../../api/dto/types';
-import { SingOut } from '../../assets/icon/SingOut';
 import { OnePerson } from '../../assets/icon/onePerson';
 import { TwoPersons } from '../../assets/icon/TwoPersons';
+import { SingOut } from '../../assets/icon/singOut';
+import React from 'react';
 
-
-
-
-export const Menu: FC<MenuPropType> = ({toggleSetPlayersMod,toggleSetTeamsMod,teamsMod,playersMod}) => {
-
+export const Menu: FC<MenuPropType> = React.memo( ({toggleSetPlayersMod,toggleSetTeamsMod,teamsMod,playersMod}) => {
     const isAuth = useSelector((state: RootStateType) => state.auth.isAuth)
     const dispatch = useDispatch()
     const history = useHistory()
 
     const handleExit = () => {
         dispatch(logOut())
-        history.push('/')
+        history.push('/singIn')
     }
     useEffect(() => {
 
-    }, [isAuth])
+    }, [isAuth,history])
 
     return (
         <div className={menu.menu_Container}>
@@ -43,7 +40,6 @@ export const Menu: FC<MenuPropType> = ({toggleSetPlayersMod,toggleSetTeamsMod,te
                 <SingOut/>
                 <p>Sing out</p>
             </div>
-
         </div>
     )
-}
+})

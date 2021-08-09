@@ -8,7 +8,7 @@ import { MissingTeams } from '../teamCard/missingTeams';
 
 
 
-export const AllTeams: FC<AllTeamsPropType> = () => {
+export const AllTeams = () => {
 
     const count = useSelector((state: RootState & teamsSliceType & any) => state.teams.count)
     const dispatch = useDispatch()
@@ -18,11 +18,9 @@ export const AllTeams: FC<AllTeamsPropType> = () => {
     }, [count,dispatch])
     return (
         <div className={at.allTeams_container}>
-
-
             <div className={at.top_side}>
                 <div className={at.search_block}>
-                    <input placeholder='Search...' type="text"/>
+                    <input className='input_search' placeholder='Search...' type="text"/>
                     <Search/>
                 </div>
                 <input className='red-button' value='Add  +' type="submit"/>

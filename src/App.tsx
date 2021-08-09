@@ -22,9 +22,9 @@ function App() {
     return (
         <div className="App">
             <Switch>
-                <PublicRoute isAuth={isAuth}  component={SingIn} path='/' exact/>
-                <PublicRoute isAuth={isAuth} component={SingUp} path='/singUp' exact/>
-                <PrivateRoute isAuth={isAuth} component={MainPage} path='/basketball' exact/>
+                <PublicRoute isAuth={isAuth}  component={SingIn} path='/singIn' />
+                <PublicRoute isAuth={isAuth} component={SingUp} path='/singUp' />
+                <PrivateRoute isAuth={isAuth} component={MainPage} path='/'/>
             </Switch>
         </div>
     );

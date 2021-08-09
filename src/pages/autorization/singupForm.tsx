@@ -23,7 +23,7 @@ export const SingUpForm = () => {
 
     useEffect(() => {
         if (auth) {
-            history.push('/basketball')
+            history.push('/teams')
         }
 
     }, [auth, history])
@@ -85,10 +85,10 @@ export const SingUpForm = () => {
             <p>I accept the agreement</p>
         </div>
         {errors.policy && <ErrorText>You didn’t accept the agreement</ErrorText>}
-        <input disabled={false} value='Sing Up' type="submit"/>
-        <label style={{textAlign: "center"}}>Not a member yet? <NavLink to='/'>Sign
-            up</NavLink></label>
-        {showError && <span>Invalid data, or this user already exists</span>}
+        <input  value='Sing Up' type="submit"/>
+        <label style={{textAlign: "center"}}>Not a member yet? <NavLink className='linkSing' to='/singIn'>Sing
+            in <div></div></NavLink></label>
+        {showError && <span className='error_message_login'>Invalid data, or this user already exists</span>}
 
     </form>
 }

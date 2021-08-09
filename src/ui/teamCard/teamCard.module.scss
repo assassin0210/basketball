@@ -7,7 +7,7 @@
 
 }
 .teamLogoBlock{
-  background: linear-gradient(121.57deg, #707070 1.62%, #393939 81.02%);
+  background: linear-gradient(121.57deg, var(--gray) 1.62%, #393939 81.02%);
   border-radius: 4px 4px 0 0 ;
   display: flex;
   justify-content: center;
@@ -20,7 +20,7 @@
   }
 }
 .teamDescription{
-  background: #303030;
+  background: var(--darkGray);
   border-radius:  0 0 4px 4px  ;
   height: 80px;
   display: flex;
@@ -32,13 +32,13 @@
     font-weight: 500;
     font-size: 18px;
     line-height: 25px;
-    color: #FFFFFF;
+    color: white;
   }
   h4{
     font-weight: 500;
     font-size: 14px;
     line-height: 24px;
-    color: #9C9C9C
+    color: var(--lightGray)
   }
 
 }
@@ -48,7 +48,7 @@
 .missingContainer {
   width: 556px;
   height: 570px;
-  background: #FFFFFF;
+  background: white;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
@@ -58,13 +58,13 @@
     font-weight: 800;
     font-size: 36px;
     line-height: 49px;
-    color: #FF768E;
+    color: var(--lightestRed);
     text-align: center;
   }
   p{
     font-size: 24px;
     line-height: 33px;
-    color: #707070;
+    color: var(--grey);
     text-align: center;
   }
 }

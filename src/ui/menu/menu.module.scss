@@ -15,10 +15,10 @@ padding: 32px 40px ;
   width: 3rem;
   &:hover{
     p{
-      color:#FF768E;
+      color:var(--lightestRed);
     }
     path{
-      fill: #FF768E;
+      fill: var(--lightestRed);
     }
   }
   p{
@@ -35,9 +35,9 @@ padding: 32px 40px ;
 
 .active_mod{
   p{
-    color:#E4163A;
+    color:var(--red);
   }
   path{
-    fill: #E4163A;
+    fill: var(--red);
   }
 }

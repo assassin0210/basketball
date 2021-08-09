@@ -1,10 +1,10 @@
 
 
 
-export const AllPlayer=()=>{
+export const AddTeam =()=>{
     return(
         <div>
-            AllPlayer
+           addTeam
         </div>
     )
 }

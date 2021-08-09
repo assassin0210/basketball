@@ -6,7 +6,7 @@ export const PublicRoute:FC<PropsType<Route>> = ({component:Component,isAuth, ..
     return (
         <Route {...rest} render={(props) => (
             !(isAuth) || isAuth()  ?
-                <Redirect to="/basketball" />
+                <Redirect to="/singIn" />
                 : <Component {...props} />
         )} />
     );

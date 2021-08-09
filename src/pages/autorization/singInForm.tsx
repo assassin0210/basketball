@@ -22,11 +22,11 @@ export const SingInForm = () => {
         const dispatch = useDispatch()
         const history = useHistory();
 
-        console.log('компонента')
+
         useEffect(() => {
             console.log(' эффект')
             if (auth) {
-                history.push('/basketball')
+                history.push('/teams')
             }
 
         }, [auth, history])
@@ -35,11 +35,10 @@ export const SingInForm = () => {
             dispatch(isLoading)
         }
 
-
         const showPassHandler = () => {
             setShowPass(!showPass)
             if (localStorage.getItem('currentUser')) {
-                history.push('/basketball')
+                history.push('/teams')
             } else {
                 console.log('не удалось проверить локал')
             }
@@ -48,18 +47,18 @@ export const SingInForm = () => {
 
         const onSubmit: SubmitHandler<InputsSingIn> = (data: any) => {
             dispatch(login(data))
-            history.push('/basketball')
+            history.push('/teams')
         };
         return (
             <form onSubmit={handleSubmit(onSubmit)}>
                 <h1>Sing In</h1>
                 <label> Login</label>
-                <input  {...register("login", {required: true})} />
+                <input className={errors.login && 'input_Error'}  {...register("login", {required: true})} />
 
                 {errors.login && <ErrorText>Login is required</ErrorText>}
                 <label> Password</label>
                 <div className={si.inputPassWrapper}>
-                    <input type={showPass ? 'text' : 'password'} {...register("password", {required: true})} />
+                    <input className={errors.password && 'input_Error'} type={showPass ? 'text' : 'password'} {...register("password", {required: true})} />
                     <div onClick={showPassHandler} className={si.eyeImg}>
                         {showPass ? <ShowPassword/> : <HidePassword/>}
                     </div>
@@ -68,8 +67,8 @@ export const SingInForm = () => {
                 </div>
                 {errors.password && <ErrorText>Password is required</ErrorText>}
                 <input disabled={preloader} onClick={dispatchIsLoader} value='Sing In' type="submit"/>
-                <label style={{textAlign: "center"}}>Not a member yet? <Link to='/singUp'>Sign up</Link></label>
-                {showError && <span>User with the specified username / password was not found.</span>}
+                <label style={{textAlign: "center"}}>Not a member yet? <Link className='linkSing' to='/singUp'>Sign up <div></div></Link></label>
+                {showError && <span className='error_message_login'>User with the specified username / password was not found.</span>}
             </form>
         )
     }

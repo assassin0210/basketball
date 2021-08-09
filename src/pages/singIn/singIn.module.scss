@@ -20,50 +20,17 @@
 
       label {
         margin: 24px 0 8px 0;
-        color: #707070;
+        color: var(--grey);
 
         a {
-          color: #E4163A;
+          color: var(--red);
           font-size: 20px;
         }
       }
 
-      input {
-        background: #F6F6F6;
-        border: none;
-        height: 40px;
-        color: #707070;
-        outline: none;
-        transition: background-color 0.3s ease;
-        border-radius: 4px;
-        position: relative;
-
-        &:hover {
-          background: #D1D1D1;
-        }
-
-      }
     }
 
-    input[type='submit'] {
-      background: #E4163A;
-      color: white;
-      cursor: pointer;
 
-      margin-top: 15px;
-
-      &:hover {
-        background: #FF5761;
-
-      }
-
-      &:focus {
-        background: #C60E2E;
-      }
-      &:disabled{
-        background: black;
-      }
-    }
   }
 
   .img_container {
@@ -72,7 +39,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #F5FBFF;
+    background: var(--lightestGrey1);
 
     img {
       max-width: 80%;
@@ -81,23 +48,14 @@
   }
 }
 
-span {
-  position: absolute;
-  right: 36px;
-  top: 36px;
-  background: #FF5761;
-  z-index: 10;
-  padding: 5px;
-  border: none;
-  border-radius: 4px;
-  color: white;
-
-}
 
 .check {
+  height: 15px;
+  margin-top: 15px;
+
   p {
     margin-left: 10px;
-    color: #707070;
+    color: var(--gray);
   }
 
   display: flex;
@@ -105,29 +63,24 @@ span {
 }
 
 .errorLabel {
-  color: #FF5761;
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--lightestRed);
+  font-weight: 500;
+  font-size: 12px;
+  padding: 0;
+
 }
 
 .errorInput {
-  border: 1px solid #FF768E;
+  border: 1px solid var(--lightestRed);
 }
 
-input[type='text'] {
-  width: 100%;
-  transition: none;
-}
-
-input[type='password'] {
-  font-size: 14px;
-  font-weight: 500;
-  width: 100%;
-  transition: none;
-
-}
 
 .eyeImg {
   cursor: pointer;
-position: absolute;
+  position: absolute;
   top: 10px;
   right: 10px;
 
@@ -149,7 +102,7 @@ position: absolute;
     right: 0;
     top: 0;
     position: relative;
-    background: #FF5761;
+    background: var(--lightestRed);
     z-index: 10;
     padding: 0.7rem;
     border: none;

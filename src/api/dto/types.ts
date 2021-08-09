@@ -90,13 +90,14 @@ export type MenuPropType={
     toggleSetTeamsMod: ()=> void
     teamsMod:boolean
     playersMod:boolean
+
 }
 
 
 export interface PropsType<T> {
     component: React.ElementType
     path: string
-    exact : boolean
+    exact? : boolean
     src?:boolean
     isAuth?: ()=> void | boolean| object |undefined
 }

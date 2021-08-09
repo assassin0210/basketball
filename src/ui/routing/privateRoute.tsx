@@ -9,7 +9,7 @@ import {PropsType} from "../../api/dto/types";
         <Route {...rest} render={props => (
             !(isAuth) || isAuth() ?
                 <Component {...props} />
-                : <Redirect to="/" />
+                : <Redirect to="/singIn" />
         )} />
     );
 };
