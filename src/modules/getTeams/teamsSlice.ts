@@ -1,6 +1,7 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import { PURGE } from "redux-persist";
 import {currentUser, instance} from "../../utils/utils";
-import {registration} from "./authSlice";
+import {registered, registration} from "../autorization/authSlice";
 
 
 
@@ -67,7 +68,14 @@ const teamsSlice = createSlice({
         },
 
     },
-    extraReducers:{}
+        extraReducers:builder => {
+            builder.addCase(getTeams.pending,(state,action)=>{
+                console.log('загружаюсь')
+            })
+            builder.addCase(getTeams.fulfilled,(state,action)=>{
+                console.log('загрузился ')
+            })
+        },
 })
 
 export const {setTeams,} = teamsSlice.actions;

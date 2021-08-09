@@ -1,6 +1,6 @@
-import logo from '../../assets/img/logo.svg'
+import logo from '../../assets/images/logo.svg'
 import s from './Header.module.scss'
-import defaultAvatar from '../../assets/img/profile.svg'
+import defaultAvatar from '../../assets/images/profile.svg'
 import {currentUser} from "../../utils/utils";
 
 

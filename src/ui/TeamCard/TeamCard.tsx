@@ -1,5 +1,5 @@
 import tc from './TeamCard.module.scss'
-import POR1 from '../../assets/img/POR1.png'
+import POR1 from '../../assets/images/POR1.png'
 
 
 

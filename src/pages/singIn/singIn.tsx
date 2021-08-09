@@ -1,15 +1,15 @@
 import {useForm, SubmitHandler} from "react-hook-form";
-import si from "./SingIn.module.scss";
-import SingInPic from "../../assets/img/SingInPic.svg";
+import si from "./singIn.module.scss";
+import SingInPic from "../../assets/images/SingInPic.svg";
 import {Link,  useHistory} from 'react-router-dom';
 import {ErrorText} from "../../assets/ErrorText/ErrorText";
 import React, {useEffect, useState} from "react";
 import openEye from "../../assets/icon/open_eye.svg";
 import closeEye from "../../assets/icon/close_eye.svg";
 import { useDispatch, useSelector} from "react-redux";
-import {authSlice,  login} from "../../Redux/reducers/authSlice";
+import {authSlice, isLoading,  login} from "../../modules/autorization/authSlice";
 import { isAuth} from "../../utils/utils";
-import {RootState} from "../../Redux";
+import {RootState} from "../../core/redux/store";
 
 
 export const SingIn = (props: any) => {
@@ -17,8 +17,11 @@ export const SingIn = (props: any) => {
     const [showPass, setShowPass] = useState(false)
     const showError = useSelector((state: authSlice & RootState) => state.auth.showError)
     const auth = useSelector((state: authSlice & RootState) => state.auth.isAuth)
+    const preloader = useSelector((state:authSlice & RootState)=>state.auth.isLoading)
     const dispatch = useDispatch()
     const history = useHistory();
+
+    console.log(preloader)
 
     useEffect(() => {
         if (auth) {
@@ -26,6 +29,13 @@ export const SingIn = (props: any) => {
         }
 
     }, [auth])
+
+
+    useEffect(()=>{
+
+
+
+    },[preloader])
 
     const showPassHandler = () => {
         setShowPass(!showPass)
@@ -45,6 +55,7 @@ export const SingIn = (props: any) => {
 
     return (
         <div className={si.wrapper}>
+
             <div className={si.container}>
                 <div className={si.formWrapper}>
                     <form onSubmit={handleSubmit(onSubmit)}>
@@ -60,8 +71,8 @@ export const SingIn = (props: any) => {
                                  src={showPass ? openEye : closeEye} alt=""/>
                         </div>
                         {errors.password && <ErrorText>Password is required</ErrorText>}
-
-                        <input value='Sing In' type="submit"/>
+                         {/*@ts-ignore*/}
+                        <input disabled={preloader} onClick={dispatch(isLoading)} value='Sing In' type="submit"/>
 
 
                         <label style={{textAlign: "center"}}>Not a member yet? <Link to='/singUp'>Sign up</Link></label>

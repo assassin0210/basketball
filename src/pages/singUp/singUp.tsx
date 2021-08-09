@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from "react";
 import {useForm, SubmitHandler} from "react-hook-form";
-import si from "./../SingIn/SingIn.module.scss";
-import SingUnPic from "../../assets/img/SingUpPic.svg";
+import si from "../singIn/singIn.module.scss";
+import SingUnPic from "../../assets/images/SingUpPic.svg";
 import {NavLink, useHistory} from 'react-router-dom';
 import {ErrorText} from "../../assets/ErrorText/ErrorText";
 import closeEye from '../../assets/icon/close_eye.svg'
 import openEye from '../../assets/icon/open_eye.svg'
 import {useDispatch, useSelector} from "react-redux";
-import {authSlice, registered} from "../../Redux/reducers/authSlice";
-import {RootState} from "../../Redux";
+import {authSlice, registered} from "../../modules/autorization/authSlice";
+import {RootState} from "../../core/redux/store";
 
 
 
@@ -104,7 +104,7 @@ export const SingUp = () => {
                             <p>I accept the agreement</p>
                         </div>
                         {errors.policy && <ErrorText>You didn’t accept the agreement</ErrorText>}
-                        <input onClick={()=>{}} value='Sing In' type="submit"/>
+                        <input disabled={false} value='Sing Up' type="submit"/>
                         <label style={{textAlign: "center"}}>Not a member yet? <NavLink to='/'>Sign
                             up</NavLink></label>
                         { showError&&<span>Invalid data, or this user already exists</span>}

@@ -1,4 +1,4 @@
-import si from "../../components/SingIn/SingIn.module.scss";
+import si from "../../pages/singIn/singIn.module.scss";
 
 export const ErrorText = (props: any) => (
         <p className={si.errorLabel}>

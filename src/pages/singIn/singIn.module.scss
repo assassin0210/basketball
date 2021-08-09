@@ -60,6 +60,9 @@
       &:focus {
         background: #C60E2E;
       }
+      &:disabled{
+        background: black;
+      }
     }
   }
 

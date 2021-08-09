@@ -1,9 +1,9 @@
-import { AllTeams } from '../../components/AllTeams/AllTeams'
-import {Header} from '../../components/Header/Header'
-import {Menu} from '../../components/Menu/Menu'
-import mp from './MainPage.module.scss'
+import { AllTeams } from '../../ui/AllTeams/AllTeams'
+import {Header} from '../../ui/Header/Header'
+import {Menu} from '../../ui/Menu/Menu'
+import mp from './mainPage.module.scss'
 import {FC, useState} from "react";
-import {AllPlayer} from "../../components/AllPlayers/AllPlayer";
+import {AllPlayer} from "../../ui/AllPlayers/AllPlayer";
 
 type MainPagePropsType={
 

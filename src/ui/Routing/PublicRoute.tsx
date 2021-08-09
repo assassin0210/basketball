@@ -4,10 +4,10 @@ import { Route, Redirect } from 'react-router-dom';
 import { isAuth } from '../../utils/utils';
 
 // @ts-ignore
-export const PublicRoute = ({component: Component, restricted, ...rest}) => {
+export const PublicRoute = ({component: Component, ...rest}) => {
     return (
         <Route {...rest} render={(props) => (
-            isAuth() && restricted ?
+            isAuth()  ?
                 <Redirect to="/basketball" />
                 : <Component {...props} />
         )} />

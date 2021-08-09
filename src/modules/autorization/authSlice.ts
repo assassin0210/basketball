@@ -13,7 +13,7 @@ type onSubmitDataFormType = {
 
 export const registered = createAsyncThunk(
     'auth/registeredAsync',
-    async function (data: onSubmitDataFormType, {rejectWithValue, dispatch}) {
+    async function (data: onSubmitDataFormType, {rejectWithValue:any, dispatch}) {
         try {
             const response = await instance.post('/api/Auth/SignUp', {
                 "userName": data.userName,
@@ -51,14 +51,10 @@ export const login = createAsyncThunk(
             if (response.statusText === 'OK') {
                 localStorage.removeItem('currentUser')
                 JSON.stringify(localStorage.setItem('currentUser', JSON.stringify(response.data)))
-
                 dispatch(registration(response.data))
-
             } else {
                 examinationAuth(false)
             }
-
-
         } catch {
             dispatch(authFailed())
         }
@@ -78,16 +74,15 @@ export interface authSlice {
     isRegister: boolean,
     isAuth: boolean | null,
     token: string | null
+    isLoading: boolean| undefined,
 }
 
 export interface userResponse{
-
         name: string | null,
         avatarUrl: string | null
         token: string | null
 
 }
-
 const initialState = {
     user: {
         name: null,
@@ -99,12 +94,12 @@ const initialState = {
     isRegister: false,
     isAuth: null,
     token: null ,
+    isLoading: false,
 } as authSlice
 
 const authSlice = createSlice({
     name: 'auth',
     initialState,
-
     reducers: {
         registration(state: any, action: PayloadAction<string | null | undefined | object>) {
             state.isAuth = true;
@@ -117,11 +112,23 @@ const authSlice = createSlice({
         },
         authFailed(state: any, action: PayloadAction<string | null | undefined | object>) {
             state.showError = true
+        },
+        isLoading(state:any,action){
+            state.isLoading = true
         }
     },
-    extraReducers: {}
+    extraReducers:builder => {
+        builder.addCase(registered.pending,(state,action)=>{
+        })
+        builder.addCase(registered.fulfilled,(state,action)=>{
+            state.isLoading = false
+        })
+    },
 })
+/*builder.[registered1.pending] : (state,action)=>{},
+        [registered.fulfilled] : (state,action)=>{},
+        [registered.rejected] : (state,action)=>{},*/
 
-export const {registration, logOut, authFailed} = authSlice.actions;
+export const {registration, logOut, authFailed,isLoading} = authSlice.actions;
 
 export default authSlice.reducer
