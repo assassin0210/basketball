@@ -1,7 +1,5 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import { PURGE } from "redux-persist";
 import {currentUser, instance} from "../../utils/utils";
-import {registered, registration} from "../autorization/authSlice";
 
 
 
@@ -14,30 +12,13 @@ export const getTeams = createAsyncThunk(
                     'Authorization': `Bearer  ${currentUser.token}`
                 }
             })
-
             dispatch(setTeams(response))
-
         } catch {
 
         }
     }
 )
 
-export interface teamsSliceType {
-    data: [
-        {
-            name: string | null,
-            foundationYear: string | null,
-            division: string | null,
-            conference: string | null,
-            imageUrl: string | null,
-            id: string | null,
-        }
-    ],
-    count: string | null,
-    page: string | null,
-    size: string | null,
-}
 
 const initialState={
     data: [

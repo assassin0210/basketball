@@ -1,4 +1,4 @@
-import tc from './TeamCard.module.scss'
+import tc from './teamCard.module.scss'
 import POR1 from '../../assets/images/POR1.png'
 
 

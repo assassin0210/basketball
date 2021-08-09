@@ -1,5 +1,5 @@
 import missTeams from '../../assets/images/missingTeams.svg'
-import tc from './TeamCard.module.scss'
+import tc from './teamCard.module.scss'
 
 export function  MissingTeams(){
     return(

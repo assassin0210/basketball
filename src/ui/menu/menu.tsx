@@ -1,22 +1,18 @@
-import menu from './Menu.module.scss'
+import menu from './menu.module.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {authSlice, logOut} from '../../modules/autorization/authSlice';
-import {FC, useEffect, useState} from "react";
+import {FC, useEffect} from "react";
 import {useHistory} from "react-router";
-import {RootState} from "../../core/redux/store";
+import {MenuPropType, RootState } from '../../api/dto/types';
 
-type MenuPropType={
-    toggleSetPlayersMod: ()=> void
-    toggleSetTeamsMod: ()=> void
-    teamsMod:boolean
-    playersMod:boolean
-}
+
+
 
 export const Menu: FC<MenuPropType> = ({toggleSetPlayersMod,toggleSetTeamsMod,teamsMod,playersMod}) => {
 
 
 
-    const isAuth = useSelector((state: authSlice & RootState) => state.auth.isAuth)
+    const isAuth = useSelector((state: typeof authSlice & RootState) => state.auth.isAuth)
     const dispatch = useDispatch()
     const history = useHistory()
 

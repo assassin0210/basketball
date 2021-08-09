@@ -2,13 +2,8 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {instance} from "../../utils/utils";
 import {PayloadAction} from "@reduxjs/toolkit/dist/createAction";
 import {examinationAuth} from "../../utils/utils";
+import {onSubmitDataFormType, userResponse } from "../../api/dto/types";
 
-type onSubmitDataFormType = {
-    userName: string
-    login: string
-    password: string
-    doublePass: string
-}
 
 
 export const registered = createAsyncThunk(
@@ -35,9 +30,6 @@ export const registered = createAsyncThunk(
         }
     }
 )
-type TestLocalTokenType = {
-    testLocalToken: undefined | string
-}
 
 
 export const login = createAsyncThunk(
@@ -63,26 +55,7 @@ export const login = createAsyncThunk(
 
 
 
-export interface authSlice {
-    user: {
-        name: string | null,
-        avatarUrl: string | null
-        token: string | null
-    },
-    showError: boolean,
-    ChangeUser: null | string,
-    isRegister: boolean,
-    isAuth: boolean | null,
-    token: string | null
-    isLoading: boolean| undefined,
-}
 
-export interface userResponse{
-        name: string | null,
-        avatarUrl: string | null
-        token: string | null
-
-}
 const initialState = {
     user: {
         name: null,
@@ -95,9 +68,9 @@ const initialState = {
     isAuth: null,
     token: null ,
     isLoading: false,
-} as authSlice
+}
 
-const authSlice = createSlice({
+export const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
@@ -125,9 +98,7 @@ const authSlice = createSlice({
         })
     },
 })
-/*builder.[registered1.pending] : (state,action)=>{},
-        [registered.fulfilled] : (state,action)=>{},
-        [registered.rejected] : (state,action)=>{},*/
+
 
 export const {registration, logOut, authFailed,isLoading} = authSlice.actions;
 

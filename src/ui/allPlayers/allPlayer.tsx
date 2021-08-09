@@ -1,9 +1,8 @@
 import {FC} from "react";
+import {AllPlayerPropType} from "../../api/dto/types";
 
 
-type AllPlayerPropType={
-    teamsMod: boolean
-}
+
 
 export const AllPlayer: FC<AllPlayerPropType>=()=>{
     return(

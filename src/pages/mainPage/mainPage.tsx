@@ -1,17 +1,15 @@
-import { AllTeams } from '../../ui/AllTeams/AllTeams'
-import {Header} from '../../ui/Header/Header'
-import {Menu} from '../../ui/Menu/Menu'
+import { AllTeams } from '../../ui/allTeams/allTeams'
+import {Header} from '../../ui/header/header'
+import {Menu} from '../../ui/menu/menu'
 import mp from './mainPage.module.scss'
-import {FC, useState} from "react";
-import {AllPlayer} from "../../ui/AllPlayers/AllPlayer";
-
-type MainPagePropsType={
-
-}
+import {useState} from "react";
+import {AllPlayer} from "../../ui/allPlayers/allPlayer";
 
 
 
-export const MainPage: FC<MainPagePropsType> = () => {
+
+
+export const MainPage = () => {
 
 
     const [teamsMod, setTeamsMod] = useState(true)
@@ -38,8 +36,6 @@ export const MainPage: FC<MainPagePropsType> = () => {
                 />
 
                     {teamsMod?<AllTeams teamsMod={teamsMod}/>:<AllPlayer teamsMod={teamsMod}/> }
-
-
 
             </div>
         </div>
