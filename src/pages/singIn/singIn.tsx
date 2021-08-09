@@ -1,11 +1,10 @@
 import si from "./singIn.module.scss";
-import SingInPic from "../../assets/images/SingInPic.svg";
 import {SingInForm} from "../autorization/singInForm";
+import React from "react";
+import { SingInImage } from "../../assets/icon/singInImage";
 
 
-export const SingIn = () => {
-
-
+export const SingIn =  () => {
     return (
         <div className={si.wrapper}>
 
@@ -15,7 +14,7 @@ export const SingIn = () => {
                 </div>
 
                 <div className={si.img_container}>
-                    <img src={SingInPic} alt=""/>
+                    <SingInImage/>
                 </div>
             </div>
 

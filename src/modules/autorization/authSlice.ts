@@ -1,14 +1,13 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {instance} from "../../utils/utils";
 import {PayloadAction} from "@reduxjs/toolkit/dist/createAction";
-import {examinationAuth} from "../../utils/utils";
-import {onSubmitDataFormType, userResponse } from "../../api/dto/types";
-
+import {onSubmitDataFormType, userResponse} from "../../api/dto/types";
+import {RootStateOrAny} from "react-redux";
 
 
 export const registered = createAsyncThunk(
     'auth/registeredAsync',
-    async function (data: onSubmitDataFormType, {rejectWithValue:any, dispatch}) {
+    async function (data: onSubmitDataFormType, {rejectWithValue: any, dispatch}) {
         try {
             const response = await instance.post('/api/Auth/SignUp', {
                 "userName": data.userName,
@@ -16,12 +15,12 @@ export const registered = createAsyncThunk(
                 "password": data.password
             })
             if (response.statusText === 'OK') {
-                localStorage.removeItem('currentUser')
-                JSON.stringify(localStorage.setItem('currentUser', JSON.stringify(response.data)))
+                localStorage.clear()
+                localStorage.setItem('token', (response.data.token))
+                localStorage.setItem('avatarUrl', (response.data.avatarUrl))
+                localStorage.setItem('name', (response.data.name))
                 dispatch(registration(response.data))
 
-            } else {
-                examinationAuth(false)
             }
         } catch (error) {
             if (error.message.toString() === 'Request failed with status code 409') {
@@ -41,11 +40,12 @@ export const login = createAsyncThunk(
                 "password": data.password
             })
             if (response.statusText === 'OK') {
-                localStorage.removeItem('currentUser')
-                JSON.stringify(localStorage.setItem('currentUser', JSON.stringify(response.data)))
+                console.log(response.data)
+                localStorage.clear()
+                localStorage.setItem('token', (response.data.token))
+                localStorage.setItem('avatarUrl', (response.data.avatarUrl))
+                localStorage.setItem('name', (response.data.name))
                 dispatch(registration(response.data))
-            } else {
-                examinationAuth(false)
             }
         } catch {
             dispatch(authFailed())
@@ -54,19 +54,17 @@ export const login = createAsyncThunk(
 )
 
 
-
-
 const initialState = {
     user: {
         name: null,
-        avatarUrl:  null,
-        token:  null,
-    } as userResponse,
+        avatarUrl: null,
+        token: null,
+    } as userResponse || Object || undefined,
     showError: false,
     ChangeUser: null,
     isRegister: false,
     isAuth: null,
-    token: null ,
+    token: null,
     isLoading: false,
 }
 
@@ -74,32 +72,32 @@ export const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        registration(state: any, action: PayloadAction<string | null | undefined | object>) {
+        registration(state: RootStateOrAny, action: PayloadAction<string | null | undefined | object>) {
             state.isAuth = true;
             state.user = action.payload
             state.showError = false
         },
-        logOut(state: any, action: PayloadAction) {
-            localStorage.removeItem('currentUser')
+        logOut(state: RootStateOrAny, ) {
+            localStorage.clear()
             state.isAuth = false
         },
-        authFailed(state: any, action: PayloadAction<string | null | undefined | object>) {
+        authFailed(state: RootStateOrAny,) {
             state.showError = true
         },
-        isLoading(state:any,action){
+        isLoading(state: RootStateOrAny, ) {
             state.isLoading = true
         }
     },
-    extraReducers:builder => {
-        builder.addCase(registered.pending,(state,action)=>{
+    extraReducers: builder => {
+        builder.addCase(registered.pending, () => {
+            localStorage.clear()
         })
-        builder.addCase(registered.fulfilled,(state,action)=>{
+        builder.addCase(registered.fulfilled, (state) => {
             state.isLoading = false
         })
     },
 })
 
 
-export const {registration, logOut, authFailed,isLoading} = authSlice.actions;
-
+export const {registration, logOut, authFailed, isLoading} = authSlice.actions;
 export default authSlice.reducer

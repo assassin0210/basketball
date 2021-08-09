@@ -9,12 +9,22 @@ import {SingUp} from "./pages/singUp/singUp";
 
 
 function App() {
+     const isAuth = () => {
+        if (localStorage.getItem('token')) {
+            return true;
+        }
+        return false;
+    }
+
+
+
+
     return (
         <div className="App">
             <Switch>
-                <PublicRoute  component={SingIn} path='/' exact/>
-                <PublicRoute  component={SingUp} path='/singUp' exact/>
-                <PrivateRoute component={MainPage} path='/basketball' exact/>
+                <PublicRoute isAuth={isAuth}  component={SingIn} path='/' exact/>
+                <PublicRoute isAuth={isAuth} component={SingUp} path='/singUp' exact/>
+                <PrivateRoute isAuth={isAuth} component={MainPage} path='/basketball' exact/>
             </Switch>
         </div>
     );

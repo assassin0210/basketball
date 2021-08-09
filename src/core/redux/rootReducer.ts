@@ -3,8 +3,8 @@ import authSlice from "../../modules/autorization/authSlice";
 import teamsSlice from "../../modules/getTeams/teamsSlice";
 
 
-export const rootReducer = combineReducers({
-    auth: authSlice,
-    teams: teamsSlice,
 
-})
+export const rootReducer = combineReducers({
+    teams: teamsSlice,
+    auth: authSlice,
+} )

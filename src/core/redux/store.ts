@@ -21,9 +21,7 @@ export const store = configureStore({
         getDefaultMiddleware({
             serializableCheck: {
                 //ignoredActions: ['auth/getTeams', 'auth/registeredAsync'],
-               // ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+                // ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
             },
         }),
 })
-
-

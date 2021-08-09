@@ -1,5 +1,5 @@
-import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {currentUser, instance} from "../../utils/utils";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import { instance, token} from "../../utils/utils";
 
 
 
@@ -9,10 +9,10 @@ export const getTeams = createAsyncThunk(
         try {
             const response = await instance.get('/api/Team/GetTeams', {
                 headers: {
-                    'Authorization': `Bearer  ${currentUser.token}`
+                    'Authorization': `Bearer  ${token}`
                 }
             })
-            dispatch(setTeams(response))
+            dispatch(setTeams(response.data))
         } catch {
 
         }
@@ -36,7 +36,7 @@ const initialState={
     size: 0
 }
 
-const teamsSlice = createSlice({
+export const teamsSlice = createSlice({
     name:'teams',
     initialState,
     reducers:{

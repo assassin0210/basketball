@@ -9,7 +9,9 @@ import {AllPlayer} from "../../ui/allPlayers/allPlayer";
 
 
 
+
 export const MainPage = () => {
+    console.log('главная страница')
 
 
     const [teamsMod, setTeamsMod] = useState(true)

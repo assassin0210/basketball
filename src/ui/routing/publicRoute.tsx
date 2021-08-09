@@ -1,13 +1,11 @@
+import React, {FC} from 'react';
+import {Route, Redirect} from 'react-router-dom';
+import { PropsType } from '../../api/dto/types';
 
-import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
-import { isAuth } from '../../utils/utils';
-
-// @ts-ignore
-export const PublicRoute = ({component: Component, ...rest}) => {
+export const PublicRoute:FC<PropsType<Route>> = ({component:Component,isAuth, ...rest}) => {
     return (
         <Route {...rest} render={(props) => (
-            isAuth()  ?
+            !(isAuth) || isAuth()  ?
                 <Redirect to="/basketball" />
                 : <Component {...props} />
         )} />

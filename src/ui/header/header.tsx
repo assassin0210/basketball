@@ -1,15 +1,17 @@
-import logo from '../../assets/images/logo.svg'
 import s from './header.module.scss'
-import defaultAvatar from '../../assets/images/profile.svg'
-import {currentUser} from "../../utils/utils";
+import {token , name , avatarUrl} from "../../utils/utils";
+import { DefaultAvatar } from '../../assets/icon/defaultAvatar';
+import { CurrentUserAvatar } from '../../assets/icon/currentUserAvatar';
+import { MainLogo } from '../../assets/icon/mainLogo';
+
 
 export function Header() {
     return (
         <div className={s.header_container}>
-            <img src={logo} alt=""/>
+            <MainLogo/>
             <div className={s.profile_block}>
-                <p className={s.profile_name}>{currentUser.name}</p>
-                <img src={currentUser.avatarUrl == null? defaultAvatar:`${currentUser.avatarUrl}`  } alt=""/>
+                <p className={s.profile_name}>{ token?  name : 'UserName'   }</p>
+                {avatarUrl === 'null'|| undefined ? <DefaultAvatar/> :<CurrentUserAvatar avatarUrl={avatarUrl}/>}
             </div>
         </div>
     )

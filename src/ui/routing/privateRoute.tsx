@@ -1,13 +1,13 @@
-import React from 'react';
+import React, {FC} from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { isAuth } from '../../utils/utils';
+import {PropsType} from "../../api/dto/types";
 
-// @ts-ignore
- const PrivateRoute = ({component: Component, ...rest}) => {
+
+ const PrivateRoute:FC<PropsType<Route>> = ({component: Component,isAuth, ...rest}) => {
     return (
 
         <Route {...rest} render={props => (
-            isAuth() ?
+            !(isAuth) || isAuth() ?
                 <Component {...props} />
                 : <Redirect to="/" />
         )} />

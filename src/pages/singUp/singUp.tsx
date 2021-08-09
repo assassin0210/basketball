@@ -1,7 +1,7 @@
 import React from "react";
 import si from "../singIn/singIn.module.scss";
-import SingUnPic from "../../assets/images/SingUpPic.svg";
 import {SingUpForm} from "../autorization/singupForm";
+import { SingUpImage } from "../../assets/icon/singUpImage";
 
 
 export const SingUp = () => {
@@ -14,7 +14,7 @@ export const SingUp = () => {
                 </div>
 
                 <div className={si.img_container}>
-                    <img src={SingUnPic} alt=""/>
+                    <SingUpImage/>
                 </div>
             </div>
 

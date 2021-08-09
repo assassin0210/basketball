@@ -34,7 +34,7 @@
         height: 40px;
         color: #707070;
         outline: none;
-        transition: all 0.5s ease;
+        transition: background-color 0.3s ease;
         border-radius: 4px;
         position: relative;
 
@@ -49,7 +49,7 @@
       background: #E4163A;
       color: white;
       cursor: pointer;
-      transition: all 0.2s ease;
+
       margin-top: 15px;
 
       &:hover {
@@ -114,17 +114,23 @@ span {
 
 input[type='text'] {
   width: 100%;
+  transition: none;
 }
 
 input[type='password'] {
   font-size: 14px;
   font-weight: 500;
   width: 100%;
+  transition: none;
 
 }
 
 .eyeImg {
   cursor: pointer;
+position: absolute;
+  top: 10px;
+  right: 10px;
+
 }
 
 .inputPassWrapper {
