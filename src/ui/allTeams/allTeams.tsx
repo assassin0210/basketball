@@ -5,6 +5,7 @@ import {getTeams} from '../../modules/getTeams/teamsSlice';
 import {AllTeamsPropType, RootState, teamsSliceType} from '../../api/dto/types';
 import {Search} from "../../assets/icon/search";
 import { MissingTeams } from '../teamCard/missingTeams';
+import {useHistory} from "react-router";
 
 
 
@@ -12,6 +13,7 @@ export const AllTeams = () => {
 
     const count = useSelector((state: RootState & teamsSliceType & any) => state.teams.count)
     const dispatch = useDispatch()
+    const history = useHistory()
 
     useEffect(() => {
         dispatch(getTeams())
@@ -23,7 +25,7 @@ export const AllTeams = () => {
                     <input className='input_search' placeholder='Search...' type="text"/>
                     <Search/>
                 </div>
-                <input className='red-button' value='Add  +' type="submit"/>
+                <input onClick={()=> history.push('/teams/addteams') } className='red-button' value='Add  +' type="submit"/>
             </div>
                 {count === 0 ? <MissingTeams/> :<div className={at.contentWrapper}></div> }
 

@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 import {PropsType} from "../../api/dto/types";
 
 
- const PrivateRoute:FC<PropsType<Route>> = ({component: Component,isAuth, ...rest}) => {
+ export const PrivateRoute:FC<PropsType<Route>> = React.memo( ({component: Component,isAuth, ...rest}) => {
     return (
 
         <Route {...rest} render={props => (
@@ -12,8 +12,8 @@ import {PropsType} from "../../api/dto/types";
                 : <Redirect to="/singIn" />
         )} />
     );
-};
+});
 
- export default PrivateRoute
+
 
 

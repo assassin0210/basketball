@@ -1,6 +1,6 @@
 import React from "react";
 import si from "../singIn/singIn.module.scss";
-import {SingUpForm} from "../autorization/singupForm";
+import {SingUpForm} from "../../ui/autorization/singupForm";
 import { SingUpImage } from "../../assets/icon/singUpImage";
 
 

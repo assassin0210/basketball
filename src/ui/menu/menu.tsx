@@ -1,37 +1,60 @@
 import menu from './menu.module.scss'
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {logOut} from '../../modules/autorization/authSlice';
-import {FC, useEffect} from "react";
-import {useHistory} from "react-router";
-import { MenuPropType,  RootStateType} from '../../api/dto/types';
+import {useHistory, useLocation} from "react-router";
 import { OnePerson } from '../../assets/icon/onePerson';
 import { TwoPersons } from '../../assets/icon/TwoPersons';
 import { SingOut } from '../../assets/icon/singOut';
-import React from 'react';
+import React, {useEffect} from 'react';
 
-export const Menu: FC<MenuPropType> = React.memo( ({toggleSetPlayersMod,toggleSetTeamsMod,teamsMod,playersMod}) => {
-    const isAuth = useSelector((state: RootStateType) => state.auth.isAuth)
+export const Menu = React.memo( () => {
     const dispatch = useDispatch()
-    const history = useHistory()
+    const history=useHistory()
+    let location = useLocation()
+
+
+    const toggleSetTeamsMod = () => {
+        history.push('/teams' )
+    }
+    const toggleSetPlayersMod = () => {
+        history.push('/players')
+    }
 
     const handleExit = () => {
         dispatch(logOut())
         history.push('/singIn')
     }
-    useEffect(() => {
+    const checkLocationTeams =()=>{
+        if(location.pathname === "/teams" || "/teams/addteams"){
+            return true
+        }else{
+            return false
+        }
+    }
 
-    }, [isAuth,history])
+    const checkLocation =()=>{
+        if(location.pathname === "/players" && "/teams/addplayers"){
+            return true
+        }
+            return false
+
+    }
+
+    useEffect(()=>{
+
+    },[history])
+    console.log(checkLocation() )
 
     return (
         <div className={menu.menu_Container}>
             <div className={menu.wrapper_for_mod}>
                 <div onClick={toggleSetTeamsMod}
-                     className={`${menu.mod} ${menu.teams_button} ${teamsMod ? menu.active_mod : ''}`}>
+                     className={`${menu.mod} ${menu.teams_button} ${checkLocation()  ? ''  :menu.active_mod }`}>
                     <TwoPersons/>
                     <p>Teams</p>
                 </div>
                 <div onClick={toggleSetPlayersMod}
-                     className={`${menu.mod} ${menu.player_button} ${playersMod ? menu.active_mod : ''}`}>
+                     className={`${menu.mod} ${menu.player_button} ${checkLocation()  ? menu.active_mod : ''}`}>
                     <OnePerson/>
                     <p>Players</p>
                 </div>

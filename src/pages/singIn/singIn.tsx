@@ -1,5 +1,5 @@
 import si from "./singIn.module.scss";
-import {SingInForm} from "../autorization/singInForm";
+import {SingInForm} from "../../ui/autorization/singInForm";
 import React from "react";
 import { SingInImage } from "../../assets/icon/singInImage";
 

@@ -1,5 +1,5 @@
-import {ErrorText} from "../../ui/errorText/errorText";
-import si from "../singIn/singIn.module.scss";
+import {ErrorText} from "../errorText/errorText";
+import si from "../../pages/singIn/singIn.module.scss";
 import {NavLink, useHistory} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import { useDispatch, useSelector} from "react-redux";

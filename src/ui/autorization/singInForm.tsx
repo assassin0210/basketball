@@ -1,5 +1,5 @@
-import {ErrorText} from "../../ui/errorText/errorText";
-import si from "../singIn/singIn.module.scss";
+import {ErrorText} from "../errorText/errorText";
+import si from "../../pages/singIn/singIn.module.scss";
 import authSlice, {isLoading, login} from "../../modules/autorization/authSlice";
 import {Link, useHistory} from "react-router-dom";
 import React, {useEffect, useState} from "react";

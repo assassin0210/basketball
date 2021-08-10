@@ -1,0 +1,28 @@
+.container{
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+}
+.inputFile_wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttons_block{
+  margin-top: 24px;
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  justify-content: center;
+  gap: 24px ;
+  input{
+    margin: 0;
+    padding: 0;
+  }
+  button{
+    padding: 0;
+    height: 100%;
+
+  }
+}
