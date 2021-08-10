@@ -1,10 +1,12 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import { AddTeamIType } from "../../ui/allTeams/addTeamsForm/addTeamsForm";
 import { instance, token} from "../../utils/utils";
+import {log} from "util";
 
 
 
 export const getTeams = createAsyncThunk(
-    'auth/getTeams',
+    'teams/getTeams',
     async function (_, {dispatch}) {
         try {
             const response = await instance.get('/api/Team/GetTeams', {
@@ -18,6 +20,31 @@ export const getTeams = createAsyncThunk(
         }
     }
 )
+
+export const addImage = createAsyncThunk(
+    'teams/addLogoTeam',
+
+    async function (data :AddTeamIType, {dispatch}) {
+        try {
+
+
+            const file = data.file
+            const formData = new FormData()
+            formData.append("file", file[0])
+            const response = await instance.post('/api/Image/SaveImage',formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer  ${token}`
+                }
+            })
+
+
+        } catch {
+
+        }
+    }
+)
+
 
 
 const initialState={

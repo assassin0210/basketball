@@ -50,16 +50,20 @@
 
 
 .check {
-  height: 15px;
+  height: 18px;
   margin-top: 15px;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
 
   p {
     margin-left: 10px;
     color: var(--gray);
   }
-
-  display: flex;
-  align-items: center;
+  label{
+    margin: 0;
+    cursor: pointer;
+  }
 }
 
 .errorLabel {
@@ -102,7 +106,6 @@
     right: 0;
     top: 0;
     position: relative;
-    background: var(--lightestRed);
     z-index: 10;
     padding: 0.7rem;
     border: none;

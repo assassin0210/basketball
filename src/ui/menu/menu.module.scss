@@ -37,7 +37,9 @@ padding: 32px 40px ;
   p{
     color:var(--red);
   }
-  path{
-    fill: var(--red);
+  svg{
+    path{
+      fill: var(--red);
+    }
   }
 }

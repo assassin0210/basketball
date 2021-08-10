@@ -1,26 +1,90 @@
-.container{
+.container {
   display: inline-grid;
   grid-template-columns: 1fr 1fr;
   width: 100%;
 }
-.inputFile_wrapper{
+.testWrapper{
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.buttons_block{
+.inputFile_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 336px;
+  height: 261px;
+  transition: all 0.3s ease;
+  border-radius: 10px;;
+
+  &:hover {
+    transform: scale(1.05);
+    background: var(--lightestGrey);
+
+  }
+
+  .testBGimg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: 50% 25%;
+    background-size: 100%;
+    border-radius: 10px;
+    z-index: 1;
+    opacity: 0.6;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    &:hover{
+      opacity: 0.8;
+    }
+
+  }
+
+  input[type='file'] {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    position: absolute;
+    border-radius: 10px;
+  }
+
+  .inputFile_bg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: var(--lightGrey);
+    pointer-events: none;
+    opacity: 0.5;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+
+  }
+
+  svg {
+    pointer-events: none;
+    z-index: 2;
+
+
+  }
+}
+
+.buttons_block {
   margin-top: 24px;
   display: inline-grid;
   grid-template-columns: 1fr 1fr;
   align-items: start;
   justify-content: center;
-  gap: 24px ;
-  input{
+  gap: 24px;
+
+  input {
     margin: 0;
     padding: 0;
   }
-  button{
+
+  button {
     padding: 0;
     height: 100%;
 

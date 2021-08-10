@@ -48,13 +48,13 @@ export const Menu = React.memo( () => {
     return (
         <div className={menu.menu_Container}>
             <div className={menu.wrapper_for_mod}>
-                <div onClick={toggleSetTeamsMod}
-                     className={`${menu.mod} ${menu.teams_button} ${checkLocation()  ? ''  :menu.active_mod }`}>
+                <div  onClick={toggleSetTeamsMod}
+                     className={`  ${menu.mod} ${menu.teams_button} ${checkLocation()  ? ''  :menu.active_mod } persons-button `}>
                     <TwoPersons/>
                     <p>Teams</p>
                 </div>
                 <div onClick={toggleSetPlayersMod}
-                     className={`${menu.mod} ${menu.player_button} ${checkLocation()  ? menu.active_mod : ''}`}>
+                     className={`${menu.mod} ${menu.player_button} ${checkLocation()  ? menu.active_mod : ''} persons-button`}>
                     <OnePerson/>
                     <p>Players</p>
                 </div>
