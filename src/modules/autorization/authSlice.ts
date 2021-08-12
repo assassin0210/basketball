@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {instance} from "../../utils/utils";
 import {PayloadAction} from "@reduxjs/toolkit/dist/createAction";
-import {authSliceType, onSubmitDataFormType} from "../../api/dto/types";
+import {authSliceType, onSubmitDataFormType, UserType} from "../../api/dto/types";
 import {RootStateOrAny} from "react-redux";
 
 
@@ -9,18 +9,16 @@ export const registered = createAsyncThunk(
     'auth/registeredAsync',
     async function (data: onSubmitDataFormType, {rejectWithValue: any, dispatch}) {
         try {
-            const response = await instance.post('/api/Auth/SignUp', {
+            const response = await instance.post<UserType>('/api/Auth/SignUp', {
                 "userName": data.userName,
                 "login": data.login,
                 "password": data.password
             })
             if (response.statusText === 'OK') {
-
                 localStorage.setItem('token', (response.data.token))
                 localStorage.setItem('avatarUrl', (response.data.avatarUrl))
                 localStorage.setItem('name', (response.data.name))
                 dispatch(registration(response.data))
-
             }
         } catch (error) {
             if (error.message.toString() === 'Request failed with status code 409') {
@@ -35,7 +33,7 @@ export const login = createAsyncThunk(
     'auth/login',
     async function (data: onSubmitDataFormType, {dispatch}) {
         try {
-            const response = await instance.post('/api/Auth/SignIn', {
+            const response = await instance.post<UserType>('/api/Auth/SignIn', {
                 "login": data.login,
                 "password": data.password
             })
@@ -59,7 +57,7 @@ export const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        registration(state: RootStateOrAny, action: PayloadAction<string | null | undefined | object>) {
+        registration(state: RootStateOrAny, action) {
             state.isAuth = true;
             state.user = action.payload
             state.showError = false
@@ -81,10 +79,9 @@ export const authSlice = createSlice({
             localStorage.clear()
 
         })
-        builder.addCase(registered.fulfilled, (state:authSliceType, action) => {
+        builder.addCase(registered.fulfilled, (state :RootStateOrAny, action) => {
             state.isAuth = true
-            // @ts-ignore
-            state.user = action.payload
+            state.user =state.user.push(action.payload)
             state.showError = false
             state.isFetching = false
         })

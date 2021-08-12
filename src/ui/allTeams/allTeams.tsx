@@ -23,6 +23,8 @@ export const AllTeams = React.memo( () => {
         dispatch(getTeams())
     }, [teams.count])
 
+    const handleHistoryPush=()=>history.push('/teams/addteams')
+
     return (
         <div className={at.allTeams_container}>
             <div className={at.top_side}>
@@ -30,11 +32,11 @@ export const AllTeams = React.memo( () => {
                     <input className='input_search' placeholder='Search...' type="text"/>
                     <Search/>
                 </div>
-                <input style={{margin:'0'}} onClick={() => history.push('/teams/addteams')} className='red-button' value='Add  +'
+                <input style={{margin:'0'}} onClick={handleHistoryPush} className='red-button' value='Add  +'
                        type="submit"/>
             </div>
 
-            {isFeaching ? <Preloader/> : ''}
+            {isFeaching &&  <Preloader/>}
             {teams.count === 0 ? <MissingTeams/> : <div className={at.contentWrapper}>
                 {teams.data.map((team: TeamType) => <TeamCard key={team.id}
                                                               name={team.name}

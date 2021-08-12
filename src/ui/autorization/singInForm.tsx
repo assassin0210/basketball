@@ -68,7 +68,11 @@ export const SingInForm = () => {
             <input className='red-button red_submit' disabled={preloader} onClick={dispatchIsLoader} value='Sing In'
                    type="submit"/>
             <label style={{textAlign: "center"}}>Not a member yet? <Link className='linkSing' to='/singUp'>Sign
-                up <div></div></Link></label>
+                up <div>
+
+                </div>
+            </Link>
+            </label>
             {showError &&
             <span className='error_message_login'>User with the specified username / password was not found.</span>}
         </form>

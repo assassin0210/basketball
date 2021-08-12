@@ -8,7 +8,7 @@ import { PublicRoute } from './ui/routing/publicRoute';
 import { PrivateRoute } from './ui/routing/privateRoute';
 
 
-function App() {
+export const  App= React.memo( ()=> {
     const isAuth =  () => {
         if (localStorage.getItem('token')) {
             return true;
@@ -25,6 +25,6 @@ function App() {
             </Switch>
         </div>
     );
-}
+})
 
-export default App;
+

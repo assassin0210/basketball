@@ -1,13 +1,13 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {instance, token} from "../../utils/utils";
-import {AddTeamIType, responsAddTeam, TeamType} from "../../api/dto/types";
+import {AddTeamIType, addTeamType, getTeamType, responsAddTeam, TeamType} from "../../api/dto/types";
 
 
 export const getTeams = createAsyncThunk(
     'teams/getTeams',
     async function (_, {dispatch}) {
         try {
-            const response = await instance.get('/api/Team/GetTeams', {
+            const response = await instance.get<getTeamType>('/api/Team/GetTeams', {
                 headers: {
                     'Authorization': `Bearer  ${token}`
                 }
@@ -28,7 +28,7 @@ export const addImage = createAsyncThunk(
             const file = data.file
             const formData = new FormData()
             formData.append("file", file[0])
-            const response = await instance.post('/api/Image/SaveImage', formData, {
+            const response = await instance.post<string>('/api/Image/SaveImage', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer  ${token}`
@@ -64,9 +64,7 @@ export const addTeam = createAsyncThunk(
     'teams/addFullTeam',
     async function (team: TeamType, {dispatch}) {
         try {
-
-
-            const response: string | void = await instance.post('/api/Team/Add', {
+            const response = await instance.post<addTeamType>('/api/Team/Add', {
                 "name": `${team.name}`,
                 "foundationYear": team.foundationYear,
                 "division": `${team.division}`,
@@ -89,7 +87,7 @@ export const getTeam = createAsyncThunk(
     'teams/getTeam',
     async function (id: number, {dispatch}) {
         try {
-            const response: responsAddTeam = await instance.get('/api/Team/Get', {
+            const response: responsAddTeam = await instance.get<addTeamType>('/api/Team/Get', {
                 headers: {
                     'Authorization': `Bearer  ${token}`
                 },
@@ -108,7 +106,7 @@ export const deleteTeam = createAsyncThunk(
     'teams/deleteTeam',
     async function (id: number, {dispatch}) {
         try {
-            const response: responsAddTeam = await instance.delete('/api/Team/Delete', {
+            const response: responsAddTeam = await instance.delete<addTeamType>('/api/Team/Delete', {
                 headers: {
                     'Authorization': `Bearer  ${token}`
                 },
@@ -128,7 +126,7 @@ export const updateTeam = createAsyncThunk(
         try {
 
 
-            const response: string | void = await instance.put('/api/Team/Update', {
+            const response = await instance.put<addTeamType>('/api/Team/Update', {
                 "name": `${team.name}`,
                 "foundationYear": team.foundationYear,
                 "division": `${team.division}`,
@@ -181,14 +179,14 @@ export const teamsSlice = createSlice({
     name: 'teams',
     initialState,
     reducers: {
-        setTeams(state: typeof initialState, action: any) {
+        setTeams(state: typeof initialState, action) {
             state.count = action.payload.count
             state.page = action.payload.page
             state.size = action.payload.size
             state.data = action.payload.data
         },
 
-        setCurrentTeam(state, action: any) {
+        setCurrentTeam(state, action) {
             console.log(action)
             state.currentTeam.name = action.payload.name
             state.currentTeam.foundationYear = action.payload.foundationYear

@@ -15,11 +15,10 @@ export const AddTeamsForm = () => {
     const onSubmit: SubmitHandler<AddTeamIType> = data => {
         dispatch(addImage(data))
     };
-
-
     const file = watch()
 
     const checkFile = () => {
+
         if (!file.file) {
             return false
         } else if (file.file.length === 0) {

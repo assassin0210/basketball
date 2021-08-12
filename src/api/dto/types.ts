@@ -16,7 +16,7 @@ export type RootReducerType = typeof rootReducer
 export interface UserType {
     name: string
     avatarUrl: string
-    token:string | null
+    token:string
 }
 
 export interface authSliceType {
@@ -62,12 +62,27 @@ export interface teamsSliceType {
             id?: string | null,
         }
     ],
-    status:null|boolean|string
     count: string | null,
     page: string | null,
     size: string | null,
+    status:null|boolean|string
     isFetching: boolean,
     currentTeam: null | number
+}
+export interface getTeamType {
+    data: [
+        {
+            name?: string | null,
+            foundationYear?: string | null,
+            division?: string | null,
+            conference?: string | null,
+            imageUrl?: string | null,
+            id?: string | null,
+        }
+    ],
+    count: string | null,
+    page: string | null,
+    size: string | null,
 }
 
 export interface DataType{
@@ -127,6 +142,34 @@ export type MenuPropType={
     playersMod:boolean
 
 }
+export interface InitialStateTeam{
+
+    data: [
+        {
+            name: '',
+            foundationYear: 0,
+            division: '',
+            conference: '',
+            imageUrl: '',
+            id: 0
+        }
+    ],
+    count: 0,
+    page: 0,
+    size: 0,
+    isFetching: boolean,
+    status: 0,
+    currentTeam: {
+        name: '',
+        foundationYear: 0,
+        division: '',
+        conference: '',
+        imageUrl: '',
+        id: 0
+    }
+
+
+}
 
 
 export interface PropsType<T> {
@@ -143,6 +186,15 @@ export type TeamType = {
     conference: string,
     imageUrl: string
     id: number| string
+}
+
+export type addTeamType = {
+    name: string
+    foundationYear: number,
+    division: string,
+    conference: string,
+    imageUrl: string
+    id: number
 }
 
 export interface responsAddTeam{

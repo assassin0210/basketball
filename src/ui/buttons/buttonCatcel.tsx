@@ -4,7 +4,7 @@ import {useHistory} from "react-router";
 
 
 
-export const ButtonCancel = React.memo( (props) => {
+export const ButtonCancel = React.memo( () => {
     const history = useHistory()
     const handleGoBack =()=>{
         history.goBack()
