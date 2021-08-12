@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {instance} from "../../utils/utils";
 import {PayloadAction} from "@reduxjs/toolkit/dist/createAction";
-import {onSubmitDataFormType, userResponse} from "../../api/dto/types";
+import {authSliceType, onSubmitDataFormType} from "../../api/dto/types";
 import {RootStateOrAny} from "react-redux";
 
 
@@ -15,7 +15,7 @@ export const registered = createAsyncThunk(
                 "password": data.password
             })
             if (response.statusText === 'OK') {
-                localStorage.clear()
+
                 localStorage.setItem('token', (response.data.token))
                 localStorage.setItem('avatarUrl', (response.data.avatarUrl))
                 localStorage.setItem('name', (response.data.name))
@@ -40,11 +40,10 @@ export const login = createAsyncThunk(
                 "password": data.password
             })
             if (response.statusText === 'OK') {
-                console.log(response.data)
-                localStorage.clear()
                 localStorage.setItem('token', (response.data.token))
                 localStorage.setItem('avatarUrl', (response.data.avatarUrl))
                 localStorage.setItem('name', (response.data.name))
+
                 dispatch(registration(response.data))
             }
         } catch {
@@ -54,19 +53,7 @@ export const login = createAsyncThunk(
 )
 
 
-const initialState = {
-    user: {
-        name: null,
-        avatarUrl: null,
-        token: null,
-    } as userResponse || Object || undefined,
-    showError: false,
-    ChangeUser: null,
-    isRegister: false,
-    isAuth: null,
-    token: null,
-    isLoading: false,
-}
+const initialState = {} as authSliceType
 
 export const authSlice = createSlice({
     name: 'auth',
@@ -89,11 +76,17 @@ export const authSlice = createSlice({
         }
     },
     extraReducers: builder => {
-        builder.addCase(registered.pending, () => {
+        builder.addCase(registered.pending, (state) => {
+            state.isFetching= true
             localStorage.clear()
+
         })
-        builder.addCase(registered.fulfilled, (state) => {
-            state.isLoading = false
+        builder.addCase(registered.fulfilled, (state:authSliceType, action) => {
+            state.isAuth = true
+            // @ts-ignore
+            state.user = action.payload
+            state.showError = false
+            state.isFetching = false
         })
     },
 })

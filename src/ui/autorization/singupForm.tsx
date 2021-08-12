@@ -4,12 +4,11 @@ import {NavLink, useHistory} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import { useDispatch, useSelector} from "react-redux";
 import { registered} from "../../modules/autorization/authSlice";
-
 import {SubmitHandler, useForm} from "react-hook-form";
 import { InputsSingUp, onSubmitDataFormType, RootStateType} from "../../api/dto/types";
 import {ShowPassword} from "../../assets/icon/showPassword";
 import {HidePassword} from "../../assets/icon/hidePassword";
-import { CheckboxActive } from "../../assets/icon/checkboxActive";
+
 
 
 export const SingUpForm = () => {
@@ -17,9 +16,6 @@ export const SingUpForm = () => {
     const [showPass, setShowPass] = useState(false)
     const [showDoublePass, setShowDoublePass] = useState(false)
     const [repeatPassword, setRepeatPassword] = useState(false)
-    const [checkBox, setCheckBox] = useState(false)
-
-
     const dispatch = useDispatch()
     const showError = useSelector((state:  RootStateType) => state.auth.showError)
     const auth = useSelector((state:  RootStateType) => state.auth.isAuth)

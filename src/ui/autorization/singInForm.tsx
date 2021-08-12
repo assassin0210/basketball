@@ -24,7 +24,6 @@ export const SingInForm = () => {
 
 
     useEffect(() => {
-        console.log(' эффект')
         if (auth) {
             history.push('/teams')
         }
@@ -39,8 +38,6 @@ export const SingInForm = () => {
         setShowPass(!showPass)
         if (localStorage.getItem('currentUser')) {
             history.push('/teams')
-        } else {
-            console.log('не удалось проверить локал')
         }
     }
 

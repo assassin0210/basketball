@@ -1,8 +1,7 @@
-import React, {useEffect, useMemo} from 'react';
+import React from 'react';
 import './index.scss'
-import {Switch, useHistory} from 'react-router-dom';
+import {Switch} from 'react-router-dom';
 import {MainPage} from './pages/mainPage/mainPage';
-
 import {SingIn} from './pages/singIn/singIn';
 import {SingUp} from "./pages/singUp/singUp";
 import { PublicRoute } from './ui/routing/publicRoute';

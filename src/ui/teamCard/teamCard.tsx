@@ -1,5 +1,8 @@
 import tc from './teamCard.module.scss'
-import POR1 from '../../assets/images/POR1.png'
+import {FC} from "react";
+import {TeamType} from '../../api/dto/types';
+import {useHistory} from "react-router";
+import {useDispatch, useSelector} from "react-redux";
 
 
 
@@ -7,15 +10,28 @@ import POR1 from '../../assets/images/POR1.png'
 
 
 
-export const TeamCard=()=>{
+
+export const TeamCard:FC<TeamType> = ({name,foundationYear,division,conference,imageUrl,id})=>{
+    const teams = useSelector<any>(state=>state.teams.data)
+    // @ts-ignore
+    const selectedTeam = teams.filter((state) => state.id === id)
+
+    const history = useHistory()
+
+    const handleCheckId =()=>{
+        history.push(`/teams/${selectedTeam[0].id}`)
+
+    }
+
+
     return(
-        <div className={tc.teamCardContainer}>
+        <div  onClick={handleCheckId} className={tc.teamCardContainer}>
             <div className={tc.teamLogoBlock}>
-                <img src={POR1} alt=""/>
+                <img src={imageUrl} alt="team"/>
             </div>
             <div className={tc.teamDescription}>
-                <h3>Portland trail blazers</h3>
-                <h4>Year of foundation: 1970</h4>
+                <h3>{name}</h3>
+                <h4>Year of foundation: {foundationYear}</h4>
             </div>
         </div>
     )

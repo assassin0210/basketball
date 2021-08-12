@@ -24,13 +24,7 @@ export const Menu = React.memo( () => {
         dispatch(logOut())
         history.push('/singIn')
     }
-    const checkLocationTeams =()=>{
-        if(location.pathname === "/teams" || "/teams/addteams"){
-            return true
-        }else{
-            return false
-        }
-    }
+
 
     const checkLocation =()=>{
         if(location.pathname === "/players" && "/teams/addplayers"){
@@ -41,9 +35,8 @@ export const Menu = React.memo( () => {
     }
 
     useEffect(()=>{
-
     },[history])
-    console.log(checkLocation() )
+
 
     return (
         <div className={menu.menu_Container}>

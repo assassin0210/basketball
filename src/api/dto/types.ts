@@ -13,18 +13,24 @@ export type RootStateType = ReturnType<typeof rootReducer>
 
 export type RootReducerType = typeof rootReducer
 
+export interface UserType {
+    name: string
+    avatarUrl: string
+    token:string | null
+}
+
 export interface authSliceType {
     user: {
-        name: string | null | undefined,
+        name: string | null ,
         avatarUrl: string | null
         token: string | null
     },
     showError: boolean,
     ChangeUser: null | string,
     isRegister: boolean,
-    isAuth: boolean | null,
+    isAuth?: boolean | null,
     token: string | null
-    isLoading: boolean| undefined,
+    isFetching: boolean,
 }
 
 export interface userResponse{
@@ -40,6 +46,11 @@ export type onSubmitDataFormType = {
     password: string
     doublePass: string
 }
+
+export interface StateType{
+    teams:teamsSliceType
+    auth:authSliceType
+}
 export interface teamsSliceType {
     data: [
         {
@@ -54,6 +65,19 @@ export interface teamsSliceType {
     count: string | null,
     page: string | null,
     size: string | null,
+    isFetching: boolean,
+    currentTeam: null | number
+}
+
+export interface DataType{
+    data:[{
+        name?: string | null,
+        foundationYear?: string | null,
+        division?: string | null,
+        conference?: string | null,
+        imageUrl?: string | null,
+        id?: string | null,
+    }]
 }
 
 export type InputsSingIn = {
@@ -68,6 +92,15 @@ export type InputsSingUp = {
     doublePass: string,
     policy: boolean,
 };
+
+export interface AddTeamIType {
+    name: string;
+    division: string;
+    conference: string;
+    foundationYear: number
+    file: any
+
+}
 
 
 export type onSubmitDataFormTypes = {
@@ -101,5 +134,24 @@ export interface PropsType<T> {
     src?:boolean
     isAuth?: ()=> void | boolean| object |undefined
 }
+export type TeamType = {
+    name: string
+    foundationYear: number,
+    division: string,
+    conference: string,
+    imageUrl: string
+    id: number| string
+}
 
+export interface responsAddTeam{
+    data: {
+        "name": string,
+        "foundationYear": number,
+        "division": string,
+        "conference": string,
+        "imageUrl": string,
+        "id": number
+    };
+
+}
 

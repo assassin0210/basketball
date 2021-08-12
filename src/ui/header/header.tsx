@@ -7,7 +7,7 @@ import React from 'react';
 
 
 export const Header = React.memo(() => {
-        console.log("хедер")
+
         return (
 
             <div className={s.header_container}>
