@@ -1,26 +1,19 @@
 import dt from './detailsTeam.module.scss'
 import {useDispatch, useSelector} from "react-redux";
-import {RootState, StateType, teamsSliceType} from "../../api/dto/types";
-import {Create} from "../../assets/icon/create";
-import {Delete} from "../../assets/icon/delete";
+import {RootState, teamsSliceType} from "../../api/dto/types";
+import {DeleteTeam} from "../../assets/icon/deleteTeam";
 import {useHistory, useParams} from "react-router";
 import {useEffect} from "react";
 import {getTeam} from '../../modules/getTeams/teamsSlice';
 import {RosterList} from "../rosterList/rosterList";
+import {Update} from '../../assets/icon/update';
 
 export const DetailsTeam = () => {
     const dispatch = useDispatch()
     const params: { id: string } = useParams()
     const history = useHistory()
-    dispatch(getTeam(Number(params.id)))
     let currentTeam = useSelector((state: RootState & teamsSliceType) => state.teams.currentTeam)
-
-
-    useEffect(() => {
-
-    }, [])
-
-
+    dispatch(getTeam(Number(params.id)))
     return (
         <div className={dt.container}>
             <div className={dt.teamInfo}>
@@ -29,8 +22,8 @@ export const DetailsTeam = () => {
                         <span className={dt.goBack} onClick={() => history.push('/teams')}>Team
                         </span> <p> / </p> {currentTeam.name}  </div>
                     <div className={dt.iconBlock}>
-                        <Delete/>
-                        <Create/>
+                        <Update id={params.id}/>
+                        <DeleteTeam id={currentTeam.id}/>
                     </div>
                 </div>
 

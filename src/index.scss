@@ -271,20 +271,24 @@ input[type='file'] {
 
 .roster_container {
   border: 0.5px solid var(--lightGrey);
-  span{
-   font-weight: 500;
-   font-size: 14px;
-   line-height: 19px;
-   color: var(--grey);
-   p{
-     color: var(--lightesGrey);
-   }
- }
+
+  span {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 19px;
+    color: var(--grey);
+
+    p {
+      color: var(--lightesGrey);
+    }
+  }
+
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 56px;
   padding: 0 32px 0 32px;
+
   div {
     display: flex;
   }
@@ -297,10 +301,12 @@ input[type='file'] {
     justify-content: center;
     margin: 10px;
   }
-  .two_photo{
+
+  .two_photo {
     margin: 0 10px 0 24px;
   }
-  .charisma{
+
+  .charisma {
     width: 400px;
     display: flex;
     align-items: center;
@@ -308,5 +314,36 @@ input[type='file'] {
   }
 }
 
+.delete-icon {
+  cursor: pointer;
+
+  &:hover {
+    path{
+      fill: var(--darkRed);
+    }
+
+  }
+
+
+  path {
+    fill: var(--red);
+    transition: all 0.2s ease;
+
+  }
+
+}
+.update-icon{
+  cursor: pointer;
+
+  &:hover{
+    path{
+      fill:var(--grey)
+    }
+  }
+  path{
+    fill:var(--lightGrey);
+    transition: all 0.2s ease;
+  }
+}
 
 

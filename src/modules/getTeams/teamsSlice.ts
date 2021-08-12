@@ -34,7 +34,15 @@ export const addImage = createAsyncThunk(
                     'Authorization': `Bearer  ${token}`
                 }
             })
-            console.log(response,'респонс в addImage')
+            console.log(response, 'респонс в addImage')
+
+            const checkId = () => {
+                if (data.id) {
+                    return data.id
+                } else {
+                    return 'not'
+                }
+            }
 
             const team: TeamType = {
                 name: `${data.name}`,
@@ -42,11 +50,11 @@ export const addImage = createAsyncThunk(
                 division: `${data.division}`,
                 conference: `${data.conference}`,
                 imageUrl: `http://dev.trainee.dex-it.ru${response.data}`,
-                id: 0
+                id: checkId()
             }
 
+            data.id === 'not' ? dispatch(addTeam(team)) : dispatch(updateTeam(team))
 
-            dispatch(addTeam(team))
         } catch {
         }
     }
@@ -77,21 +85,64 @@ export const addTeam = createAsyncThunk(
 )
 
 
-
 export const getTeam = createAsyncThunk(
     'teams/getTeam',
-    async function (id:number, {dispatch}) {
+    async function (id: number, {dispatch}) {
         try {
-            const response:responsAddTeam = await instance.get('/api/Team/Get',  {
+            const response: responsAddTeam = await instance.get('/api/Team/Get', {
                 headers: {
                     'Authorization': `Bearer  ${token}`
                 },
-                params:{
-                    id:id
+                params: {
+                    id: id
                 }
             })
             dispatch(setCurrentTeam(response.data))
         } catch {
+        }
+    }
+)
+
+
+export const deleteTeam = createAsyncThunk(
+    'teams/deleteTeam',
+    async function (id: number, {dispatch}) {
+        try {
+            const response: responsAddTeam = await instance.delete('/api/Team/Delete', {
+                headers: {
+                    'Authorization': `Bearer  ${token}`
+                },
+                params: {
+                    id: id
+                }
+            })
+            console.log(response)
+        } catch {
+        }
+    }
+)
+
+export const updateTeam = createAsyncThunk(
+    'teams/updateTeam',
+    async function (team: TeamType, {dispatch}) {
+        try {
+
+
+            const response: string | void = await instance.put('/api/Team/Update', {
+                "name": `${team.name}`,
+                "foundationYear": team.foundationYear,
+                "division": `${team.division}`,
+                "conference": `${team.conference}`,
+                "imageUrl": `${team.imageUrl}`,
+                "id": team.id
+            }, {
+                headers: {
+                    'Authorization': `Bearer  ${token}`
+                }
+            })
+            console.log(response)
+        } catch {
+
         }
     }
 )
@@ -112,6 +163,7 @@ const initialState = {
     page: 0,
     size: 0,
     isFetching: false,
+    status: 0,
     currentTeam: {
         name: '',
         foundationYear: 0,
@@ -120,7 +172,6 @@ const initialState = {
         imageUrl: '',
         id: 0
     }
-
 
 
 }
@@ -137,7 +188,7 @@ export const teamsSlice = createSlice({
             state.data = action.payload.data
         },
 
-        setCurrentTeam(state,action:any){
+        setCurrentTeam(state, action: any) {
             console.log(action)
             state.currentTeam.name = action.payload.name
             state.currentTeam.foundationYear = action.payload.foundationYear
@@ -171,9 +222,13 @@ export const teamsSlice = createSlice({
         })
         builder.addCase(getTeam.fulfilled, (state, action) => {
             state.isFetching = false
+            state.status = 2
+        })
+        builder.addCase(updateTeam.fulfilled, (state, action) => {
+            state.isFetching = false
         })
     },
 })
 
-export const {setTeams,setCurrentTeam} = teamsSlice.actions;
+export const {setTeams, setCurrentTeam} = teamsSlice.actions;
 export default teamsSlice.reducer

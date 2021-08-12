@@ -1,8 +1,8 @@
 import tc from './teamCard.module.scss'
 import {FC} from "react";
-import {TeamType} from '../../api/dto/types';
+import {RootState, teamsSliceType, TeamType} from '../../api/dto/types';
 import {useHistory} from "react-router";
-import {useDispatch, useSelector} from "react-redux";
+import { useSelector} from "react-redux";
 
 
 
@@ -12,7 +12,7 @@ import {useDispatch, useSelector} from "react-redux";
 
 
 export const TeamCard:FC<TeamType> = ({name,foundationYear,division,conference,imageUrl,id})=>{
-    const teams = useSelector<any>(state=>state.teams.data)
+    const teams = useSelector<RootState & teamsSliceType>(state=>state.teams.data)
     // @ts-ignore
     const selectedTeam = teams.filter((state) => state.id === id)
 

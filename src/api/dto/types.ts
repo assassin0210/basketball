@@ -62,6 +62,7 @@ export interface teamsSliceType {
             id?: string | null,
         }
     ],
+    status:null|boolean|string
     count: string | null,
     page: string | null,
     size: string | null,
@@ -99,6 +100,7 @@ export interface AddTeamIType {
     conference: string;
     foundationYear: number
     file: any
+    id?: string|number
 
 }
 
@@ -153,5 +155,14 @@ export interface responsAddTeam{
         "id": number
     };
 
+}
+
+export interface DeletePropType{
+    id:number
+}
+
+
+export interface UpdateType{
+    id:string
 }
 
