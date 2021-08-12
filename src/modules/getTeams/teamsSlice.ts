@@ -3,6 +3,7 @@ import {instance, token} from "../../utils/utils";
 import {AddTeamIType, addTeamType, getTeamType, responsAddTeam, TeamType} from "../../api/dto/types";
 
 
+
 export const getTeams = createAsyncThunk(
     'teams/getTeams',
     async function (_, {dispatch}) {
@@ -34,26 +35,16 @@ export const addImage = createAsyncThunk(
                     'Authorization': `Bearer  ${token}`
                 }
             })
-            console.log(response, 'респонс в addImage')
-
-            const checkId = () => {
-                if (data.id) {
-                    return data.id
-                } else {
-                    return 'not'
-                }
-            }
-
             const team: TeamType = {
                 name: `${data.name}`,
                 foundationYear: data.foundationYear,
                 division: `${data.division}`,
                 conference: `${data.conference}`,
                 imageUrl: `http://dev.trainee.dex-it.ru${response.data}`,
-                id: checkId()
+                id: data.id
             }
 
-            data.id === 'not' ? dispatch(addTeam(team)) : dispatch(updateTeam(team))
+            data.id === undefined ? dispatch(addTeam(team)) : dispatch(updateTeam(team))
 
         } catch {
         }
@@ -217,13 +208,15 @@ export const teamsSlice = createSlice({
         })
         builder.addCase(getTeam.pending, (state, action) => {
             state.isFetching = true
+            state.status = 2
         })
         builder.addCase(getTeam.fulfilled, (state, action) => {
             state.isFetching = false
-            state.status = 2
+            state.status = 0
         })
         builder.addCase(updateTeam.fulfilled, (state, action) => {
             state.isFetching = false
+
         })
     },
 })

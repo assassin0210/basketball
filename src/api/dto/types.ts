@@ -185,7 +185,7 @@ export type TeamType = {
     division: string,
     conference: string,
     imageUrl: string
-    id: number| string
+    id: number| string | undefined
 }
 
 export type addTeamType = {

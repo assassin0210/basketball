@@ -8,7 +8,7 @@ import {AddPhotoIcon} from "../../../assets/icon/addPhotoIcon";
 import {ButtonCancel} from "../../buttons/buttonCatcel";
 import {AddTeamIType, StateType} from "../../../api/dto/types";
 import {useHistory, useParams} from "react-router";
-import { Link } from "react-router-dom";
+
 
 
 export const UpdateTeamForm = React.memo(() => {

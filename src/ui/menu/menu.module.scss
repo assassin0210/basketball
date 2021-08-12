@@ -1,44 +1,57 @@
-.menu_Container{
-padding: 32px 40px ;
+.menu_Container {
+  padding: 32px 40px;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
 }
-.mod{
+
+.mod {
   display: flex;
   flex-direction: column;
   align-items: center;
   cursor: pointer;
   font-size: 12px;
   width: 3rem;
-  &:hover{
-    p{
-      color:var(--lightestRed);
+  font-weight: 500;
+  line-height: 150%;
+  color: var(--lightGrey);
+  transition: all 0.2s ease;
+
+  &:hover {
+    p {
+      color: var(--lightestRed);
+      transition: all 0.2s ease;
     }
-    path{
+
+    path {
       fill: var(--lightestRed);
+      transition: all 0.2s ease;
     }
   }
-  p{
+
+  p {
     margin-top: 7px;
   }
 
 }
-.exit_button{
+
+.exit_button {
 
 }
-.player_button{
+
+.player_button {
   margin-top: 50px;
 }
 
-.active_mod{
-  p{
-    color:var(--red);
+.active_mod {
+  p {
+    color: var(--red);
   }
-  svg{
-    path{
+
+  svg {
+    path {
       fill: var(--red);
     }
   }
