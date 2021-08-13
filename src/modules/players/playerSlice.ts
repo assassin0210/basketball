@@ -1,20 +1,19 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {instance, token} from "../../utils/utils";
-import {AddTeamIType, addTeamType, getTeamType, responsAddTeam, TeamType} from "../../api/dto/types";
+import {AddTeamIType, addTeamType, getTeamType, PlayersSliceType, responsAddTeam, TeamType} from "../../api/dto/types";
 
 
 
-export const getTeams = createAsyncThunk(
-    'teams/getTeams',
+export const getPlayers = createAsyncThunk(
+    'player/getPlayers',
     async function (_, {dispatch}) {
         try {
-
             const response = await instance.get<getTeamType>('/api/Team/GetTeams', {
                 headers: {
                     'Authorization': `Bearer  ${token()}`
                 }
             })
-            dispatch(setTeams(response.data))
+
 
         } catch {
 
@@ -22,8 +21,8 @@ export const getTeams = createAsyncThunk(
     }
 )
 
-export const addImage = createAsyncThunk(
-    'teams/addLogoTeam',
+export const addImagePlayer = createAsyncThunk(
+    'player/addImagePlayer',
     async function (data: AddTeamIType, {dispatch}) {
         try {
             const file = data.file
@@ -44,15 +43,15 @@ export const addImage = createAsyncThunk(
                 id: data.id
             }
 
-            data.id === undefined ? dispatch(addTeam(team)) : dispatch(updateTeam(team))
+
 
         } catch {
         }
     }
 )
 
-export const addTeam = createAsyncThunk(
-    'teams/addFullTeam',
+export const addPlayer = createAsyncThunk(
+    'player/addPlayer',
     async function (team: TeamType, {dispatch}) {
         try {
             const response = await instance.post<addTeamType>('/api/Team/Add', {
@@ -74,8 +73,8 @@ export const addTeam = createAsyncThunk(
 )
 
 
-export const getTeam = createAsyncThunk(
-    'teams/getTeam',
+export const getPlayer = createAsyncThunk(
+    'player/getPlayer',
     async function (id: number, {dispatch}) {
         try {
             const response: responsAddTeam = await instance.get<addTeamType>('/api/Team/Get', {
@@ -86,15 +85,15 @@ export const getTeam = createAsyncThunk(
                     id: id
                 }
             })
-            dispatch(setCurrentTeam(response.data))
+
         } catch {
         }
     }
 )
 
 
-export const deleteTeam = createAsyncThunk(
-    'teams/deleteTeam',
+export const deletePlayer = createAsyncThunk(
+    'player/deletePlayer',
     async function (id: number, {dispatch}) {
         try {
             const response: responsAddTeam = await instance.delete<addTeamType>('/api/Team/Delete', {
@@ -110,8 +109,8 @@ export const deleteTeam = createAsyncThunk(
     }
 )
 
-export const updateTeam = createAsyncThunk(
-    'teams/updateTeam',
+export const updatePlayer = createAsyncThunk(
+    'player/updatePlayer',
     async function (team: TeamType, {dispatch}) {
         try {
 
@@ -136,86 +135,23 @@ export const updateTeam = createAsyncThunk(
 )
 
 
-const initialState = {
-    data: [
-        {
-            name: '',
-            foundationYear: 0,
-            division: '',
-            conference: '',
-            imageUrl: '',
-            id: 0
-        }
-    ],
-    count: 0,
-    page: 0,
-    size: 0,
-    isFetching: false,
-    status: 0,
-    currentTeam: {
-        name: '',
-        foundationYear: 0,
-        division: '',
-        conference: '',
-        imageUrl: '',
-        id: 0
-    }
+const initialState = {} as PlayersSliceType
 
 
-}
-
-
-export const teamsSlice = createSlice({
+export const playerSlice = createSlice({
     name: 'teams',
     initialState,
     reducers: {
-        setTeams(state: typeof initialState, action) {
-            state.count = action.payload.count
-            state.page = action.payload.page
-            state.size = action.payload.size
-            state.data = action.payload.data
-        },
 
-        setCurrentTeam(state, action) {
-            state.currentTeam.name = action.payload.name
-            state.currentTeam.foundationYear = action.payload.foundationYear
-            state.currentTeam.division = action.payload.division
-            state.currentTeam.conference = action.payload.conference
-            state.currentTeam.imageUrl = action.payload.imageUrl
-            state.currentTeam.id = action.payload.id
-        }
     },
     extraReducers: builder => {
 
-        builder.addCase(getTeams.pending, (state, action) => {
-            state.isFetching = true
-        })
-        builder.addCase(getTeams.fulfilled, (state, action) => {
-            state.isFetching = false
-        })
 
-        builder.addCase(addImage.pending, (state, action) => {
-            state.isFetching = true
-        })
-        builder.addCase(addTeam.fulfilled, (state, action) => {
-            state.isFetching = false
-        })
-        builder.addCase(getTeam.pending, (state, action) => {
-            state.isFetching = true
-            state.status = 2
-        })
-        builder.addCase(getTeam.fulfilled, (state, action) => {
-            state.isFetching = false
-            state.status = 0
-        })
-        builder.addCase(updateTeam.fulfilled, (state, action) => {
-            state.isFetching = false
 
-        })
     },
 })
 
-export const TeamsSliceConst  =teamsSlice.reducer
+export const PlayersSliceConst  = playerSlice.reducer
 
-export const {setTeams, setCurrentTeam} = teamsSlice.actions;
+export const {} = playerSlice.actions;
 

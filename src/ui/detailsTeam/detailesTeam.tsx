@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState, teamsSliceType} from "../../api/dto/types";
 import {DeleteTeam} from "../../assets/icon/deleteTeam";
 import {useHistory, useParams} from "react-router";
-import {getTeam} from '../../modules/getTeams/teamsSlice';
+import {getTeam} from '../../modules/teams/teamsSlice';
 import {RosterList} from "../rosterList/rosterList";
 import {Update} from '../../assets/icon/update';
 import {useEffect} from "react";

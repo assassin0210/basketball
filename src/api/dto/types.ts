@@ -171,6 +171,25 @@ export interface InitialStateTeam{
 
 }
 
+export interface PlayersSliceType{
+    data: [
+        {
+            name: string,
+            "number": 0,
+            position: string,
+            "team": 0,
+            "birthday": string,
+            "height": 0,
+            "weight": 0,
+            "avatarUrl": string,
+            "id": 0
+        }
+    ],
+    "count": 0,
+    "page": 0,
+    "size": 0
+}
+
 
 export interface PropsType<T> {
     component: React.ElementType

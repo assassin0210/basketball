@@ -3,7 +3,7 @@ import React  from "react";
 import atf from '../allTeams/addTeamsForm/addTeamsForm.module.scss'
 import {ErrorText} from "../errorText/errorText";
 import {useDispatch} from "react-redux";
-import {addImage} from "../../modules/getTeams/teamsSlice";
+import {addImage} from "../../modules/teams/teamsSlice";
 import {AddPhotoIcon} from "../../assets/icon/addPhotoIcon";
 import {ButtonCancel} from "../buttons/buttonCatcel";
 import {AddTeamIType} from "../../api/dto/types";

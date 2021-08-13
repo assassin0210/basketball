@@ -1,7 +1,7 @@
 import at from './allTeams.module.scss'
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {getTeams} from '../../modules/getTeams/teamsSlice';
+import {getTeams} from '../../modules/teams/teamsSlice';
 import {RootState, StateType, teamsSliceType, TeamType} from '../../api/dto/types';
 import {Search} from "../../assets/icon/search";
 import {MissingTeams} from '../teamCard/missingTeams';
@@ -17,7 +17,7 @@ export const AllTeams = React.memo( () => {
     const dispatch = useDispatch()
     const history = useHistory()
 
-    const isFeaching = useSelector<StateType>(state => state.teams.isFetching)
+    const isFetching = useSelector<StateType>(state => state.teams.isFetching)
 
     useEffect(() => {
         dispatch(getTeams())
@@ -32,11 +32,12 @@ export const AllTeams = React.memo( () => {
                     <input className='input_search' placeholder='Search...' type="text"/>
                     <Search/>
                 </div>
+
                 <input style={{margin:'0'}} onClick={handleHistoryPush} className='red-button' value='Add  +'
                        type="submit"/>
             </div>
 
-            {isFeaching &&  <Preloader/>}
+            {isFetching &&  <Preloader/>}
             {teams.count === 0 ? <MissingTeams/> : <div className={at.contentWrapper}>
                 {teams.data.map((team: TeamType) => <TeamCard key={team.id}
                                                               name={team.name}

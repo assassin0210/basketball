@@ -1,5 +1,5 @@
 import React, {FC} from "react";
-import {deleteTeam} from "../../modules/getTeams/teamsSlice";
+import {deleteTeam} from "../../modules/teams/teamsSlice";
 import {useDispatch} from "react-redux";
 import {DeletePropType} from "../../api/dto/types";
 

@@ -26,7 +26,7 @@ export const MainPage = React.memo( () => {
                     <Route path='/teams' exact render={() => <AllTeams/>}/>
                     <Route path='/teams/updateTeam:id'  render={() => <UpdateTeam/>}/>
                     <Route path='/teams/addteams'  render={() => <AddTeam/>}/>
-                    <Route path='/players/addplayers'  render={() => <AddPlayer/>}/>
+                    <Route path='/players/addplayer'  render={() => <AddPlayer/>}/>
                     <Route path='/players' exact render={() => <AllPlayer/>}/>
                     <Route path={`/teams/:id`}  render={() => <DetailsTeam />}/>
                 </Switch>
