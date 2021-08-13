@@ -7,19 +7,23 @@ import {getTeam} from '../../modules/getTeams/teamsSlice';
 import {RosterList} from "../rosterList/rosterList";
 import {Update} from '../../assets/icon/update';
 import {useEffect} from "react";
+import {Preloader} from "../preloader/preloader";
 
 export const DetailsTeam = () => {
     const dispatch = useDispatch()
     const params: { id: string } = useParams()
     const history = useHistory()
-    const  currentTeam = useSelector((state: RootState & teamsSliceType) => state.teams.currentTeam)
+    const  currentTeam = useSelector((state: RootState ) => state.teams.currentTeam)
+    const isFetching =useSelector((state: RootState )=>state.teams.isFetching)
+
     useEffect(()=>{
         dispatch(getTeam(Number(params.id)))
     },[dispatch,params.id])
-
+    console.log(isFetching)
 
     return (
         <div className={dt.container}>
+            {isFetching && <Preloader/>}
             <div className={dt.teamInfo}>
                 <div className={dt.team_info_header}>
                     <div className={dt.descBlock}>

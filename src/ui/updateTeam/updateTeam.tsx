@@ -4,7 +4,8 @@ import {Preloader} from "../preloader/preloader";
 import React from "react";
 import {useSelector} from "react-redux";
 import { StateType} from '../../api/dto/types';
-import {UpdateTeamForm} from "./updateTeamForm/updateTeamForm";
+import { UpdateTeamForm } from '../updateTeamForm/updateTeamForm';
+
 export const UpdateTeam = () => {
 
     const isFetching = useSelector<StateType>(state=>state.teams.isFetching)

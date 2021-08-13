@@ -1,5 +1,5 @@
 import si from "./singIn.module.scss";
-import {SingInForm} from "../../ui/autorization/singInForm";
+import {SingInForm} from "../../ui/singInForm/singInForm";
 import React, {FC} from "react";
 import { SingInImage } from "../../assets/icon/singInImage";
 import {useSelector} from "react-redux";

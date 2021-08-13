@@ -7,9 +7,7 @@ import React, {FC} from 'react';
 
 
 export const Header:FC = React.memo(() => {
-
         return (
-
             <div className={s.header_container}>
                 <MainLogo/>
                 <div className={s.profile_block}>

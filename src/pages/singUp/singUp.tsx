@@ -1,6 +1,6 @@
 import React, {FC} from "react";
 import si from "../singIn/singIn.module.scss";
-import {SingUpForm} from "../../ui/autorization/singupForm";
+import {SingUpForm} from "../../ui/singUpForm/singupForm";
 import { SingUpImage } from "../../assets/icon/singUpImage";
 import {Preloader} from "../../ui/preloader/preloader";
 import {useSelector} from "react-redux";
