@@ -9,6 +9,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getPositions} from "../../modules/players/playerSlice";
 import {SelectStyle} from "../selectStyle/selectStyle";
 import Calendar from 'react-calendar'
+import { CalendarUi } from "../calendarUi/calendarUi";
 
 
 
@@ -66,7 +67,7 @@ export const AddPlayersForm = () => {
                     {errors.division && <ErrorText>Division is required</ErrorText>}
                     <label> Conference</label>
                     <input type='data'  {...register("conference", {required: true})} />
-                    <Calendar/>
+                    <CalendarUi/>
                     {errors.conference && <ErrorText>Conference is required</ErrorText>}
                     <label> Year of foundation</label>
                     <input type='number' className='input_form'  {...register("foundationYear", {

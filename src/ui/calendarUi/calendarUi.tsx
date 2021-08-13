@@ -8,8 +8,6 @@ export const  CalendarUi =()=> {
     const  onChange=(value:any)=> {
         setValue(value.toLocaleDateString());
     }
-
-    console.log(value.toLocaleDateString())
     return (
         <Calendar
             allowPartialRange
