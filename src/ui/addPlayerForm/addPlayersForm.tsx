@@ -1,35 +1,27 @@
 import {SubmitHandler, useForm} from "react-hook-form";
-import React  from "react";
-import atf from '../allTeams/addTeamsForm/addTeamsForm.module.scss'
-import {ErrorText} from "../errorText/errorText";
-import {useDispatch} from "react-redux";
+import {AddTeamIType, PlayersSliceType, PositionsType, RootState, StateType} from "../../api/dto/types";
 import {addImage} from "../../modules/teams/teamsSlice";
+import atf from "../allTeams/addTeamsForm/addTeamsForm.module.scss";
 import {AddPhotoIcon} from "../../assets/icon/addPhotoIcon";
+import React, {useEffect} from "react";
+import {ErrorText} from "../errorText/errorText";
 import {ButtonCancel} from "../buttons/buttonCatcel";
-import {AddTeamIType} from "../../api/dto/types";
-import {useHistory, useParams} from "react-router";
+import {useDispatch, useSelector} from "react-redux";
+import {getPositions} from "../../modules/players/playerSlice";
+import {SelectStyle} from "../selectStyle/selectStyle";
 
 
-
-export const UpdateTeamForm = React.memo(() => {
-
-
-    const history = useHistory()
-    const params: { id: string } = useParams()
-
+export const AddPlayersForm = () => {
+    const players = useSelector((state: RootState) => state.players)
     const {register, handleSubmit, watch, formState: {errors}} = useForm<AddTeamIType>();
     const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getPositions())
+    }, [dispatch])
+
     const onSubmit: SubmitHandler<AddTeamIType> = data => {
-        data.id = Number(params.id)
-        dispatch(addImage(data))
-        history.goBack()
 
     };
-
-
-
-
-    const file = watch()
 
     const checkFile = () => {
         if (!file.file) {
@@ -40,9 +32,8 @@ export const UpdateTeamForm = React.memo(() => {
         return true
     }
 
-
+    const file = watch()
     return (
-
         <form className={atf.container} onSubmit={handleSubmit(onSubmit)}>
             <div className={atf.testWrapper}>
                 <div className={atf.inputFile_wrapper}>
@@ -57,13 +48,22 @@ export const UpdateTeamForm = React.memo(() => {
                 </div>
             </div>
             <div className='formWrapper'>
-
                 <div className='form-container'>
                     <label> Name</label>
                     <input className='input_form' {...register("name", {required: true})} />
                     {errors.name && <ErrorText>Name is required</ErrorText>}
                     <label> Division</label>
-                    <input className='input_form' {...register("division", {required: true})} />
+
+                    <select style={{width: '100%'}} placeholder='Selected'
+                            className='input_form' {...register("division", {required: true})}>
+
+                        <option className='default_option-in-select' style={{display: 'none'}} value="0">Select...
+                        </option>
+
+                        <SelectStyle/>
+                        {players.positions?.map((position) => <option value={position}>{position}</option>)}
+                    </select>
+
                     {errors.division && <ErrorText>Division is required</ErrorText>}
                     <label> Conference</label>
                     <input className='input_form' {...register("conference", {required: true})} />
@@ -76,15 +76,15 @@ export const UpdateTeamForm = React.memo(() => {
                     })} />
                     {errors.foundationYear &&
                     <ErrorText>Foundation year cannot be higher than 2022 or absent</ErrorText>}
+
                     <div className={atf.buttons_block}>
                         <ButtonCancel/>
-                            <input value='Save' className='red-button' type="submit"/>
+                        <input value='Save' className='red-button' type="submit"/>
 
                     </div>
+
                 </div>
             </div>
         </form>
-
-    );
-})
-
+    )
+}

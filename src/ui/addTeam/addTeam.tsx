@@ -16,7 +16,7 @@ export const AddTeam = () => {
     return (
         <div className={at.container}>
             <div className={at.addTeam_block}>
-                { isFetching? <Preloader/> : ''}
+                { isFetching && <Preloader/>}
                 <div className={at.headerContainer}>
                     <p onClick={handleHistoryTeam} >Teams</p>
                     <span>/ </span>

@@ -70,7 +70,18 @@ input[type='submit'] {
   }
 }
 
-input {
+select{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  position: relative;
+
+}
+.default_option-in-select{
+  position: relative;
+}
+
+input, select {
   background: var(--lightestGrey1);
   border: none;
   height: 40px;
@@ -170,7 +181,7 @@ input {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: relative;
+
 
   .form-container {
     display: flex;

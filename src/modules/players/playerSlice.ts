@@ -1,6 +1,35 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {instance, token} from "../../utils/utils";
-import {AddTeamIType, addTeamType, getTeamType, PlayersSliceType, responsAddTeam, TeamType} from "../../api/dto/types";
+import {
+    AddTeamIType,
+    addTeamType,
+    getTeamType,
+    PlayersSliceType,
+    PositionsType,
+    responsAddTeam,
+    TeamType
+} from "../../api/dto/types";
+
+
+
+
+export const getPositions = createAsyncThunk(
+    'player/getPositions',
+    async function (_, {dispatch}) {
+        try {
+            const response = await instance.get<PositionsType>('/api/Player/GetPositions', {
+                headers: {
+                    'Authorization': `Bearer  ${token()}`,
+                    'accept': '*/*',
+                }
+            })
+            dispatch(setPositions(response.data))
+
+        } catch {
+
+        }
+    }
+)
 
 
 
@@ -8,11 +37,12 @@ export const getPlayers = createAsyncThunk(
     'player/getPlayers',
     async function (_, {dispatch}) {
         try {
-            const response = await instance.get<getTeamType>('/api/Team/GetTeams', {
+            const response = await instance.get<PositionsType>('/api/Team/GetTeams', {
                 headers: {
                     'Authorization': `Bearer  ${token()}`
                 }
             })
+
 
 
         } catch {
@@ -20,6 +50,7 @@ export const getPlayers = createAsyncThunk(
         }
     }
 )
+
 
 export const addImagePlayer = createAsyncThunk(
     'player/addImagePlayer',
@@ -42,7 +73,6 @@ export const addImagePlayer = createAsyncThunk(
                 imageUrl: `http://dev.trainee.dex-it.ru${response.data}`,
                 id: data.id
             }
-
 
 
         } catch {
@@ -142,16 +172,23 @@ export const playerSlice = createSlice({
     name: 'teams',
     initialState,
     reducers: {
-
+        setPositions(state,action){
+            console.log(action.payload)
+            state.positions = action.payload
+        }
     },
     extraReducers: builder => {
-
-
+        builder.addCase(getPositions.pending, (state, action) => {
+            state.isFetching = true
+        })
+        builder.addCase(getPositions.fulfilled, (state, action) => {
+            state.isFetching = false
+        })
 
     },
 })
 
-export const PlayersSliceConst  = playerSlice.reducer
+export const PlayersSliceConst = playerSlice.reducer
 
-export const {} = playerSlice.actions;
+export const {setPositions} = playerSlice.actions;
 

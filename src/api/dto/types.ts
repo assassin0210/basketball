@@ -50,6 +50,7 @@ export type onSubmitDataFormType = {
 export interface StateType{
     teams:teamsSliceType
     auth:authSliceType
+    players:PlayersSliceType
 }
 export interface teamsSliceType {
     data: [
@@ -170,6 +171,13 @@ export interface InitialStateTeam{
 
 
 }
+export interface PositionsType{
+    0: "CenterForward"
+    1: "GuardForward"
+    2: "Forward"
+    3: "Center"
+    4: "Guard"
+}
 
 export interface PlayersSliceType{
     data: [
@@ -185,9 +193,11 @@ export interface PlayersSliceType{
             "id": 0
         }
     ],
-    "count": 0,
-    "page": 0,
-    "size": 0
+    count: 0,
+    page: 0,
+    size: 0,
+    positions?:[],
+    isFetching:boolean
 }
 
 

@@ -47,8 +47,6 @@ export const AllTeams = React.memo( () => {
                                                               imageUrl={team.imageUrl}
                                                               id={team.id}/>)}
             </div>}
-
-
             <div>
                 <div>пагинация</div>
                 <div>пагинация</div>
