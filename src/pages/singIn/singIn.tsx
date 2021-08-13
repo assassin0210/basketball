@@ -3,8 +3,9 @@ import {SingInForm} from "../../ui/autorization/singInForm";
 import React, {FC} from "react";
 import { SingInImage } from "../../assets/icon/singInImage";
 import {useSelector} from "react-redux";
-import {authSliceType, StateType} from "../../api/dto/types";
+import {StateType} from "../../api/dto/types";
 import {Preloader} from "../../ui/preloader/preloader";
+
 
 
 export const SingIn:FC< JSX.Element> =  () => {

@@ -21,7 +21,7 @@ export const AllTeams = React.memo( () => {
 
     useEffect(() => {
         dispatch(getTeams())
-    }, [teams.count])
+    }, [dispatch])
 
     const handleHistoryPush=()=>history.push('/teams/addteams')
 

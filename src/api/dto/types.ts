@@ -41,10 +41,10 @@ export interface userResponse{
 }
 
 export type onSubmitDataFormType = {
-    userName: string
+    userName?: string
     login: string
     password: string
-    doublePass: string
+    doublePass?: string
 }
 
 export interface StateType{

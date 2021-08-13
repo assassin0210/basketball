@@ -13,8 +13,13 @@
   position: relative;
 
   p {
-    margin: 24px 32px;
+    margin: 24px 0;
     color: var(--red);
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+
 
     span {
       color: var(--lightGrey);
@@ -24,6 +29,21 @@
 
 .headerContainer {
   display: flex;
+  align-items: center;
+  padding-left: 32px;
+  p {
+    margin: 24px 0;
+    color: var(--red);
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+  }
+
+  span {
+    color: var(--lightGrey);
+    margin: 0 5px;
+  }
 }
 
 .addTeam_module {

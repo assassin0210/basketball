@@ -3,17 +3,21 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState, teamsSliceType} from "../../api/dto/types";
 import {DeleteTeam} from "../../assets/icon/deleteTeam";
 import {useHistory, useParams} from "react-router";
-import {useEffect} from "react";
 import {getTeam} from '../../modules/getTeams/teamsSlice';
 import {RosterList} from "../rosterList/rosterList";
 import {Update} from '../../assets/icon/update';
+import {useEffect} from "react";
 
 export const DetailsTeam = () => {
     const dispatch = useDispatch()
     const params: { id: string } = useParams()
     const history = useHistory()
-    let currentTeam = useSelector((state: RootState & teamsSliceType) => state.teams.currentTeam)
-    dispatch(getTeam(Number(params.id)))
+    const  currentTeam = useSelector((state: RootState & teamsSliceType) => state.teams.currentTeam)
+    useEffect(()=>{
+        dispatch(getTeam(Number(params.id)))
+    },[dispatch,params.id])
+
+
     return (
         <div className={dt.container}>
             <div className={dt.teamInfo}>

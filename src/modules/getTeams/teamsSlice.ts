@@ -13,7 +13,6 @@ export const getTeams = createAsyncThunk(
                     'Authorization': `Bearer  ${token}`
                 }
             })
-            console.log(response)
             dispatch(setTeams(response.data))
 
         } catch {
@@ -66,7 +65,7 @@ export const addTeam = createAsyncThunk(
                     'Authorization': `Bearer  ${token}`
                 }
             })
-            console.log(response)
+
         } catch {
 
         }
@@ -105,7 +104,6 @@ export const deleteTeam = createAsyncThunk(
                     id: id
                 }
             })
-            console.log(response)
         } catch {
         }
     }
@@ -129,7 +127,7 @@ export const updateTeam = createAsyncThunk(
                     'Authorization': `Bearer  ${token}`
                 }
             })
-            console.log(response)
+
         } catch {
 
         }
@@ -178,7 +176,6 @@ export const teamsSlice = createSlice({
         },
 
         setCurrentTeam(state, action) {
-            console.log(action)
             state.currentTeam.name = action.payload.name
             state.currentTeam.foundationYear = action.payload.foundationYear
             state.currentTeam.division = action.payload.division
@@ -199,12 +196,8 @@ export const teamsSlice = createSlice({
         builder.addCase(addImage.pending, (state, action) => {
             state.isFetching = true
         })
-        builder.addCase(addImage.fulfilled, (state, action) => {
-
-        })
         builder.addCase(addTeam.fulfilled, (state, action) => {
             state.isFetching = false
-
         })
         builder.addCase(getTeam.pending, (state, action) => {
             state.isFetching = true
@@ -221,5 +214,7 @@ export const teamsSlice = createSlice({
     },
 })
 
+export const TeamsSliceConst  =teamsSlice.reducer
+
 export const {setTeams, setCurrentTeam} = teamsSlice.actions;
-export default teamsSlice.reducer
+

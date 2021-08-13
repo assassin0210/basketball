@@ -9,6 +9,8 @@ import { PrivateRoute } from './ui/routing/privateRoute';
 
 
 export const  App= React.memo( ()=> {
+
+
     const isAuth =  () => {
         if (localStorage.getItem('token')) {
             return true;

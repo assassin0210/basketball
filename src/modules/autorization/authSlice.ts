@@ -1,6 +1,5 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {instance} from "../../utils/utils";
-import {PayloadAction} from "@reduxjs/toolkit/dist/createAction";
 import {authSliceType, onSubmitDataFormType, UserType} from "../../api/dto/types";
 import {RootStateOrAny} from "react-redux";
 
@@ -14,11 +13,11 @@ export const registered = createAsyncThunk(
                 "login": data.login,
                 "password": data.password
             })
-            if (response.statusText === 'OK') {
+             if (response.statusText === 'OK')  {
                 localStorage.setItem('token', (response.data.token))
                 localStorage.setItem('avatarUrl', (response.data.avatarUrl))
                 localStorage.setItem('name', (response.data.name))
-                dispatch(registration(response.data))
+
             }
         } catch (error) {
             if (error.message.toString() === 'Request failed with status code 409') {
@@ -30,6 +29,7 @@ export const registered = createAsyncThunk(
 
 
 export const login = createAsyncThunk(
+
     'auth/login',
     async function (data: onSubmitDataFormType, {dispatch}) {
         try {
@@ -41,8 +41,6 @@ export const login = createAsyncThunk(
                 localStorage.setItem('token', (response.data.token))
                 localStorage.setItem('avatarUrl', (response.data.avatarUrl))
                 localStorage.setItem('name', (response.data.name))
-
-                dispatch(registration(response.data))
             }
         } catch {
             dispatch(authFailed())
@@ -53,15 +51,13 @@ export const login = createAsyncThunk(
 
 const initialState = {} as authSliceType
 
-export const authSlice = createSlice({
+
+
+const  authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        registration(state: RootStateOrAny, action) {
-            state.isAuth = true;
-            state.user = action.payload
-            state.showError = false
-        },
+
         logOut(state: RootStateOrAny, ) {
             localStorage.clear()
             state.isAuth = false
@@ -85,9 +81,19 @@ export const authSlice = createSlice({
             state.showError = false
             state.isFetching = false
         })
+        builder.addCase(login.pending, (state :RootStateOrAny, action) => {
+
+        })
+        builder.addCase(login.fulfilled, (state :RootStateOrAny, action) => {
+
+            state.showError = false
+            state.isAuth = true;
+        })
     },
 })
 
+export const autSliceConst = authSlice.reducer
 
-export const {registration, logOut, authFailed, isLoading} = authSlice.actions;
-export default authSlice.reducer
+
+export const { logOut, authFailed, isLoading} = authSlice.actions;
+

@@ -1,22 +1,21 @@
 import {SubmitHandler, useForm} from "react-hook-form";
-import React, {useEffect} from "react";
+import React  from "react";
 import atf from '../../allTeams/addTeamsForm/addTeamsForm.module.scss'
 import {ErrorText} from "../../errorText/errorText";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {addImage} from "../../../modules/getTeams/teamsSlice";
 import {AddPhotoIcon} from "../../../assets/icon/addPhotoIcon";
 import {ButtonCancel} from "../../buttons/buttonCatcel";
-import {AddTeamIType, StateType} from "../../../api/dto/types";
+import {AddTeamIType} from "../../../api/dto/types";
 import {useHistory, useParams} from "react-router";
 
 
 
 export const UpdateTeamForm = React.memo(() => {
-    const status = useSelector<StateType & any>(state => state.teams.currentTeam.status)
+
 
     const history = useHistory()
     const params: { id: string } = useParams()
-    console.log(params)
 
     const {register, handleSubmit, watch, formState: {errors}} = useForm<AddTeamIType>();
     const dispatch = useDispatch()
@@ -26,9 +25,7 @@ export const UpdateTeamForm = React.memo(() => {
         history.goBack()
 
     };
-    useEffect(()=>{
 
-    },[status])
 
 
 
@@ -72,7 +69,7 @@ export const UpdateTeamForm = React.memo(() => {
                     <label> Year of foundation</label>
                     <input type='number' className='input_form'  {...register("foundationYear", {
                         required: true,
-                        min: 1000,
+                        min: 0,
                         max: 2022
                     })} />
                     {errors.foundationYear &&
