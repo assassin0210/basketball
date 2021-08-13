@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './index.scss'
-import {Switch} from 'react-router-dom';
+import {Switch, useHistory} from 'react-router-dom';
 import {MainPage} from './pages/mainPage/mainPage';
 import {SingIn} from './pages/singIn/singIn';
 import {SingUp} from "./pages/singUp/singUp";
@@ -9,6 +9,7 @@ import { PrivateRoute } from './ui/routing/privateRoute';
 
 
 export const  App= React.memo( ()=> {
+    const history = useHistory()
 
 
     const isAuth =  () => {
@@ -17,6 +18,12 @@ export const  App= React.memo( ()=> {
         }
         return false;
     }
+
+    useEffect(()=>{
+        if(localStorage.getItem('token')){
+            history.push('/teams')
+    }
+    })
 
     return (
         <div className="App">

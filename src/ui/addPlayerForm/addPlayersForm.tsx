@@ -1,6 +1,5 @@
 import {SubmitHandler, useForm} from "react-hook-form";
-import {AddTeamIType, PlayersSliceType, PositionsType, RootState, StateType} from "../../api/dto/types";
-import {addImage} from "../../modules/teams/teamsSlice";
+import {AddTeamIType, RootState, } from "../../api/dto/types";
 import atf from "../allTeams/addTeamsForm/addTeamsForm.module.scss";
 import {AddPhotoIcon} from "../../assets/icon/addPhotoIcon";
 import React, {useEffect} from "react";
@@ -9,6 +8,9 @@ import {ButtonCancel} from "../buttons/buttonCatcel";
 import {useDispatch, useSelector} from "react-redux";
 import {getPositions} from "../../modules/players/playerSlice";
 import {SelectStyle} from "../selectStyle/selectStyle";
+import Calendar from 'react-calendar'
+
+
 
 
 export const AddPlayersForm = () => {
@@ -33,13 +35,13 @@ export const AddPlayersForm = () => {
     }
 
     const file = watch()
+
     return (
         <form className={atf.container} onSubmit={handleSubmit(onSubmit)}>
             <div className={atf.testWrapper}>
                 <div className={atf.inputFile_wrapper}>
                     <input accept="image/*" id="imgInp" type="file" {...register("file", {required: true})}/>
                     <div className={atf.inputFile_bg}>
-
                     </div>
                     <AddPhotoIcon/>
                     <div className={atf.BGimg}
@@ -56,17 +58,15 @@ export const AddPlayersForm = () => {
 
                     <select style={{width: '100%'}} placeholder='Selected'
                             className='input_form' {...register("division", {required: true})}>
-
                         <option className='default_option-in-select' style={{display: 'none'}} value="0">Select...
                         </option>
-
                         <SelectStyle/>
                         {players.positions?.map((position) => <option value={position}>{position}</option>)}
                     </select>
-
                     {errors.division && <ErrorText>Division is required</ErrorText>}
                     <label> Conference</label>
-                    <input className='input_form' {...register("conference", {required: true})} />
+                    <input type='data'  {...register("conference", {required: true})} />
+                    <Calendar/>
                     {errors.conference && <ErrorText>Conference is required</ErrorText>}
                     <label> Year of foundation</label>
                     <input type='number' className='input_form'  {...register("foundationYear", {
@@ -76,13 +76,10 @@ export const AddPlayersForm = () => {
                     })} />
                     {errors.foundationYear &&
                     <ErrorText>Foundation year cannot be higher than 2022 or absent</ErrorText>}
-
                     <div className={atf.buttons_block}>
                         <ButtonCancel/>
                         <input value='Save' className='red-button' type="submit"/>
-
                     </div>
-
                 </div>
             </div>
         </form>
