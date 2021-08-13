@@ -8,9 +8,10 @@ export const getTeams = createAsyncThunk(
     'teams/getTeams',
     async function (_, {dispatch}) {
         try {
+
             const response = await instance.get<getTeamType>('/api/Team/GetTeams', {
                 headers: {
-                    'Authorization': `Bearer  ${token}`
+                    'Authorization': `Bearer  ${token()}`
                 }
             })
             dispatch(setTeams(response.data))
@@ -31,7 +32,7 @@ export const addImage = createAsyncThunk(
             const response = await instance.post<string>('/api/Image/SaveImage', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer  ${token}`
+                    'Authorization': `Bearer  ${token()}`
                 }
             })
             const team: TeamType = {
@@ -62,7 +63,7 @@ export const addTeam = createAsyncThunk(
                 "imageUrl": `${team.imageUrl}`
             }, {
                 headers: {
-                    'Authorization': `Bearer  ${token}`
+                    'Authorization': `Bearer  ${token()}`
                 }
             })
 
@@ -79,7 +80,7 @@ export const getTeam = createAsyncThunk(
         try {
             const response: responsAddTeam = await instance.get<addTeamType>('/api/Team/Get', {
                 headers: {
-                    'Authorization': `Bearer  ${token}`
+                    'Authorization': `Bearer  ${token()}`
                 },
                 params: {
                     id: id
@@ -98,7 +99,7 @@ export const deleteTeam = createAsyncThunk(
         try {
             const response: responsAddTeam = await instance.delete<addTeamType>('/api/Team/Delete', {
                 headers: {
-                    'Authorization': `Bearer  ${token}`
+                    'Authorization': `Bearer  ${token()}`
                 },
                 params: {
                     id: id
@@ -124,7 +125,7 @@ export const updateTeam = createAsyncThunk(
                 "id": team.id
             }, {
                 headers: {
-                    'Authorization': `Bearer  ${token}`
+                    'Authorization': `Bearer  ${token()}`
                 }
             })
 

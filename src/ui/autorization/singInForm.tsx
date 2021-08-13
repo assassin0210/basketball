@@ -18,11 +18,9 @@ export const SingInForm = React.memo(() => {
     const auth = useSelector((state: typeof autSliceConst & RootStateOrAny) => state.auth.isAuth)
     const preloader = useSelector((state: typeof autSliceConst & RootStateOrAny) => state.auth.isLoading)
     const dispatch = useDispatch()
-    const history = useHistory();
-
+    const history = useHistory()
 
     useEffect(() => {
-
         if (auth) {
              history.push('/teams')
         }
