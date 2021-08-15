@@ -6,9 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {PlayersSliceType, StateType} from "../../api/dto/types";
 import {MissingPlayers} from '../playerCard/missingPlayers';
 import {useHistory} from "react-router";
-
-import at from "../teamCard/teamCard.module.scss";
-import { PlayerCard } from '../playerCard/playerCard';
+import {PlayerCard} from '../playerCard/playerCard';
 import {getTeams} from "../../modules/teams/teamsSlice";
 
 
@@ -33,7 +31,7 @@ export const AllPlayer = React.memo(() => {
                        type="submit"/>
             </div>
             {players.isFetching && <Preloader/>}
-            {players.count === 0 ? <MissingPlayers/> : <div className={at.contentWrapper}>
+            {players.count === 0 ? <MissingPlayers/> : <div className='contentWrapper'>
                 {players.data.map((player) => <PlayerCard key={player.id}
                                                           number={player.number}
                                                           name={player.name}
@@ -43,11 +41,12 @@ export const AllPlayer = React.memo(() => {
                                                           height={player.height}
                                                           weight={player.weight}
                                                           avatarUrl={player.avatarUrl}
-                 id={player.id}/>)}
+                                                          id={player.id}/>)}
             </div>}
 
             <div>
                 <div>пагинация</div>
                 <div>пагинация</div>
             </div>
-        </div>)})
+        </div>)
+})

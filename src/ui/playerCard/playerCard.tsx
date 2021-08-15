@@ -6,37 +6,30 @@ import {useHistory} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
 import {getTeams} from "../../modules/teams/teamsSlice";
 
-
-export const PlayerCard:FC<AddPlayersFormType> =   ({number,name,team,})=>{
+export const PlayerCard:FC<AddPlayersFormType> =   ({number,name,team,id,avatarUrl})=>{
     const teams = useSelector<RootState & teamsSliceType>(state=>state.teams.data)
+    const players = useSelector<RootState & teamsSliceType>(state=>state.players.data)
     const dispatch=useDispatch()
     // @ts-ignore
     const teamName = teams.find(teamn => teamn.id === team).name
-    console.log(teamName)
-
     useEffect(()=>{
         dispatch(getTeams())
     },[])
-
     // @ts-ignore
-    //const selectedTeam = teams.filter((state) => state.id === id)
-
+    const selectedPlayer = players.filter((state) => state.id === id)
     const history = useHistory()
-
     const handleCheckId =()=>{
-        //history.push(`/teams/${selectedTeam[0].id}`)
-
+        history.push(`/players/${selectedPlayer[0].id}`)
     }
-
 
     return(
         <div  onClick={handleCheckId} className={tc.teamCardContainer}>
-            <div className={tc.teamLogoBlock}>
-                <img src='' alt="team"/>
+            <div className={tc.playerLogoBlock}>
+                <img src={avatarUrl} alt="team"/>
             </div>
             <div className={tc.teamDescription}>
-                <h3>{name}{number}</h3>
-                <h4> {team}</h4>
+                <h3>{name}<span> #{number}</span></h3>
+                <h4> {teamName}</h4>
             </div>
         </div>
     )

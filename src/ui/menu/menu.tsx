@@ -5,7 +5,7 @@ import {useHistory, useLocation} from "react-router";
 import {OnePerson} from '../../assets/icon/onePerson';
 import {TwoPersons} from '../../assets/icon/TwoPersons';
 import {SingOut} from '../../assets/icon/singOut';
-import React, {useEffect} from 'react';
+import React from 'react';
 
 export const Menu = React.memo(() => {
     const dispatch = useDispatch()
@@ -31,11 +31,12 @@ export const Menu = React.memo(() => {
             return true
         } else if (location.pathname === "/players/addplayer") {
             return true
+        }else if (location.pathname === "/players/") {
+            return true
         }
         return false
 
     }
-
 
     return (
         <div className={menu.menu_Container}>

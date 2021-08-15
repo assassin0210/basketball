@@ -29,3 +29,14 @@
     top: 10px;
   }
 }
+.contentWrapper{
+  padding: 10px;
+  display: inline-grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: start;
+  justify-content: center;
+  gap: 24px ;
+  overflow: scroll;
+  height: 100%;
+}
+

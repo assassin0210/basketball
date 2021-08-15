@@ -2,7 +2,7 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {instance, token} from "../../utils/utils";
 import {
     AddPlayersFormType,
-    addTeamType,
+    addTeamType, CurrentPlayer,
     PositionsType,
     responsAddTeam,
     TeamType
@@ -72,6 +72,7 @@ export const addImagePlayer = createAsyncThunk(
                 avatarUrl: `http://dev.trainee.dex-it.ru${response.data}`,
             }
             dispatch(addPlayer(player))
+            console.log(player)
 
 
         } catch {
@@ -91,7 +92,7 @@ export const addPlayer = createAsyncThunk(
                 'birthday': `${player.birthday}`,
                 'height': player.height,
                 'weight': player.weight,
-                'avatarUrl': `http://dev.trainee.dex-it.ru${player.avatarUrl}`,
+                'avatarUrl': `${player.avatarUrl}`,
             }, {
                 headers: {
                     'Authorization': `Bearer  ${token()}`
@@ -109,7 +110,7 @@ export const getPlayer = createAsyncThunk(
     'player/getPlayer',
     async function (id: number, {dispatch}) {
         try {
-            const response: responsAddTeam = await instance.get<addTeamType>('/api/Team/Get', {
+            const response: responsAddTeam = await instance.get<addTeamType>('/api/Player/Get', {
                 headers: {
                     'Authorization': `Bearer  ${token()}`
                 },
@@ -117,7 +118,7 @@ export const getPlayer = createAsyncThunk(
                     id: id
                 }
             })
-
+            dispatch(setCurrentPlayer(response.data))
         } catch {
         }
     }
@@ -128,7 +129,7 @@ export const deletePlayer = createAsyncThunk(
     'player/deletePlayer',
     async function (id: number, {dispatch}) {
         try {
-            const response: responsAddTeam = await instance.delete<addTeamType>('/api/Team/Delete', {
+            const response: responsAddTeam = await instance.delete<addTeamType>('/api/Player/Delete', {
                 headers: {
                     'Authorization': `Bearer  ${token()}`
                 },
@@ -185,7 +186,20 @@ const initialState = {
     page: 0,
     size: 0,
     positions: [],
-    isFetching: false
+    isFetching: false,
+    currentPlayer: {
+        name: '',
+        number: 0,
+        position: '',
+        team: 0,
+        birthday: '',
+        height: 0,
+        weight: 0,
+        avatarUrl: '',
+        id: 0,
+        teamName: ''
+
+    },
 }
 
 
@@ -198,12 +212,16 @@ export const playerSlice = createSlice({
             state.page = action.payload.page
             state.size = action.payload.size
             state.data = action.payload.data
-
         },
         setPositions(state, action) {
             console.log(action.payload)
             state.positions = action.payload
-        }
+        },
+        setCurrentPlayer(state, action) {
+            state.currentPlayer = action.payload
+        },
+
+
     },
     extraReducers: builder => {
         builder.addCase(getPositions.pending, (state, action) => {
@@ -213,10 +231,16 @@ export const playerSlice = createSlice({
             state.isFetching = false
         })
         builder.addCase(getPlayers.pending, (state, action) => {
-            //state.isFetching = true
+            state.isFetching = true
         })
         builder.addCase(getPlayers.fulfilled, (state, action) => {
-            //state.isFetching = false
+            state.isFetching = false
+        })
+        builder.addCase(getPlayer.pending, (state, action) => {
+            state.isFetching = true
+        })
+        builder.addCase(getPlayer.fulfilled, (state, action) => {
+            state.isFetching = false
         })
 
     },
@@ -224,5 +248,5 @@ export const playerSlice = createSlice({
 
 export const PlayersSliceConst = playerSlice.reducer
 
-export const {setPositions, setPlayers} = playerSlice.actions;
+export const {setPositions, setPlayers, setCurrentPlayer} = playerSlice.actions;
 

@@ -18,6 +18,7 @@ export const AddPlayersForm = () => {
     useEffect(() => {
         dispatch(getPositions())
         dispatch(getTeams())
+
     }, [dispatch])
     const onSubmit: SubmitHandler<AddPlayersFormType> = data => {
         // @ts-ignore
@@ -26,7 +27,7 @@ export const AddPlayersForm = () => {
         dispatch(addImagePlayer(data))
     };
 
-
+    console.log()
 
 
     const checkFile = () => {
@@ -39,11 +40,11 @@ export const AddPlayersForm = () => {
     }
 
     const file = watch()
+    console.log(watch())
     return (
         <form className={atf.container} onSubmit={handleSubmit(onSubmit)}>
             <div className={atf.testWrapper}>
                 <div className={atf.inputFile_wrapper}>
-
                     <input accept="image/*" id="imgInp" type="file" {...register("file", {required: true})}/>
                     <div className={atf.inputFile_bg}>
                     </div>
@@ -51,8 +52,11 @@ export const AddPlayersForm = () => {
                     <div className={atf.BGimg}
                          style={{backgroundImage: `url(${checkFile() ? URL.createObjectURL(file.file[0]) : ''})`}}>
                     </div>
+
                 </div>
+                {errors.file && <span className={atf.errorLabel}>Image is required</span>}
             </div>
+
             <div className='formWrapper'>
                 <div className='form-container'>
                     <label style={{marginTop: '0'}}> Name</label>
@@ -63,8 +67,9 @@ export const AddPlayersForm = () => {
                             className='input_form' {...register("position", {required: true})}>
                         <option className='default_option-in-select' style={{display: 'none'}} value="0">Select...
                         </option>
-                        {players.positions?.map((position) => <option value={position}>{position}</option>)}
+                        {players.positions?.map((position) => <option   value={position}>{position}</option>)}
                     </select>
+                    {errors.position || watch().position ==='0' ? <ErrorText>Position is required</ErrorText> : ''}
                     <label> Team</label>
 
                     <select style={{width: '100%'}} placeholder='Selected'
@@ -73,25 +78,30 @@ export const AddPlayersForm = () => {
                         </option>
                         {teams.map((team) => <option key={team.id}>{team.name}</option>)}
                     </select>
-
+                    {errors.team || watch().team ==='0' ? <ErrorText>Team is required</ErrorText> : ''}
                     <div className={atf.block_inputs}>
                         <div>
                             <label> Height (cm)</label>
                             <input  {...register("height", {required: true})} />
+                            {errors.height && <ErrorText>Height is required</ErrorText>}
                         </div>
                         <div>
                             <label> Weight (kg)</label>
                             <input className='input_form' {...register("weight", {required: true})} />
+                            {errors.weight && <ErrorText>Weight is required</ErrorText>}
+
                         </div>
                     </div>
                     <div className={atf.block_inputs}>
                         <div>
                             <label> Birthday</label>
                             <input type="date" {...register('birthday', {required: true})} />
+                            {errors.birthday && <ErrorText>Birthday is required</ErrorText>}
                         </div>
                         <div>
                             <label> Number</label>
                             <input type='number' className='input_form' {...register("number", {required: true})} />
+                            {errors.number && <ErrorText>Number is required</ErrorText>}
                         </div>
                     </div>
                     <div className={atf.buttons_block}>

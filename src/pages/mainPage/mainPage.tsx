@@ -9,6 +9,7 @@ import {AddPlayer} from '../../ui/addPlayer/addPlayer';
 import React from 'react';
 import {DetailsTeam} from "../../ui/detailsTeam/detailesTeam";
 import {UpdateTeam} from "../../ui/updateTeam/updateTeam";
+import { DetailsPlayer } from '../../ui/detailsPlayer/detailsPlayer';
 
 
 export const MainPage = React.memo( () => {
@@ -25,10 +26,12 @@ export const MainPage = React.memo( () => {
                 <Switch>
                     <Route path='/teams' exact render={() => <AllTeams/>}/>
                     <Route path='/teams/updateTeam:id'  render={() => <UpdateTeam/>}/>
+                    <Route path='/teams/updatePlayer:id'  render={() => <UpdateTeam/>}/>
                     <Route path='/teams/addteams'  render={() => <AddTeam/>}/>
                     <Route path='/players/addplayer'  render={() => <AddPlayer/>}/>
                     <Route path='/players' exact render={() => <AllPlayer/>}/>
                     <Route path={`/teams/:id`}  render={() => <DetailsTeam />}/>
+                    <Route path={`/players/:id`}  render={() => <DetailsPlayer />}/>
                 </Switch>
 
 

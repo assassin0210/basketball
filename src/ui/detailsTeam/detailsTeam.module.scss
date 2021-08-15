@@ -9,6 +9,7 @@
   flex-direction: column;
   align-items: center;
   position: relative;
+  transition: all 0.2s ease;
 }
 
 .teamInfo {
@@ -26,7 +27,15 @@
 
 
   }
-
+.playerInfo_content{
+  background: linear-gradient(276.45deg, #707070 0%, #393939 100.28%);
+  border-radius: 0 0 10px 10px;
+  height: 525px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
   .team_info_content {
     background: linear-gradient(276.45deg, #707070 0%, #393939 100.28%);
     border-radius: 0 0 10px 10px;
@@ -67,6 +76,24 @@
   }
 }
 
+.imageUrl_player_container {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  margin: 0 auto;
+  width: 531px;
+  height: 100%;
+  overflow: hidden;
+
+  img {
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+    right: 0;
+
+  }
+}
+
 .imageUrl_container {
   display: block;
   margin: 0 auto;
@@ -88,6 +115,9 @@
   padding: 20px 50px;
   height: 100%;
   flex-wrap: nowrap;
+  .currentPlayer_number{
+    color: var(--lightRed);
+  }
 
   h2 {
     font-weight: 800;

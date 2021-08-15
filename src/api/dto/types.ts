@@ -210,6 +210,22 @@ export interface PositionsType{
     4: "Guard"
 }
 
+
+export interface CurrentPlayer{
+
+    name: string,
+    number: 0,
+    position: string,
+    team: 0,
+    birthday: string,
+    height: 0,
+    weight: 0,
+    avatarUrl: string,
+    id: 0,
+    teamName: string
+
+}
+
 export interface PlayersSliceType{
     data: [
         {
