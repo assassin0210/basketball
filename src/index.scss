@@ -177,6 +177,7 @@ input, select {
 
 .formWrapper {
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -187,6 +188,7 @@ input, select {
     display: flex;
     flex-direction: column;
     width: 60%;
+    min-width: 361px;
 
     label {
       margin: 24px 0 8px 0;
@@ -357,4 +359,10 @@ input[type='file'] {
   }
 }
 
+input[type="date"]::-webkit-calendar-picker-indicator {
+
+  color: rgba(0, 0, 0, 0);
+  opacity: 1
+
+}
 

@@ -26,9 +26,6 @@ export const AddPlayer =()=>{
                    <p>Add new player</p>
                </div>
                <AddPlayersForm/>
-               <div onClick={()=>{}}>
-                   проверка ответа по позициям
-               </div>
            </div>
 
 

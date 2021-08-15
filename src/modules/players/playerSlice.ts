@@ -1,16 +1,12 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {instance, token} from "../../utils/utils";
 import {
-    AddTeamIType,
+    AddPlayersFormType,
     addTeamType,
-    getTeamType,
-    PlayersSliceType,
     PositionsType,
     responsAddTeam,
     TeamType
 } from "../../api/dto/types";
-
-
 
 
 export const getPositions = createAsyncThunk(
@@ -32,17 +28,17 @@ export const getPositions = createAsyncThunk(
 )
 
 
-
 export const getPlayers = createAsyncThunk(
     'player/getPlayers',
     async function (_, {dispatch}) {
         try {
-            const response = await instance.get<PositionsType>('/api/Team/GetTeams', {
+            const response = await instance.get<PositionsType>('/api/Player/GetPlayers', {
                 headers: {
                     'Authorization': `Bearer  ${token()}`
                 }
             })
 
+            dispatch(setPlayers(response.data))
 
 
         } catch {
@@ -54,7 +50,7 @@ export const getPlayers = createAsyncThunk(
 
 export const addImagePlayer = createAsyncThunk(
     'player/addImagePlayer',
-    async function (data: AddTeamIType, {dispatch}) {
+    async function (data: AddPlayersFormType, {dispatch}) {
         try {
             const file = data.file
             const formData = new FormData()
@@ -65,14 +61,17 @@ export const addImagePlayer = createAsyncThunk(
                     'Authorization': `Bearer  ${token()}`
                 }
             })
-            const team: TeamType = {
+            const player: AddPlayersFormType = {
                 name: `${data.name}`,
-                foundationYear: data.foundationYear,
-                division: `${data.division}`,
-                conference: `${data.conference}`,
-                imageUrl: `http://dev.trainee.dex-it.ru${response.data}`,
-                id: data.id
+                number: data.number,
+                position: `${data.position}`,
+                team: data.team,
+                birthday: `${data.birthday}`,
+                height: data.height,
+                weight: data.weight,
+                avatarUrl: `http://dev.trainee.dex-it.ru${response.data}`,
             }
+            dispatch(addPlayer(player))
 
 
         } catch {
@@ -82,14 +81,17 @@ export const addImagePlayer = createAsyncThunk(
 
 export const addPlayer = createAsyncThunk(
     'player/addPlayer',
-    async function (team: TeamType, {dispatch}) {
+    async function (player: AddPlayersFormType, {dispatch}) {
         try {
-            const response = await instance.post<addTeamType>('/api/Team/Add', {
-                "name": `${team.name}`,
-                "foundationYear": team.foundationYear,
-                "division": `${team.division}`,
-                "conference": `${team.conference}`,
-                "imageUrl": `${team.imageUrl}`
+            const response = await instance.post('/api/Player/Add', {
+                'name': `${player.name}`,
+                'number': player.number,
+                'position': `${player.position}`,
+                'team': player.team,
+                'birthday': `${player.birthday}`,
+                'height': player.height,
+                'weight': player.weight,
+                'avatarUrl': `http://dev.trainee.dex-it.ru${player.avatarUrl}`,
             }, {
                 headers: {
                     'Authorization': `Bearer  ${token()}`
@@ -165,14 +167,40 @@ export const updatePlayer = createAsyncThunk(
 )
 
 
-const initialState = {} as PlayersSliceType
+const initialState = {
+    data: [
+        {
+            name: '',
+            number: 0,
+            position: '',
+            team: 0,
+            birthday: '',
+            height: 0,
+            weight: 0,
+            avatarUrl: '',
+            id: 0
+        }
+    ],
+    count: 0,
+    page: 0,
+    size: 0,
+    positions: [],
+    isFetching: false
+}
 
 
 export const playerSlice = createSlice({
     name: 'teams',
     initialState,
     reducers: {
-        setPositions(state,action){
+        setPlayers(state, action) {
+            state.count = action.payload.count
+            state.page = action.payload.page
+            state.size = action.payload.size
+            state.data = action.payload.data
+
+        },
+        setPositions(state, action) {
             console.log(action.payload)
             state.positions = action.payload
         }
@@ -184,11 +212,17 @@ export const playerSlice = createSlice({
         builder.addCase(getPositions.fulfilled, (state, action) => {
             state.isFetching = false
         })
+        builder.addCase(getPlayers.pending, (state, action) => {
+            //state.isFetching = true
+        })
+        builder.addCase(getPlayers.fulfilled, (state, action) => {
+            //state.isFetching = false
+        })
 
     },
 })
 
 export const PlayersSliceConst = playerSlice.reducer
 
-export const {setPositions} = playerSlice.actions;
+export const {setPositions, setPlayers} = playerSlice.actions;
 

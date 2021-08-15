@@ -62,13 +62,26 @@ export interface teamsSliceType {
             imageUrl?: string | null,
             id?: string | null,
         }
-    ],
+    ] [] | undefined,
     count: string | null,
     page: string | null,
     size: string | null,
     status:null|boolean|string
     isFetching: boolean,
     currentTeam: null | number
+}
+
+export interface  DataTypeSubmin {
+    data: [
+        {
+            name?: string | null,
+            foundationYear?: string | null,
+            division?: string | null,
+            conference?: string | null,
+            imageUrl?: string | null,
+            id?: string | null,
+        }
+    ],
 }
 export interface getTeamType {
     data: [
@@ -119,6 +132,19 @@ export interface AddTeamIType {
     id?: string|number
 
 }
+export interface AddPlayersFormType {
+    name: string,
+    number: 0,
+    position: string,
+    team: number | string ,
+    birthday: string,
+    height: 0,
+    weight: 0,
+    avatarUrl?: string
+    file?: any,
+    id?:number,
+
+}
 
 
 export type onSubmitDataFormTypes = {
@@ -143,6 +169,11 @@ export type MenuPropType={
     playersMod:boolean
 
 }
+
+
+
+
+
 export interface InitialStateTeam{
 
     data: [
@@ -183,14 +214,14 @@ export interface PlayersSliceType{
     data: [
         {
             name: string,
-            "number": 0,
+            number: 0,
             position: string,
-            "team": 0,
-            "birthday": string,
-            "height": 0,
-            "weight": 0,
-            "avatarUrl": string,
-            "id": 0
+            team: 0,
+            birthday: string,
+            height: 0,
+            weight: 0,
+            avatarUrl: string,
+            id: 0
         }
     ],
     count: 0,

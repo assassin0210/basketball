@@ -1,6 +1,6 @@
 import dt from './detailsTeam.module.scss'
 import {useDispatch, useSelector} from "react-redux";
-import {RootState, teamsSliceType} from "../../api/dto/types";
+import {RootState} from "../../api/dto/types";
 import {DeleteTeam} from "../../assets/icon/deleteTeam";
 import {useHistory, useParams} from "react-router";
 import {getTeam} from '../../modules/teams/teamsSlice';

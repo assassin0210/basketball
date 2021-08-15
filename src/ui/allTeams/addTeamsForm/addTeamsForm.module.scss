@@ -2,11 +2,14 @@
   display: inline-grid;
   grid-template-columns: 1fr 1fr;
   width: 100%;
+  align-items: flex-start;
+  margin-top: 48px;
 }
 .testWrapper{
   display: flex;
   align-items: center;
   justify-content: center;
+
 }
 
 .inputFile_wrapper {
@@ -95,4 +98,17 @@
     line-height: 24px;
 
   }
+}
+.block_inputs{
+
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr;
+  input{
+    width: 100%;
+  }
+  input[type='data']{
+    display: block;
+    width: 100%;
+  }
+  gap: 24px;
 }

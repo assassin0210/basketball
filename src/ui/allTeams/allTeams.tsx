@@ -2,7 +2,7 @@ import at from './allTeams.module.scss'
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getTeams} from '../../modules/teams/teamsSlice';
-import {RootState, StateType, teamsSliceType, TeamType} from '../../api/dto/types';
+import {RootState, teamsSliceType, TeamType} from '../../api/dto/types';
 import {Search} from "../../assets/icon/search";
 import {MissingTeams} from '../teamCard/missingTeams';
 import {useHistory} from "react-router";
@@ -15,9 +15,8 @@ export const AllTeams = React.memo( () => {
 
     const teams = useSelector((state: RootState & teamsSliceType) => state.teams)
     const dispatch = useDispatch()
-    const history = useHistory()
 
-    const isFetching = useSelector<StateType>(state => state.teams.isFetching)
+    const history = useHistory()
 
     useEffect(() => {
         dispatch(getTeams())
@@ -37,7 +36,7 @@ export const AllTeams = React.memo( () => {
                        type="submit"/>
             </div>
 
-            {isFetching &&  <Preloader/>}
+            {teams.isFetching &&  <Preloader/>}
             {teams.count === 0 ? <MissingTeams/> : <div className={at.contentWrapper}>
                 {teams.data.map((team: TeamType) => <TeamCard key={team.id}
                                                               name={team.name}

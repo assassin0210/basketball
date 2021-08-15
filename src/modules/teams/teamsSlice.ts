@@ -1,6 +1,7 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {instance, token} from "../../utils/utils";
 import {AddTeamIType, addTeamType, getTeamType, responsAddTeam, TeamType} from "../../api/dto/types";
+import {getPlayers} from "../players/playerSlice";
 
 
 
@@ -15,6 +16,7 @@ export const getTeams = createAsyncThunk(
                 }
             })
             dispatch(setTeams(response.data))
+            dispatch(getPlayers())
 
         } catch {
 

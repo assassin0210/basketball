@@ -1,30 +1,33 @@
 import {SubmitHandler, useForm} from "react-hook-form";
-import {AddTeamIType, RootState, } from "../../api/dto/types";
+import {AddPlayersFormType, getTeamType, RootState,} from "../../api/dto/types";
 import atf from "../allTeams/addTeamsForm/addTeamsForm.module.scss";
 import {AddPhotoIcon} from "../../assets/icon/addPhotoIcon";
 import React, {useEffect} from "react";
 import {ErrorText} from "../errorText/errorText";
 import {ButtonCancel} from "../buttons/buttonCatcel";
 import {useDispatch, useSelector} from "react-redux";
-import {getPositions} from "../../modules/players/playerSlice";
-import {SelectStyle} from "../selectStyle/selectStyle";
-import Calendar from 'react-calendar'
-import { CalendarUi } from "../calendarUi/calendarUi";
-
-
+import {addImagePlayer, getPositions} from "../../modules/players/playerSlice";
+import {getTeams} from "../../modules/teams/teamsSlice";
 
 
 export const AddPlayersForm = () => {
     const players = useSelector((state: RootState) => state.players)
-    const {register, handleSubmit, watch, formState: {errors}} = useForm<AddTeamIType>();
+    const teams = useSelector((state: RootState & getTeamType) => state.teams.data)
+    const {register, handleSubmit, watch, formState: {errors}} = useForm<AddPlayersFormType>();
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getPositions())
+        dispatch(getTeams())
     }, [dispatch])
-
-    const onSubmit: SubmitHandler<AddTeamIType> = data => {
-
+    const onSubmit: SubmitHandler<AddPlayersFormType> = data => {
+        // @ts-ignore
+        const teamId = teams.find(team => team.name === data.team).id
+        data.team =teamId
+        dispatch(addImagePlayer(data))
     };
+
+
+
 
     const checkFile = () => {
         if (!file.file) {
@@ -36,11 +39,11 @@ export const AddPlayersForm = () => {
     }
 
     const file = watch()
-
     return (
         <form className={atf.container} onSubmit={handleSubmit(onSubmit)}>
             <div className={atf.testWrapper}>
                 <div className={atf.inputFile_wrapper}>
+
                     <input accept="image/*" id="imgInp" type="file" {...register("file", {required: true})}/>
                     <div className={atf.inputFile_bg}>
                     </div>
@@ -52,31 +55,45 @@ export const AddPlayersForm = () => {
             </div>
             <div className='formWrapper'>
                 <div className='form-container'>
-                    <label> Name</label>
+                    <label style={{marginTop: '0'}}> Name</label>
                     <input className='input_form' {...register("name", {required: true})} />
                     {errors.name && <ErrorText>Name is required</ErrorText>}
-                    <label> Division</label>
-
+                    <label> Position</label>
                     <select style={{width: '100%'}} placeholder='Selected'
-                            className='input_form' {...register("division", {required: true})}>
+                            className='input_form' {...register("position", {required: true})}>
                         <option className='default_option-in-select' style={{display: 'none'}} value="0">Select...
                         </option>
-                        <SelectStyle/>
                         {players.positions?.map((position) => <option value={position}>{position}</option>)}
                     </select>
-                    {errors.division && <ErrorText>Division is required</ErrorText>}
-                    <label> Conference</label>
-                    <input type='data'  {...register("conference", {required: true})} />
-                    <CalendarUi/>
-                    {errors.conference && <ErrorText>Conference is required</ErrorText>}
-                    <label> Year of foundation</label>
-                    <input type='number' className='input_form'  {...register("foundationYear", {
-                        required: true,
-                        min: 0,
-                        max: 2022
-                    })} />
-                    {errors.foundationYear &&
-                    <ErrorText>Foundation year cannot be higher than 2022 or absent</ErrorText>}
+                    <label> Team</label>
+
+                    <select style={{width: '100%'}} placeholder='Selected'
+                            className='input_form' {...register("team", {required: true})}>
+                        <option className='default_option-in-select' style={{display: 'none'}} value="0">Select...
+                        </option>
+                        {teams.map((team) => <option key={team.id}>{team.name}</option>)}
+                    </select>
+
+                    <div className={atf.block_inputs}>
+                        <div>
+                            <label> Height (cm)</label>
+                            <input  {...register("height", {required: true})} />
+                        </div>
+                        <div>
+                            <label> Weight (kg)</label>
+                            <input className='input_form' {...register("weight", {required: true})} />
+                        </div>
+                    </div>
+                    <div className={atf.block_inputs}>
+                        <div>
+                            <label> Birthday</label>
+                            <input type="date" {...register('birthday', {required: true})} />
+                        </div>
+                        <div>
+                            <label> Number</label>
+                            <input type='number' className='input_form' {...register("number", {required: true})} />
+                        </div>
+                    </div>
                     <div className={atf.buttons_block}>
                         <ButtonCancel/>
                         <input value='Save' className='red-button' type="submit"/>
