@@ -19,16 +19,15 @@ export const Routes: FC = React.memo(() => {
     return (
         <Switch>
             {localStorage.getItem('token')
-                ? Object.values(routes).filter((item) => item.type === 'private').map((item) => (
-                    <>
-                        <Header/>
-                        <div className={mp.main_container_children}>
-                            <Menu/>
+                ? <>
+                    <Header/>
+                    <div className={mp.main_container_children}>
+                        <Menu/>
+                        {Object.values(routes).filter((item) => item.type === 'private').map((item) => (
                             <Route exact path={item.path} component={item.component}/>
-                        </div>
-                    </>
-
-                ))
+                        ))}
+                    </div>
+                </>
                 : Object.values(routes).filter((item) => item.type === 'public')
                     .map((item) => (
                         <Route path={item.path} component={item.component}/>
@@ -52,6 +51,16 @@ const routes = {
         component: SingUp,
         type: 'public',
 
+    },
+    detailsTeam: {
+        path: '/teams/:id',
+        component: DetailsTeam,
+        type: 'private',
+    },
+    detailsPlayer: {
+        path: '/players/:id',
+        component: DetailsPlayer,
+        type: 'private',
     },
     allPlayer: {
         path: '/players',
@@ -81,16 +90,7 @@ const routes = {
         component: AddTeam,
         type: 'private',
     },
-    detailsTeam: {
-        path: '/teams/:id',
-        component: DetailsTeam,
-        type: 'private',
-    },
-    detailsPlayer: {
-        path: '/players/:id',
-        component: DetailsPlayer,
-        type: 'private',
-    },
+
 
 }
 
