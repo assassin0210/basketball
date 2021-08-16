@@ -25,6 +25,8 @@ export const SingInForm = () => {
 
     const onSubmit: SubmitHandler<InputsSingIn> = (data) => {
         dispatch(login(data))
+        localStorage.clear()
+        history.push('/teams')
     };
     return (
         <form onSubmit={handleSubmit(onSubmit)}>

@@ -24,7 +24,7 @@ export const Menu = React.memo(() => {
     const checkLocation = () => {
         if (location.pathname ===( "/players")) {
             return true
-        } else if (location.pathname === "/players/addplayer") {
+        } else if (location.pathname === "/players/addPlayer") {
             return true
         }else if (location.pathname === "/players/") {
             return true

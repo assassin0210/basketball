@@ -42,7 +42,7 @@ export const DetailsTeam = () => {
                         <span className={dt.goBack} onClick={() => history.push('/teams')}>Team
                         </span> <p> / </p> {currentTeam.name}  </div>
                     <div className={dt.iconBlock}>
-                        <Update id={params.id}/>
+                        <Update handleUpdate={handleUpdate}/>
                         <DeleteTeam handleDelete={handleDelete}/>
                     </div>
                 </div>

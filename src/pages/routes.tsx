@@ -16,27 +16,24 @@ import {AllPlayer} from "../ui/allPlayers/allPlayer";
 
 
 export const Routes: FC = React.memo(() => {
-    return (
-        <Switch>
-            {localStorage.getItem('token')
-                ? <>
-                    <Header/>
-                    <div className={mp.main_container_children}>
-                        <Menu/>
-                        {Object.values(routes).filter((item) => item.type === 'private').map((item) => (
-                            <Route exact strict path={item.path} component={item.component}/>
-                        ))}
-                    </div>
-                </>
-                : Object.values(routes).filter((item) => item.type === 'public')
+    return <>
+        <Header/>
+        <div className={mp.main_container_children}>
+            <Menu/>
+            <Switch>
+                {Object.values(routes).filter((item) => item.type === 'private').map((item) => (
+                    <Route exact strict path={item.path} component={item.component}/>
+                ))}
+                {Object.values(routes).filter((item) => item.type === 'public')
                     .map((item) => (
                         <Route exact path={item.path} component={item.component}/>
                     ))}
-            <Redirect to={localStorage.getItem('token')
-                ? routes.singIn.path
-                : routes.allTeams.path}/>
-        </Switch>
-    )
+
+            </Switch>
+            <Redirect to={localStorage.getItem('token') ? routes.singIn.path : routes.allTeams.path}/>
+        </div>
+
+    </>
 })
 
 
@@ -50,16 +47,25 @@ const routes = {
         path: '/singUp',
         component: SingUp,
         type: 'public',
-
-    },
-    updateTeam: {
-        path: '/teams/updateTeam:id',
-        component: UpdateTeam,
-        type: 'private',
     },
     addTeam: {
-        path: '/teams/addteams',
+        path: '/teams/addTeams',
         component: AddTeam,
+        type: 'private',
+    },
+    addPlayer: {
+        path: '/players/addPlayer',
+        component: AddPlayer,
+        type: 'private',
+    },
+    allPlayer: {
+        path: '/players',
+        component: AllPlayer,
+        type: 'private',
+    },
+    allTeams: {
+        path: '/teams',
+        component: AllTeams,
         type: 'private',
     },
     detailsTeam: {
@@ -72,19 +78,9 @@ const routes = {
         component: DetailsPlayer,
         type: 'private',
     },
-    addPlayer: {
-        path: '/players/addplayer',
-        component: AddPlayer,
-        type: 'private',
-    },
-    allPlayer: {
-        path: '/players',
-        component: AllPlayer,
-        type: 'private',
-    },
-    allTeams: {
-        path: '/teams',
-        component: AllTeams,
+    updateTeam: {
+        path: '/teams/updateTeam:id',
+        component: UpdateTeam,
         type: 'private',
     },
 }

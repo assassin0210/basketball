@@ -22,7 +22,7 @@ export const AllTeams = React.memo( () => {
         dispatch(getTeams())
     }, [dispatch])
 
-    const handleHistoryPush=()=>history.push('/teams/addteams')
+    const handleHistoryPush=()=>history.push('/teams/addTeams')
 
     return (
         <div className={at.allTeams_container}>
