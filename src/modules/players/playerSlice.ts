@@ -1,8 +1,8 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {instance, token} from "../../utils/utils";
+import {instance} from "../../api/baseRequest";
 import {
     AddPlayersFormType,
-    addTeamType, CurrentPlayer,
+    addTeamType,
     PositionsType,
     responsAddTeam,
     TeamType
@@ -15,7 +15,6 @@ export const getPositions = createAsyncThunk(
         try {
             const response = await instance.get<PositionsType>('/api/Player/GetPositions', {
                 headers: {
-                    'Authorization': `Bearer  ${token()}`,
                     'accept': '*/*',
                 }
             })
@@ -33,9 +32,6 @@ export const getPlayers = createAsyncThunk(
     async function (_, {dispatch}) {
         try {
             const response = await instance.get<PositionsType>('/api/Player/GetPlayers', {
-                headers: {
-                    'Authorization': `Bearer  ${token()}`
-                }
             })
 
             dispatch(setPlayers(response.data))
@@ -58,7 +54,6 @@ export const addImagePlayer = createAsyncThunk(
             const response = await instance.post<string>('/api/Image/SaveImage', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer  ${token()}`
                 }
             })
             const player: AddPlayersFormType = {
@@ -93,11 +88,7 @@ export const addPlayer = createAsyncThunk(
                 'height': player.height,
                 'weight': player.weight,
                 'avatarUrl': `${player.avatarUrl}`,
-            }, {
-                headers: {
-                    'Authorization': `Bearer  ${token()}`
-                }
-            })
+            },)
 
         } catch {
 
@@ -111,9 +102,6 @@ export const getPlayer = createAsyncThunk(
     async function (id: number, {dispatch}) {
         try {
             const response: responsAddTeam = await instance.get<addTeamType>('/api/Player/Get', {
-                headers: {
-                    'Authorization': `Bearer  ${token()}`
-                },
                 params: {
                     id: id
                 }
@@ -130,9 +118,6 @@ export const deletePlayer = createAsyncThunk(
     async function (id: number, {dispatch}) {
         try {
             const response: responsAddTeam = await instance.delete<addTeamType>('/api/Player/Delete', {
-                headers: {
-                    'Authorization': `Bearer  ${token()}`
-                },
                 params: {
                     id: id
                 }
@@ -155,11 +140,7 @@ export const updatePlayer = createAsyncThunk(
                 "conference": `${team.conference}`,
                 "imageUrl": `${team.imageUrl}`,
                 "id": team.id
-            }, {
-                headers: {
-                    'Authorization': `Bearer  ${token()}`
-                }
-            })
+            }, )
 
         } catch {
 

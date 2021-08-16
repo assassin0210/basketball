@@ -9,33 +9,28 @@ import {AddPlayer} from '../../ui/addPlayer/addPlayer';
 import React from 'react';
 import {DetailsTeam} from "../../ui/detailsTeam/detailesTeam";
 import {UpdateTeam} from "../../ui/updateTeam/updateTeam";
-import { DetailsPlayer } from '../../ui/detailsPlayer/detailsPlayer';
+import {DetailsPlayer} from '../../ui/detailsPlayer/detailsPlayer';
 
 
-export const MainPage = React.memo( () => {
-
-
-
-
+export const MainPage = () => {
     return (
         <div className={mp.main_container}>
             <Header/>
             <div className={mp.main_container_children}>
                 <Menu/>
-
                 <Switch>
-                    <Route path='/teams' exact render={() => <AllTeams/>}/>
-                    <Route path='/teams/updateTeam:id'  render={() => <UpdateTeam/>}/>
-                    <Route path='/teams/updatePlayer:id'  render={() => <UpdateTeam/>}/>
-                    <Route path='/teams/addteams'  render={() => <AddTeam/>}/>
-                    <Route path='/players/addplayer'  render={() => <AddPlayer/>}/>
-                    <Route path='/players' exact render={() => <AllPlayer/>}/>
-                    <Route path={`/teams/:id`}  render={() => <DetailsTeam />}/>
-                    <Route path={`/players/:id`}  render={() => <DetailsPlayer />}/>
+                    <Route path='/teams'  render={() => <AllTeams/>}/>
+                    <Route path='/teams/updateTeam:id' render={() => <UpdateTeam/>}/>
+                    <Route path='/players'  render={() => <AllPlayer/>}/>
+                    <Route path='/players/addplayer' render={() => <AddPlayer/>}/>
+                    <Route path='/teams/addteams' exact render={() => <AddTeam/>}/>
+                    <Route path={`/teams/:id`} render={() => <DetailsTeam/>}/>
+                    <Route path={`/players/:id`} render={() => <DetailsPlayer/>}/>
+                    <Route path='/teams/updatePlayer:id' render={() => <UpdateTeam/>}/>
                 </Switch>
 
 
             </div>
         </div>
     )
-})
+}

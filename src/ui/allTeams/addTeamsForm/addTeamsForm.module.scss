@@ -13,6 +13,19 @@
   padding: 0;
 
 }
+
+.errorLabelPosition,.errorLabelTeam  {
+  margin-top: 5px;
+  color: var(--lightestRed);
+  font-weight: 500;
+  font-size: 12px;
+  padding: 0;
+  position: absolute;
+  left: 0;
+  bottom: -19px;
+}
+
+
 .testWrapper{
   display: flex;
   align-items: center;

@@ -2,34 +2,37 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import {AddPlayersFormType, getTeamType, RootState,} from "../../api/dto/types";
 import atf from "../allTeams/addTeamsForm/addTeamsForm.module.scss";
 import {AddPhotoIcon} from "../../assets/icon/addPhotoIcon";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {ErrorText} from "../errorText/errorText";
 import {ButtonCancel} from "../buttons/buttonCatcel";
 import {useDispatch, useSelector} from "react-redux";
 import {addImagePlayer, getPositions} from "../../modules/players/playerSlice";
 import {getTeams} from "../../modules/teams/teamsSlice";
 
-
 export const AddPlayersForm = () => {
     const players = useSelector((state: RootState) => state.players)
     const teams = useSelector((state: RootState & getTeamType) => state.teams.data)
     const {register, handleSubmit, watch, formState: {errors}} = useForm<AddPlayersFormType>();
     const dispatch = useDispatch()
+    const [inputPosition, setInputPosition] = useState(false)
+
     useEffect(() => {
         dispatch(getPositions())
         dispatch(getTeams())
 
-    }, [dispatch])
+    }, [dispatch,inputPosition])
     const onSubmit: SubmitHandler<AddPlayersFormType> = data => {
         // @ts-ignore
         const teamId = teams.find(team => team.name === data.team).id
-        data.team =teamId
+        data.team = teamId
         dispatch(addImagePlayer(data))
+
+            setInputPosition(!inputPosition)
     };
 
-    console.log()
 
 
+    const file = watch()
     const checkFile = () => {
         if (!file.file) {
             return false
@@ -39,8 +42,7 @@ export const AddPlayersForm = () => {
         return true
     }
 
-    const file = watch()
-    console.log(watch())
+
     return (
         <form className={atf.container} onSubmit={handleSubmit(onSubmit)}>
             <div className={atf.testWrapper}>
@@ -63,22 +65,32 @@ export const AddPlayersForm = () => {
                     <input className='input_form' {...register("name", {required: true})} />
                     {errors.name && <ErrorText>Name is required</ErrorText>}
                     <label> Position</label>
-                    <select style={{width: '100%'}} placeholder='Selected'
-                            className='input_form' {...register("position", {required: true})}>
-                        <option className='default_option-in-select' style={{display: 'none'}} value="0">Select...
-                        </option>
-                        {players.positions?.map((position) => <option   value={position}>{position}</option>)}
-                    </select>
-                    {errors.position || watch().position ==='0' ? <ErrorText>Position is required</ErrorText> : ''}
+                    <div style={{position:'relative'}}>
+
+                       <select style={{width: '100%'}} placeholder='Selected'
+                                className='input_form' {...register("position", {required: true})}>
+                            <option className='default_option-in-select' style={{display: 'none'}} >Select...
+                            </option>
+                            {players.positions?.map((position) => <option value={position}>{position}</option>)}
+                        </select>
+
+
+                        {errors.position &&<span className={atf.errorLabelPosition}>Position is required</span>}
+                    </div>
+
+
+
                     <label> Team</label>
 
                     <select style={{width: '100%'}} placeholder='Selected'
                             className='input_form' {...register("team", {required: true})}>
-                        <option className='default_option-in-select' style={{display: 'none'}} value="0">Select...
+
+                        <option className='default_option-in-select' style={{display: 'none'}} >Select...
                         </option>
                         {teams.map((team) => <option key={team.id}>{team.name}</option>)}
                     </select>
-                    {errors.team || watch().team ==='0' ? <ErrorText>Team is required</ErrorText> : ''}
+
+                    { errors.team?  <ErrorText>Team is required</ErrorText> : '' }
                     <div className={atf.block_inputs}>
                         <div>
                             <label> Height (cm)</label>

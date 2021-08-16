@@ -2,7 +2,7 @@ import {ErrorText} from "../errorText/errorText";
 import si from "../../pages/singIn/singIn.module.scss";
 import {login, autSliceConst} from "../../modules/autorization/authSlice";
 import {Link, useHistory} from "react-router-dom";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {RootStateOrAny, useDispatch, useSelector} from "react-redux";
 import {InputsSingIn} from "../../api/dto/types";
@@ -10,21 +10,14 @@ import {ShowPassword} from "../../assets/icon/showPassword";
 import {HidePassword} from "../../assets/icon/hidePassword";
 
 
-export const SingInForm = React.memo(() => {
+export const SingInForm = () => {
 
     const {register, handleSubmit, formState: {errors}} = useForm<InputsSingIn>({mode: "onSubmit"});
     const [showPass, setShowPass] = useState(false)
     const showError = useSelector((state: typeof autSliceConst & RootStateOrAny) => state.auth.showError)
-    const auth = useSelector((state: typeof autSliceConst & RootStateOrAny) => state.auth.isAuth)
     const preloader = useSelector((state: typeof autSliceConst & RootStateOrAny) => state.auth.isLoading)
     const dispatch = useDispatch()
     const history = useHistory()
-
-    useEffect(() => {
-        if (auth) {
-             history.push('/teams')
-        }
-    }, [auth, history])
 
     const showPassHandler = () => {
         setShowPass(!showPass)
@@ -63,6 +56,6 @@ export const SingInForm = React.memo(() => {
             <span className='error_message_login'>User with the specified username / password was not found.</span>}
         </form>
     )
-})
+}
 
 

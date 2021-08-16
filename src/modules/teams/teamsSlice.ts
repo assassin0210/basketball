@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {instance, token} from "../../utils/utils";
 import {AddTeamIType, addTeamType, getTeamType, responsAddTeam, TeamType} from "../../api/dto/types";
 import {getPlayers} from "../players/playerSlice";
+import { instance } from "../../api/baseRequest";
 
 
 
@@ -11,9 +11,6 @@ export const getTeams = createAsyncThunk(
         try {
 
             const response = await instance.get<getTeamType>('/api/Team/GetTeams', {
-                headers: {
-                    'Authorization': `Bearer  ${token()}`
-                }
             })
             dispatch(setTeams(response.data))
             dispatch(getPlayers())
@@ -34,7 +31,6 @@ export const addImage = createAsyncThunk(
             const response = await instance.post<string>('/api/Image/SaveImage', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer  ${token()}`
                 }
             })
             const team: TeamType = {
@@ -63,11 +59,9 @@ export const addTeam = createAsyncThunk(
                 "division": `${team.division}`,
                 "conference": `${team.conference}`,
                 "imageUrl": `${team.imageUrl}`
-            }, {
-                headers: {
-                    'Authorization': `Bearer  ${token()}`
-                }
-            })
+            },
+
+            )
 
         } catch {
 
@@ -81,9 +75,6 @@ export const getTeam = createAsyncThunk(
     async function (id: number, {dispatch}) {
         try {
             const response: responsAddTeam = await instance.get<addTeamType>('/api/Team/Get', {
-                headers: {
-                    'Authorization': `Bearer  ${token()}`
-                },
                 params: {
                     id: id
                 }
@@ -100,9 +91,6 @@ export const deleteTeam = createAsyncThunk(
     async function (id: number, {dispatch}) {
         try {
             const response: responsAddTeam = await instance.delete<addTeamType>('/api/Team/Delete', {
-                headers: {
-                    'Authorization': `Bearer  ${token()}`
-                },
                 params: {
                     id: id
                 }
@@ -125,11 +113,7 @@ export const updateTeam = createAsyncThunk(
                 "conference": `${team.conference}`,
                 "imageUrl": `${team.imageUrl}`,
                 "id": team.id
-            }, {
-                headers: {
-                    'Authorization': `Bearer  ${token()}`
-                }
-            })
+            }, )
 
         } catch {
 

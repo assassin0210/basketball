@@ -1,6 +1,4 @@
 import menu from './menu.module.scss'
-import {useDispatch} from "react-redux";
-import {logOut} from '../../modules/autorization/authSlice';
 import {useHistory, useLocation} from "react-router";
 import {OnePerson} from '../../assets/icon/onePerson';
 import {TwoPersons} from '../../assets/icon/TwoPersons';
@@ -8,10 +6,8 @@ import {SingOut} from '../../assets/icon/singOut';
 import React from 'react';
 
 export const Menu = React.memo(() => {
-    const dispatch = useDispatch()
     const history = useHistory()
     let location = useLocation()
-
 
     const toggleSetTeamsMod = () => {
         history.push('/teams')
@@ -21,10 +17,9 @@ export const Menu = React.memo(() => {
     }
 
     const handleExit = () => {
-        dispatch(logOut())
+        localStorage.clear()
         history.push('/singIn')
     }
-
 
     const checkLocation = () => {
         if (location.pathname ===( "/players")) {

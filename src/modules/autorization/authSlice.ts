@@ -1,5 +1,5 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {instance} from "../../utils/utils";
+import {instance} from "../../api/baseRequest";
 import {authSliceType, onSubmitDataFormType, UserType} from "../../api/dto/types";
 import {RootStateOrAny} from "react-redux";
 
@@ -57,11 +57,6 @@ const  authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-
-        logOut(state: RootStateOrAny, ) {
-            localStorage.clear()
-            state.isAuth = false
-        },
         authFailed(state: RootStateOrAny,) {
             state.showError = true
         },
@@ -95,5 +90,5 @@ const  authSlice = createSlice({
 export const autSliceConst = authSlice.reducer
 
 
-export const { logOut, authFailed, isLoading} = authSlice.actions;
+export const { authFailed, isLoading} = authSlice.actions;
 
