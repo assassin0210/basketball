@@ -24,13 +24,13 @@ export const Routes: FC = React.memo(() => {
                     <div className={mp.main_container_children}>
                         <Menu/>
                         {Object.values(routes).filter((item) => item.type === 'private').map((item) => (
-                            <Route exact path={item.path} component={item.component}/>
+                            <Route exact strict path={item.path} component={item.component}/>
                         ))}
                     </div>
                 </>
                 : Object.values(routes).filter((item) => item.type === 'public')
                     .map((item) => (
-                        <Route path={item.path} component={item.component}/>
+                        <Route exact path={item.path} component={item.component}/>
                     ))}
             <Redirect to={localStorage.getItem('token')
                 ? routes.singIn.path
@@ -52,6 +52,16 @@ const routes = {
         type: 'public',
 
     },
+    updateTeam: {
+        path: '/teams/updateTeam:id',
+        component: UpdateTeam,
+        type: 'private',
+    },
+    addTeam: {
+        path: '/teams/addteams',
+        component: AddTeam,
+        type: 'private',
+    },
     detailsTeam: {
         path: '/teams/:id',
         component: DetailsTeam,
@@ -60,6 +70,11 @@ const routes = {
     detailsPlayer: {
         path: '/players/:id',
         component: DetailsPlayer,
+        type: 'private',
+    },
+    addPlayer: {
+        path: '/players/addplayer',
+        component: AddPlayer,
         type: 'private',
     },
     allPlayer: {
@@ -72,27 +87,4 @@ const routes = {
         component: AllTeams,
         type: 'private',
     },
-
-
-    updateTeam: {
-        path: '/teams/updateTeam:id',
-        component: UpdateTeam,
-        type: 'private',
-    },
-
-    addPlayer: {
-        path: '/players/addplayer',
-        component: AddPlayer,
-        type: 'private',
-    },
-    addTeam: {
-        path: '/teams/addteams',
-        component: AddTeam,
-        type: 'private',
-    },
-
-
 }
-
-
-
