@@ -1,11 +1,10 @@
 import ap from './addPlayer.module.scss'
-import {useDispatch, useSelector} from "react-redux";
+import { useSelector} from "react-redux";
 import {StateType} from "../../api/dto/types";
-import {Preloader} from "../preloader/preloader";
-import React, {useEffect} from "react";
+import {Preloader} from "../../ui/preloader/preloader";
+import React from "react";
 import {useHistory} from "react-router";
-import { getPositions } from '../../modules/players/playerSlice';
-import { AddPlayersForm } from '../addPlayerForm/addPlayersForm';
+import { AddPlayersForm } from '../../ui/addPlayerForm/addPlayersForm';
 
 
 export const AddPlayer =()=>{

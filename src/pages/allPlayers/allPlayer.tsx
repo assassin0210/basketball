@@ -1,24 +1,29 @@
 import ap from './allPlayers.module.scss'
 import {Search} from "../../assets/icon/search";
 import React, {useEffect} from "react";
-import {Preloader} from "../preloader/preloader";
+import {Preloader} from "../../ui/preloader/preloader";
 import {useDispatch, useSelector} from "react-redux";
 import {PlayersSliceType, StateType} from "../../api/dto/types";
-import {MissingPlayers} from '../playerCard/missingPlayers';
+import {MissingPlayers} from '../../ui/playerCard/missingPlayers';
 import {useHistory} from "react-router";
-import {PlayerCard} from '../playerCard/playerCard';
-import {getTeams} from "../../modules/teams/teamsSlice";
+import {PlayerCard} from '../../ui/playerCard/playerCard';
+import { getPlayers } from '../../modules/players/playerThunk';
+import { getTeams } from '../../modules/teams/teamThunk';
 
 
-export const AllPlayer = React.memo(() => {
+export const AllPlayer = () => {
     const players: PlayersSliceType = useSelector((state: StateType) => state.players)
     const history = useHistory()
     const dispatch = useDispatch()
+
+
     useEffect(() => {
         dispatch(getTeams())
-    }, [dispatch])
+        dispatch(getPlayers())
 
-    const handleHistoryPush = () => history.push('/players/addplayer')
+    }, [])
+
+    const handleHistoryPush = () => history.push('/players/addPlayer')
 
     return (
         <div className={ap.container}>
@@ -49,4 +54,4 @@ export const AllPlayer = React.memo(() => {
                 <div>пагинация</div>
             </div>
         </div>)
-})
+}

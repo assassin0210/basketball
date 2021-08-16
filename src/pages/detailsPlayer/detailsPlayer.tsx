@@ -5,31 +5,33 @@ import {DeleteTeam} from "../../assets/icon/deleteTeam";
 import {useHistory, useParams} from "react-router";
 import {Update} from '../../assets/icon/update';
 import {useEffect} from "react";
-import {Preloader} from "../preloader/preloader";
-import {deletePlayer, getPlayer} from "../../modules/players/playerSlice";
+import {Preloader} from "../../ui/preloader/preloader";
+
 import React from 'react';
+import {deletePlayer, getPlayer } from '../../modules/players/playerThunk';
 
 
-export const DetailsPlayer = React.memo(() => {
+export const DetailsPlayer = () => {
     const dispatch = useDispatch()
     const params: { id: string } = useParams()
     const history = useHistory()
     const currentPlayer = useSelector((state: RootState) => state.players.currentPlayer)
     const isFetching = useSelector((state: RootState) => state.players.isFetching)
-    console.log(currentPlayer)
+
     useEffect(() => {
         dispatch(getPlayer(Number(params.id)))
     }, [dispatch, params.id])
 
-    const handleDelete =()=>{
+    const handleDelete = () => {
         const question = window.confirm('are you sure you want to delete the player?')
-        if(question){
+        if (question) {
             dispatch(deletePlayer(Number(params.id)))
         }
+        history.push('/players')
     }
-const handleUpdate =()=>{
-    history.push(`/players/updateplayer${params.id}`)
-}
+    const handleUpdate = () => {
+        history.push(`/players/updatePlayer/${params.id}`)
+    }
     return (
         <div className={dt.container}>
             {isFetching && <Preloader/>}
@@ -40,7 +42,7 @@ const handleUpdate =()=>{
                         </span> <p> / </p> {currentPlayer.name}</div>
                     <div className={dt.iconBlock}>
                         <Update handleUpdate={handleUpdate}/>
-                         <DeleteTeam handleDelete={handleDelete}/>
+                        <DeleteTeam handleDelete={handleDelete}/>
                     </div>
                 </div>
 
@@ -49,7 +51,8 @@ const handleUpdate =()=>{
                         <img src={currentPlayer.avatarUrl} alt=" team logo"/>
                     </div>
                     <div className={dt.current_info_container}>
-                        <h2>{currentPlayer.name} <span className={dt.currentPlayer_number}>#{currentPlayer.number}</span></h2>
+                        <h2>{currentPlayer.name} <span
+                            className={dt.currentPlayer_number}>#{currentPlayer.number}</span></h2>
                         <div className={dt.YearFound_divisions}>
                             <p>
                                 Position <br/> <span>{currentPlayer.position}</span>
@@ -79,4 +82,4 @@ const handleUpdate =()=>{
         </div>
     )
 
-})
+}

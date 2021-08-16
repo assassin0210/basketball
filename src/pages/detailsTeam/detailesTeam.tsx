@@ -3,11 +3,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../api/dto/types";
 import {DeleteTeam} from "../../assets/icon/deleteTeam";
 import {useHistory, useParams} from "react-router";
-import {deleteTeam, getTeam} from '../../modules/teams/teamsSlice';
-import {RosterList} from "../rosterList/rosterList";
+import {RosterList} from "../../ui/rosterList/rosterList";
 import {Update} from '../../assets/icon/update';
 import {useEffect} from "react";
-import {Preloader} from "../preloader/preloader";
+import {Preloader} from "../../ui/preloader/preloader";
+import {deleteTeam, getTeam} from '../../modules/teams/teamThunk';
 
 
 export const DetailsTeam = () => {
@@ -17,21 +17,21 @@ export const DetailsTeam = () => {
     const  currentTeam = useSelector((state: RootState ) => state.teams.currentTeam)
     const isFetching =useSelector((state: RootState )=>state.teams.isFetching)
 
+    useEffect(()=>{
+        dispatch(getTeam(Number(params.id)))
+    },[dispatch,params.id])
+
     const handleDelete =()=>{
         const question = window.confirm('are you sure you want to delete the player?')
         if(question){
             dispatch(deleteTeam(Number(params.id)))
+            console.log(Number(params.id))
         }
     }
 
     const handleUpdate=()=>{
-        history.push(`/teams/updateteam${params.id}`)
+        history.push(`/teams/updateTeam/${params.id}`)
     }
-
-    useEffect(()=>{
-        dispatch(getTeam(Number(params.id)))
-    },[dispatch,params.id])
-    console.log(isFetching)
 
     return (
         <div className={dt.container}>

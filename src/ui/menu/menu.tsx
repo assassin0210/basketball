@@ -4,8 +4,11 @@ import {OnePerson} from '../../assets/icon/onePerson';
 import {TwoPersons} from '../../assets/icon/TwoPersons';
 import {SingOut} from '../../assets/icon/singOut';
 import React from 'react';
+import {useDispatch} from "react-redux";
+import { deleteToken } from '../../modules/autorization/authSlice';
 
 export const Menu = React.memo(() => {
+    const dispatch = useDispatch()
     const history = useHistory()
     let location = useLocation()
 
@@ -18,6 +21,7 @@ export const Menu = React.memo(() => {
 
     const handleExit = () => {
         localStorage.clear()
+        dispatch(deleteToken())
         history.push('/singIn')
     }
 

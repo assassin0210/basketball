@@ -1,85 +1,39 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {instance} from "../../api/baseRequest";
-import {authSliceType, onSubmitDataFormType, UserType} from "../../api/dto/types";
+import {createSlice} from "@reduxjs/toolkit";
 import {RootStateOrAny} from "react-redux";
-
-
-export const registered = createAsyncThunk(
-    'auth/registeredAsync',
-    async function (data: onSubmitDataFormType, {rejectWithValue: any, dispatch}) {
-        try {
-            const response = await instance.post<UserType>('/api/Auth/SignUp', {
-                "userName": data.userName,
-                "login": data.login,
-                "password": data.password
-            })
-             if (response.statusText === 'OK')  {
-                localStorage.setItem('token', (response.data.token))
-                localStorage.setItem('avatarUrl', (response.data.avatarUrl))
-                localStorage.setItem('name', (response.data.name))
-
-            }
-        } catch (error) {
-            if (error.message.toString() === 'Request failed with status code 409') {
-                dispatch(authFailed())
-            }
-        }
-    }
-)
-
-
-export const login = createAsyncThunk(
-
-    'auth/login',
-    async function (data: onSubmitDataFormType, {dispatch}) {
-        try {
-            const response = await instance.post<UserType>('/api/Auth/SignIn', {
-                "login": data.login,
-                "password": data.password
-            })
-            if (response.statusText === 'OK') {
-                localStorage.setItem('token', (response.data.token))
-                localStorage.setItem('avatarUrl', (response.data.avatarUrl))
-                localStorage.setItem('name', (response.data.name))
-            }
-        } catch {
-            dispatch(authFailed())
-        }
-    }
-)
+import {login, registered} from "./authThunk";
+import {authSliceType} from "../../api/dto/types";
 
 
 const initialState = {} as authSliceType
 
 
-
-const  authSlice = createSlice({
+const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
         authFailed(state: RootStateOrAny,) {
             state.showError = true
         },
-        isLoading(state: RootStateOrAny, ) {
+        isLoading(state: RootStateOrAny,) {
             state.isLoading = true
+        },
+        setToken(state, action) {
+            state.token = action.payload
+        },
+        deleteToken(state) {
+            state.token = ''
         }
     },
     extraReducers: builder => {
-        builder.addCase(registered.pending, (state) => {
-            state.isFetching= true
-            localStorage.clear()
 
-        })
-        builder.addCase(registered.fulfilled, (state :RootStateOrAny, action) => {
-            state.isAuth = true
-            state.user =state.user.push(action.payload)
+        builder.addCase(registered.fulfilled, (state, action) => {
             state.showError = false
             state.isFetching = false
         })
-        builder.addCase(login.pending, (state :RootStateOrAny, action) => {
+        builder.addCase(login.pending, (state , action) => {
 
         })
-        builder.addCase(login.fulfilled, (state :RootStateOrAny, action) => {
+        builder.addCase(login.fulfilled, (state, action) => {
 
             state.showError = false
             state.isAuth = true;
@@ -88,7 +42,5 @@ const  authSlice = createSlice({
 })
 
 export const autSliceConst = authSlice.reducer
-
-
-export const { authFailed, isLoading} = authSlice.actions;
+export const {authFailed, setToken, deleteToken, isLoading} = authSlice.actions;
 

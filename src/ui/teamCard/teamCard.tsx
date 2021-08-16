@@ -14,7 +14,7 @@ import { useSelector} from "react-redux";
 export const TeamCard:FC<TeamType> = ({name,foundationYear,division,conference,imageUrl,id})=>{
     const teams = useSelector<RootState & teamsSliceType>(state=>state.teams.data)
     // @ts-ignore
-    const selectedTeam = teams.filter((state) => state.id === id)
+    const selectedTeam = teams.filter((team) => team.id === id)
 
     const history = useHistory()
 

@@ -1,13 +1,13 @@
 import {SubmitHandler, useForm} from "react-hook-form";
 import {AddPlayersFormType, getTeamType, RootState,} from "../../api/dto/types";
-import atf from "../allTeams/addTeamsForm/addTeamsForm.module.scss";
+import atf from "../addTeamsForm/addTeamsForm.module.scss";
 import {AddPhotoIcon} from "../../assets/icon/addPhotoIcon";
 import React, {useEffect, useState} from "react";
 import {ErrorText} from "../errorText/errorText";
 import {ButtonCancel} from "../buttons/buttonCatcel";
 import {useDispatch, useSelector} from "react-redux";
-import {addImagePlayer, getPositions} from "../../modules/players/playerSlice";
-import {getTeams} from "../../modules/teams/teamsSlice";
+import {addImagePlayer, getPositions} from "../../modules/players/playerThunk";
+import { getTeams } from "../../modules/teams/teamThunk";
 
 export const AddPlayersForm = () => {
     const players = useSelector((state: RootState) => state.players)

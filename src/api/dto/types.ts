@@ -20,17 +20,11 @@ export interface UserType {
 }
 
 export interface authSliceType {
-    user: {
-        name: string | null ,
-        avatarUrl: string | null
-        token: string | null
-    },
     showError: boolean,
     ChangeUser: null | string,
-    isRegister: boolean,
-    isAuth?: boolean | null,
     token: string | null
     isFetching: boolean,
+    isAuth: boolean
 }
 
 export interface userResponse{

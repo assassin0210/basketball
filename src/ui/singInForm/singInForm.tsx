@@ -1,6 +1,6 @@
 import {ErrorText} from "../errorText/errorText";
 import si from "../../pages/singIn/singIn.module.scss";
-import {login, autSliceConst} from "../../modules/autorization/authSlice";
+import {autSliceConst} from "../../modules/autorization/authSlice";
 import {Link, useHistory} from "react-router-dom";
 import React, {useState} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
@@ -8,6 +8,7 @@ import {RootStateOrAny, useDispatch, useSelector} from "react-redux";
 import {InputsSingIn} from "../../api/dto/types";
 import {ShowPassword} from "../../assets/icon/showPassword";
 import {HidePassword} from "../../assets/icon/hidePassword";
+import { login } from "../../modules/autorization/authThunk";
 
 
 export const SingInForm = () => {

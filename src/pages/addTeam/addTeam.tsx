@@ -1,6 +1,6 @@
-import { AddTeamsForm } from '../allTeams/addTeamsForm/addTeamsForm'
+import { AddTeamsForm } from '../../ui/addTeamsForm/addTeamsForm'
 import at from './addTeams.module.scss'
-import {Preloader} from "../preloader/preloader";
+import {Preloader} from "../../ui/preloader/preloader";
 import React from "react";
 import {useSelector} from "react-redux";
 import {StateType} from '../../api/dto/types';

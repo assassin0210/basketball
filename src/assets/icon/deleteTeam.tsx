@@ -1,9 +1,4 @@
 import React, {FC} from "react";
-import {deleteTeam} from "../../modules/teams/teamsSlice";
-import {useDispatch} from "react-redux";
-import {DeletePropType} from "../../api/dto/types";
-
-
 
 export const DeleteTeam:FC<any> = React.memo( ({handleDelete}) => {
 

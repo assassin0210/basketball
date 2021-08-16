@@ -1,12 +1,12 @@
 import {SubmitHandler, useForm} from "react-hook-form";
 import React from "react";
 import atf from './addTeamsForm.module.scss'
-import {ErrorText} from "../../errorText/errorText";
+import {ErrorText} from "../errorText/errorText";
 import {useDispatch} from "react-redux";
-import {addImage} from "../../../modules/teams/teamsSlice";
-import {AddPhotoIcon} from "../../../assets/icon/addPhotoIcon";
-import {ButtonCancel} from "../../buttons/buttonCatcel";
-import {AddTeamIType} from "../../../api/dto/types";
+import {AddPhotoIcon} from "../../assets/icon/addPhotoIcon";
+import {ButtonCancel} from "../buttons/buttonCatcel";
+import {AddTeamIType} from "../../api/dto/types";
+import { addImage } from "../../modules/teams/teamThunk";
 
 
 export const AddTeamsForm = () => {

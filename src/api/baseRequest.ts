@@ -1,5 +1,6 @@
 import axios from "axios";
-import {token} from "../utils/utils";
+
+const token = ()=> localStorage.getItem('token')
 
 export const instance = axios.create({
     baseURL: 'http://dev.trainee.dex-it.ru',

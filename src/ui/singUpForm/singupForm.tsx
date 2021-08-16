@@ -1,13 +1,13 @@
 import {ErrorText} from "../errorText/errorText";
 import si from "../../pages/singIn/singIn.module.scss";
-import {NavLink, useHistory} from "react-router-dom";
-import React, {useEffect, useState} from "react";
+import {NavLink} from "react-router-dom";
+import React, { useState} from "react";
 import { useDispatch, useSelector} from "react-redux";
-import { registered} from "../../modules/autorization/authSlice";
 import {SubmitHandler, useForm} from "react-hook-form";
 import { InputsSingUp, onSubmitDataFormType, RootStateType} from "../../api/dto/types";
 import {ShowPassword} from "../../assets/icon/showPassword";
 import {HidePassword} from "../../assets/icon/hidePassword";
+import {registered} from "../../modules/autorization/authThunk";
 
 
 
@@ -18,15 +18,6 @@ export const SingUpForm = () => {
     const [repeatPassword, setRepeatPassword] = useState(false)
     const dispatch = useDispatch()
     const showError = useSelector((state:  RootStateType) => state.auth.showError)
-    const auth = useSelector((state:  RootStateType) => state.auth.isAuth)
-    const history = useHistory();
-
-    useEffect(() => {
-        if (auth) {
-            history.push('/teams')
-        }
-
-    }, [auth, history])
 
     const showPassHandler = () => {
         setShowPass(!showPass)
@@ -40,7 +31,6 @@ export const SingUpForm = () => {
     const onSubmit: SubmitHandler<InputsSingUp> = (data: onSubmitDataFormType) => {
         if (data.password === data.doublePass) {
             dispatch(registered(data))
-
         } else {
             setRepeatPassword(true)
         }

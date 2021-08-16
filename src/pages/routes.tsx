@@ -1,41 +1,45 @@
 import React from "react";
 import {FC} from "react";
-import {Redirect, Route, Switch} from "react-router";
+import {Route, Switch} from "react-router";
 import {SingIn} from "./singIn/singIn";
 import {SingUp} from "./singUp/singUp";
-import {UpdateTeam} from "../ui/updateTeam/updateTeam";
-import {AddTeam} from "../ui/addTeam/addTeam";
-import {AddPlayer} from "../ui/addPlayer/addPlayer";
-import {DetailsTeam} from "../ui/detailsTeam/detailesTeam";
-import {AllTeams} from "../ui/allTeams/allTeams";
-import {DetailsPlayer} from "../ui/detailsPlayer/detailsPlayer";
+import {UpdateTeam} from "./updateTeam/updateTeam";
+import {AddTeam} from "./addTeam/addTeam";
+import {AddPlayer} from "./addPlayer/addPlayer";
+import {DetailsTeam} from "./detailsTeam/detailesTeam";
+import {AllTeams} from "./allTeams/allTeams";
+import {DetailsPlayer} from "./detailsPlayer/detailsPlayer";
 import mp from "./mainPage/mainPage.module.scss";
 import {Header} from "../ui/header/header";
 import {Menu} from "../ui/menu/menu";
-import {AllPlayer} from "../ui/allPlayers/allPlayer";
+import {AllPlayer} from "./allPlayers/allPlayer";
+import {useSelector} from "react-redux";
+import {RootState} from "../api/dto/types";
+import {UpdatePlayer} from "./updatePlayer/UpdatePlayer";
 
 
-export const Routes: FC = React.memo(() => {
-    return <>
-        <Header/>
-        <div className={mp.main_container_children}>
-            <Menu/>
-            <Switch>
-                {Object.values(routes).filter((item) => item.type === 'private').map((item) => (
-                    <Route exact strict path={item.path} component={item.component}/>
-                ))}
-                {Object.values(routes).filter((item) => item.type === 'public')
-                    .map((item) => (
-                        <Route exact path={item.path} component={item.component}/>
+export const Routes: FC = () => {
+    const token = useSelector((state: RootState) => state.auth.token)
+    return token!==null?
+        <>
+            <Header/>
+            <div className={mp.main_container_children}>
+                <Menu/>
+                <Switch>
+                    {Object.values(routes).filter((item) => item.type === 'private').map((item) => (
+                        <Route exact strict path={item.path} component={item.component}/>
                     ))}
-
-            </Switch>
-            <Redirect to={localStorage.getItem('token') ? routes.singIn.path : routes.allTeams.path}/>
-        </div>
-
-    </>
-})
-
+                </Switch>
+            </div>
+        </>
+        :
+        <Switch>
+            {Object.values(routes).filter((item) => item.type === 'public')
+                .map((item) => (
+                    <Route exact path={item.path} component={item.component}/>
+                ))}
+        </Switch>
+}
 
 const routes = {
     singIn: {
@@ -79,8 +83,13 @@ const routes = {
         type: 'private',
     },
     updateTeam: {
-        path: '/teams/updateTeam:id',
+        path: '/teams/updateTeam/:id',
         component: UpdateTeam,
+        type: 'private',
+    },
+    updatePlayer: {
+        path: '/players/updatePlayer/:id',
+        component: UpdatePlayer,
         type: 'private',
     },
 }
