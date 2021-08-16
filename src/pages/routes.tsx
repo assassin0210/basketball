@@ -3,14 +3,16 @@ import {FC} from "react";
 import {Redirect, Route, Switch} from "react-router";
 import {SingIn} from "./singIn/singIn";
 import {SingUp} from "./singUp/singUp";
-import {MainPage} from "./mainPage/mainPage";
 import {UpdateTeam} from "../ui/updateTeam/updateTeam";
 import {AddTeam} from "../ui/addTeam/addTeam";
 import {AddPlayer} from "../ui/addPlayer/addPlayer";
 import {DetailsTeam} from "../ui/detailsTeam/detailesTeam";
-import { AllTeams } from "../ui/allTeams/allTeams";
+import {AllTeams} from "../ui/allTeams/allTeams";
 import {DetailsPlayer} from "../ui/detailsPlayer/detailsPlayer";
-import { AllPlayer } from "../ui/allPlayers/allPlayer";
+import mp from "./mainPage/mainPage.module.scss";
+import {Header} from "../ui/header/header";
+import {Menu} from "../ui/menu/menu";
+import {AllPlayer} from "../ui/allPlayers/allPlayer";
 
 
 export const Routes: FC = React.memo(() => {
@@ -18,7 +20,14 @@ export const Routes: FC = React.memo(() => {
         <Switch>
             {localStorage.getItem('token')
                 ? Object.values(routes).filter((item) => item.type === 'private').map((item) => (
-                    <Route path={item.path} component={item.component}/>
+                    <>
+                        <Header/>
+                        <div className={mp.main_container_children}>
+                            <Menu/>
+                            <Route exact path={item.path} component={item.component}/>
+                        </div>
+                    </>
+
                 ))
                 : Object.values(routes).filter((item) => item.type === 'public')
                     .map((item) => (
@@ -26,66 +35,61 @@ export const Routes: FC = React.memo(() => {
                     ))}
             <Redirect to={localStorage.getItem('token')
                 ? routes.singIn.path
-                : routes.mainPage.path}/>
+                : routes.allTeams.path}/>
         </Switch>
     )
 })
 
 
-
-
-
-
-const routes={
-    singIn:{
-        path:'/singIn',
+const routes = {
+    singIn: {
+        path: '/singIn',
         component: SingIn,
-        type:'public',
+        type: 'public',
     },
-    singUp:{
-        path:'/singUp',
+    singUp: {
+        path: '/singUp',
         component: SingUp,
-        type:'public',
+        type: 'public',
+
     },
-    mainPage:{
-        path:'/',
-        component: MainPage,
-        type:'private',
-    },
-    allTeams:{
-        path:'/teams',
-        component: AllTeams,
-        type:'private',
-    },
-    updateTeam:{
-        path:'/teams/updateTeam:id',
-        component: UpdateTeam,
-        type:'private',
-    },
-    allPlayer:{
-        path:'/players',
+    allPlayer: {
+        path: '/players',
         component: AllPlayer,
-        type:'private',
+        type: 'private',
     },
-    addPlayer:{
-        path:'/players/addplayer',
-        component:AddPlayer ,
-        type:'private',
+    allTeams: {
+        path: '/teams',
+        component: AllTeams,
+        type: 'private',
     },
-    addTeam:{
-        path:'/teams/addteams',
-        component:AddTeam ,
-        type:'private',
+
+
+    updateTeam: {
+        path: '/teams/updateTeam:id',
+        component: UpdateTeam,
+        type: 'private',
     },
-    detailsTeam:{
-        path:'/teams/:id',
-        component:DetailsTeam ,
-        type:'private',
+
+    addPlayer: {
+        path: '/players/addplayer',
+        component: AddPlayer,
+        type: 'private',
     },
-    detailsPlayer:{
-        path:'/players/:id',
-        component: DetailsPlayer ,
-        type:'private',
+    addTeam: {
+        path: '/teams/addteams',
+        component: AddTeam,
+        type: 'private',
+    },
+    detailsTeam: {
+        path: '/teams/:id',
+        component: DetailsTeam,
+        type: 'private',
+    },
+    detailsPlayer: {
+        path: '/players/:id',
+        component: DetailsPlayer,
+        type: 'private',
     },
 
 }
