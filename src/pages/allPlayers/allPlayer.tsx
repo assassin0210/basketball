@@ -15,19 +15,19 @@ import {getTeams} from "../../modules/teams/teamThunk";
 
 export const AllPlayer = () => {
     const dispatch = useDispatch()
-    useEffect(() => {
-        dispatch(getTeams())
+   /* useEffect(() => {
+       dispatch(getTeams())
         dispatch(getPlayers())
 
     }, [])
     const players = useSelector((state: StateType) => state.players)
     const history = useHistory()
-    console.log(players)
+    console.log(players)*/
 
 
 
 
-    const handleHistoryPush = () => history.push('/players/addPlayer')
+    //const handleHistoryPush = () => history.push('/players/addPlayer')
 
     return (
         <div className={ap.container}>
@@ -36,10 +36,10 @@ export const AllPlayer = () => {
                     <input className='input_search' placeholder='Search...' type="text"/>
                     <Search/>
                 </div>
-                <input style={{margin: '0'}} onClick={handleHistoryPush} className='red-button' value='Add  +'
+                <input style={{margin: '0'}} onClick={()=>{/*handleHistoryPush*/}} className='red-button' value='Add  +'
                        type="submit"/>
             </div>
-            {players.isFetching && <Preloader/>}
+            {/*{players.isFetching && <Preloader/>}
             {!players.count  ? <MissingPlayers/> : <div className='contentWrapper'>
                 {players.data.map((player) => <PlayerCard key={uuidv4()}
                                                           number={player.number}
@@ -51,7 +51,7 @@ export const AllPlayer = () => {
                                                           weight={player.weight}
                                                           avatarUrl={player.avatarUrl}
                                                           id={player.id}/>)}
-            </div>}
+            </div>}*/}
 
             <div>
                 <div>пагинация</div>

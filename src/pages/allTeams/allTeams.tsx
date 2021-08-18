@@ -11,30 +11,16 @@ import React from 'react';
 import {getTeams} from '../../modules/teams/teamThunk';
 import { v4 as uuidv4 } from 'uuid';
 
-const teamsPlayers ={
-    930:{
-        205:{
-            height:222,
-            width: 200,
-        },
-        206:{
-            height:222,
-            width: 200,
-        },
-    },
-    931:{
-        
-    }
-}
+
 
 export const AllTeams = () => {
     const history = useHistory()
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getTeams())
-    }, [])
+    }, [dispatch])
 
-    const teams = useSelector((state: StateType) => state.teams)
+    //const teams = useSelector((state: StateType) => state.teams)
     const handleHistoryPush = () => history.push('/teams/addTeams')
 
     return (
@@ -49,7 +35,7 @@ export const AllTeams = () => {
                        type="submit"/>
             </div>
 
-            {teams.isFetching && <Preloader/>}
+            {/*{teams.isFetching && <Preloader/>}
             {teams.count === 0 ? <MissingTeams/> : <div className={at.contentWrapper}>
                 {teams.data.map((team) => <TeamCard key={ uuidv4()}
                                                     name={team.name}
@@ -58,7 +44,7 @@ export const AllTeams = () => {
                                                     conference={team.conference}
                                                     imageUrl={team.imageUrl}
                                                     id={team.id}/>)}
-            </div>}
+            </div>}*/}
             <div>
                 <div>пагинация</div>
                 <div>пагинация</div>

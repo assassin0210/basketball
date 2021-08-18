@@ -24,10 +24,10 @@ export const SingInForm = () => {
         setShowPass(!showPass)
     }
 
-    const onSubmit: SubmitHandler<InputsSingIn> = (data) => {
+    const onSubmit: SubmitHandler<InputsSingIn> = async (data) => {
         dispatch(login(data))
-        localStorage.clear()
-        history.push('/teams')
+        await history.push('/teams')
+
     };
     return (
         <form onSubmit={handleSubmit(onSubmit)}>

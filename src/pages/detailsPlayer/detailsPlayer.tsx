@@ -12,15 +12,17 @@ import {deletePlayer, getPlayer } from '../../modules/players/playerThunk';
 
 
 export const DetailsPlayer = () => {
-    const dispatch = useDispatch()
     const params: { id: string } = useParams()
-    const history = useHistory()
-    const currentPlayer = useSelector((state: RootState) => state.players.currentPlayer)
-    const isFetching = useSelector((state: RootState) => state.players.isFetching)
+    const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(getPlayer(Number(params.id)))
     }, [dispatch, params.id])
+    const history = useHistory()
+    const currentPlayer = useSelector((state: RootState) => state.players.currentPlayer)
+    const isFetching = useSelector((state: RootState) => state.players.isFetching)
+
+
 
     const handleDelete = () => {
         const question = window.confirm('are you sure you want to delete the player?')

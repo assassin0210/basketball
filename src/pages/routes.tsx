@@ -1,6 +1,6 @@
 import React from "react";
 import {FC} from "react";
-import {Route, Switch} from "react-router";
+import {Redirect, Route, Switch} from "react-router";
 import {SingIn} from "./singIn/singIn";
 import {SingUp} from "./singUp/singUp";
 import {UpdateTeam} from "./updateTeam/updateTeam";
@@ -21,8 +21,11 @@ import { v4 as uuidv4 } from 'uuid';
 
 
 export const Routes: FC = () => {
+
+
     const token = useSelector((state: RootState) => state.auth.token)
-    return token!==null?
+
+    return token?
         <>
             <Header/>
             <div className={mp.main_container_children}>
@@ -31,6 +34,7 @@ export const Routes: FC = () => {
                     {Object.values(routes).filter((item) => item.type === 'private').map((item) => (
                         <Route key={uuidv4()} exact strict path={item.path} component={item.component}/>
                     ))}
+                    <Redirect from='/' to='/teams'/>
                 </Switch>
             </div>
         </>
@@ -38,22 +42,24 @@ export const Routes: FC = () => {
         <Switch>
             {Object.values(routes).filter((item) => item.type === 'public')
                 .map((item) => (
-                    <Route key={uuidv4()} exact path={item.path} component={item.component}/>
+                    <Route key={uuidv4()}  path={item.path} component={item.component}/>
                 ))}
+            <Redirect from='/' to='/singIn'/>
         </Switch>
 }
 
 const routes = {
-    singIn: {
-        path: '/singIn',
-        component: SingIn,
-        type: 'public',
-    },
     singUp: {
         path: '/singUp',
         component: SingUp,
         type: 'public',
     },
+    singIn: {
+        path: '/singIn',
+        component: SingIn,
+        type: 'public',
+    },
+
     addTeam: {
         path: '/teams/addTeams',
         component: AddTeam,

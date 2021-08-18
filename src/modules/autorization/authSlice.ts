@@ -3,7 +3,13 @@ import {login, registered} from "./authThunk";
 import {authSliceType} from "../../api/dto/types";
 
 
-const initialState = {} as authSliceType
+const initialState = {
+    showError: false,
+    token: localStorage.getItem('token'),
+    isFetching: false,
+    isAuth:false
+
+}
 
 
 const authSlice = createSlice({
@@ -13,6 +19,7 @@ const authSlice = createSlice({
 
         deleteToken(state) {
             state.token = null
+            state.isAuth = false
         }
     },
     extraReducers: builder => {
@@ -23,6 +30,7 @@ const authSlice = createSlice({
             state.token =   localStorage.getItem('token')
             state.showError = false
             state.isFetching = false
+            state.isAuth = true
         })
 
         builder.addCase(registered.rejected, (state, action) => {
@@ -39,6 +47,7 @@ const authSlice = createSlice({
             state.token =   localStorage.getItem('token')
             state.showError = false
             state.isFetching = false
+            state.isAuth = true
         })
         builder.addCase(login.rejected, (state , action) => {
             state.showError = true

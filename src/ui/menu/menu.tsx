@@ -7,6 +7,7 @@ import React from 'react';
 import {useDispatch} from "react-redux";
 import { deleteToken } from '../../modules/autorization/authSlice';
 
+
 export const Menu = React.memo(() => {
     const dispatch = useDispatch()
     const history = useHistory()
@@ -19,10 +20,10 @@ export const Menu = React.memo(() => {
         history.push('/players')
     }
 
-    const handleExit = () => {
+    const  handleExit = async () => {
         localStorage.clear()
         dispatch(deleteToken())
-        history.push('/singIn')
+        await history.push('/singIn')
     }
 
     const checkLocation = () => {

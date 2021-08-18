@@ -1,14 +1,13 @@
 import {createSlice} from "@reduxjs/toolkit";
+import { IInitialStateTeam } from "../../api/dto/types";
 import {addImage, addTeam, getTeam, getTeams, updateTeam} from "./teamThunk";
 
-
-
-
-const initialState = {
-    data:{},
+const initialState: IInitialStateTeam = {
+    data:[],
     count: 0,
     page: 0,
     size: 0,
+    error:false,
     isFetching: false,
     currentTeam: {
         name: '',
@@ -18,25 +17,30 @@ const initialState = {
         imageUrl: '',
         id: 0
     }
-}
+} ;
 
 
 export const teamsSlice = createSlice({
     name: 'teams',
-    initialState,
+    initialState:initialState ,
     reducers: {
     },
     extraReducers: builder => {
 
-        builder.addCase(getTeams.pending, (state:typeof initialState, action) => {
+        builder.addCase(getTeams.pending, (state, action) => {
             state.isFetching = true
         })
-        builder.addCase(getTeams.fulfilled, (state, action:any) => {
-            state.count = action.payload.count
-            state.page = action.payload.page
-            state.size = action.payload.size
-            state.data = action.payload.data
-            state.isFetching = false
+        builder.addCase(getTeams.fulfilled, (state, {payload}) => {
+            if(payload ===undefined){
+                state.error = true
+            }else{
+                state.data =payload.data
+                state.count =payload.count
+                state.page = payload.page
+                state.size = payload.size
+                state.isFetching = false
+            }
+
         })
         builder.addCase(getTeams.rejected, (state, action) => {
             //показать страницу 404

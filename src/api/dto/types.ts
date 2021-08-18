@@ -8,7 +8,7 @@ export type RootState = ReturnType<typeof store.getState>
 
 export type AppDispatch = typeof store.dispatch
 
-export const   persistor = persistStore(store)
+export const persistor = persistStore(store)
 export type RootStateType = ReturnType<typeof rootReducer>
 
 export type RootReducerType = typeof rootReducer
@@ -16,18 +16,18 @@ export type RootReducerType = typeof rootReducer
 export interface UserType {
     name: string
     avatarUrl: string
-    token:string
+    token: string
 }
 
 export interface authSliceType {
     showError: boolean,
     ChangeUser: null | string,
-    token: string |null
+    token: string | null
     isFetching: boolean,
     isAuth: boolean
 }
 
-export interface userResponse{
+export interface userResponse {
     name: string | null,
     avatarUrl: string | null
     token: string | null
@@ -41,19 +41,20 @@ export type onSubmitDataFormType = {
     doublePass?: string
 }
 
-export interface StateType{
-    teams:teamsSliceType
-    auth:authSliceType
-    players:PlayersSliceType
+export interface StateType {
+    teams: teamsSliceType
+    auth: authSliceType
+    players: PlayersSliceType
 }
+
 export interface teamsSliceType {
     data: [
         {
-            name: string ,
-            foundationYear:  number ,
-            division: string ,
-            conference: string ,
-            imageUrl: string ,
+            name: string,
+            foundationYear: number,
+            division: string,
+            conference: string,
+            imageUrl: string,
             id: number,
         }
     ],
@@ -61,39 +62,33 @@ export interface teamsSliceType {
     page: number,
     size: number,
     isFetching: boolean,
-    currentTeam: { }
+    currentTeam: {}
+}
+export interface ITeamInfo  {
+    name: string,
+    foundationYear: number,
+    division: string,
+    conference: string,
+    imageUrl: string,
+    id: number
 }
 
-export interface  DataTypeSubmin {
-    data: [
-        {
-            name?: string | null,
-            foundationYear?: string | null,
-            division?: string | null,
-            conference?: string | null,
-            imageUrl?: string | null,
-            id?: string | null,
-        }
-    ],
-}
-export interface getTeamType {
-    data?: [
-        {
-            name?: string ,
-            foundationYear?: string ,
-            division?: string ,
-            conference?: string ,
-            imageUrl?: string ,
-            id?: string ,
-        }
-    ] & undefined,
-    count: number ,
-    page: number ,
-    size: number ,
+
+export interface iGetTeamType {
+    data: ITeamInfo[],
+    count: number,
+    page: number,
+    size: number,
 }
 
-export interface DataType{
-    data:[{
+export interface IInitialStateTeam extends iGetTeamType {
+    isFetching: boolean
+    error: boolean
+    currentTeam: ITeamInfo
+}
+
+export interface DataType {
+    data: [{
         name?: string | null,
         foundationYear?: string | null,
         division?: string | null,
@@ -122,20 +117,21 @@ export interface AddTeamIType {
     conference: string;
     foundationYear: number
     file: any
-    id?: string|number
+    id?: string | number
 
 }
+
 export interface AddPlayersFormType {
     name: string,
     number: 0,
     position: string,
-    team: number | string ,
+    team: number | string,
     birthday: string,
     height: 0,
     weight: 0,
     avatarUrl?: string
     file?: any,
-    id?:number,
+    id?: number,
 
 }
 
@@ -147,7 +143,7 @@ export type onSubmitDataFormTypes = {
     doublePass: string
 }
 
-export type AllPlayerPropType={
+export type AllPlayerPropType = {
     teamsMod: boolean
 }
 
@@ -155,19 +151,16 @@ export type AllTeamsPropType = {
     teamsMod: boolean
 }
 
-export type MenuPropType={
-    toggleSetPlayersMod: ()=> void
-    toggleSetTeamsMod: ()=> void
-    teamsMod:boolean
-    playersMod:boolean
+export type MenuPropType = {
+    toggleSetPlayersMod: () => void
+    toggleSetTeamsMod: () => void
+    teamsMod: boolean
+    playersMod: boolean
 
 }
 
 
-
-
-
-export interface InitialStateTeam{
+export interface InitialStateTeam {
 
     data: [
         {
@@ -195,7 +188,8 @@ export interface InitialStateTeam{
 
 
 }
-export interface PositionsType{
+
+export interface PositionsType {
     0: "CenterForward"
     1: "GuardForward"
     2: "Forward"
@@ -204,7 +198,7 @@ export interface PositionsType{
 }
 
 
-export interface CurrentPlayer{
+export interface CurrentPlayer {
 
     name: string,
     number: 0,
@@ -219,7 +213,7 @@ export interface CurrentPlayer{
 
 }
 
-export interface PlayersSliceType{
+export interface PlayersSliceType {
     data: [
         {
             name: string,
@@ -236,25 +230,26 @@ export interface PlayersSliceType{
     count: 0,
     page: 0,
     size: 0,
-    positions?:[],
-    isFetching:boolean
+    positions?: [],
+    isFetching: boolean
 }
 
 
 export interface PropsType<T> {
     component: React.ElementType
     path: string
-    exact? : boolean
-    src?:boolean
-    isAuth?: ()=> void | boolean| object |undefined
+    exact?: boolean
+    src?: boolean
+    isAuth?: () => void | boolean | object | undefined
 }
+
 export type TeamType = {
     name: string
     foundationYear: number,
     division: string,
     conference: string,
     imageUrl: string
-    id: number| string | undefined
+    id: number | string | undefined
 }
 
 export type addTeamType = {
@@ -266,7 +261,7 @@ export type addTeamType = {
     id: number
 }
 
-export interface responsAddTeam{
+export interface responsAddTeam {
     data: {
         "name": string,
         "foundationYear": number,
@@ -278,12 +273,12 @@ export interface responsAddTeam{
 
 }
 
-export interface DeletePropType{
-    id:number
+export interface DeletePropType {
+    id: number
 }
 
 
-export interface UpdateType{
-    id:string
+export interface UpdateType {
+    id: string
 }
 

@@ -13,6 +13,7 @@ import {deleteTeam, getTeam} from '../../modules/teams/teamThunk';
 export const DetailsTeam = () => {
     const dispatch = useDispatch()
     const params: { id: string } = useParams()
+    console.log(params)
     const history = useHistory()
     const  currentTeam = useSelector((state: RootState ) => state.teams.currentTeam)
     const isFetching =useSelector((state: RootState )=>state.teams.isFetching)
