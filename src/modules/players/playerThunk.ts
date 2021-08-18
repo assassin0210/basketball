@@ -1,7 +1,7 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {instance} from "../../api/baseRequest";
 import {AddPlayersFormType, addTeamType, PositionsType, responsAddTeam, TeamType} from "../../api/dto/types";
-import {setCurrentPlayer, setPlayers, setPositions} from "./playerSlice";
+
 
 export const getPositions = createAsyncThunk(
     'player/getPositions',
@@ -12,7 +12,8 @@ export const getPositions = createAsyncThunk(
                     'accept': '*/*',
                 }
             })
-            dispatch(setPositions(response.data))
+            console.log(response.data)
+            return response.data
 
         } catch {
 
@@ -27,8 +28,8 @@ export const getPlayers = createAsyncThunk(
         try {
             const response = await instance.get<PositionsType>('/api/Player/GetPlayers', {
             })
-
-            dispatch(setPlayers(response.data))
+            console.log(response.data)
+            return response.data
 
 
         } catch {
@@ -60,10 +61,8 @@ export const addImagePlayer = createAsyncThunk(
                 weight: data.weight,
                 avatarUrl: `http://dev.trainee.dex-it.ru${response.data}`,
             }
+            console.log(response.data)
             dispatch(addPlayer(player))
-            console.log(player)
-
-
         } catch {
         }
     }
@@ -83,7 +82,7 @@ export const addPlayer = createAsyncThunk(
                 'weight': player.weight,
                 'avatarUrl': `${player.avatarUrl}`,
             },)
-
+            console.log(response.data)
         } catch {
 
         }
@@ -100,7 +99,8 @@ export const getPlayer = createAsyncThunk(
                     id: id
                 }
             })
-            dispatch(setCurrentPlayer(response.data))
+            console.log(response.data)
+            return response.data
         } catch {
         }
     }
@@ -116,6 +116,7 @@ export const deletePlayer = createAsyncThunk(
                     id: id
                 }
             })
+            console.log(response.data)
         } catch {
         }
     }
@@ -135,6 +136,7 @@ export const updatePlayer = createAsyncThunk(
                 "imageUrl": `${team.imageUrl}`,
                 "id": team.id
             }, )
+            console.log(response.data)
 
         } catch {
 

@@ -1,5 +1,4 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {RootStateOrAny} from "react-redux";
 import {login, registered} from "./authThunk";
 import {authSliceType} from "../../api/dto/types";
 
@@ -11,36 +10,43 @@ const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        authFailed(state: RootStateOrAny,) {
-            state.showError = true
-        },
-        isLoading(state: RootStateOrAny,) {
-            state.isLoading = true
-        },
-        setToken(state, action) {
-            state.token = action.payload
-        },
+
         deleteToken(state) {
-            state.token = ''
+            state.token = null
         }
     },
     extraReducers: builder => {
-
+        builder.addCase(registered.pending, (state, action) => {
+            state.isFetching = true
+        })
         builder.addCase(registered.fulfilled, (state, action) => {
+            state.token =   localStorage.getItem('token')
             state.showError = false
             state.isFetching = false
         })
-        builder.addCase(login.pending, (state , action) => {
 
+        builder.addCase(registered.rejected, (state, action) => {
+            state.showError = true
+        })
+
+
+
+
+        builder.addCase(login.pending, (state , action) => {
+            state.isFetching = true
         })
         builder.addCase(login.fulfilled, (state, action) => {
-
+            state.token =   localStorage.getItem('token')
             state.showError = false
-            state.isAuth = true;
+            state.isFetching = false
         })
+        builder.addCase(login.rejected, (state , action) => {
+            state.showError = true
+        })
+
     },
 })
 
 export const autSliceConst = authSlice.reducer
-export const {authFailed, setToken, deleteToken, isLoading} = authSlice.actions;
+export const { deleteToken} = authSlice.actions;
 

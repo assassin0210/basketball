@@ -1,7 +1,6 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {onSubmitDataFormType, UserType} from "../../api/dto/types";
 import {instance} from "../../api/baseRequest";
-import {authFailed, setToken} from "./authSlice";
 
 export const registered = createAsyncThunk(
     'auth/registeredAsync',
@@ -16,13 +15,8 @@ export const registered = createAsyncThunk(
                 localStorage.setItem('token', (response.data.token))
                 localStorage.setItem('avatarUrl', (response.data.avatarUrl))
                 localStorage.setItem('name', (response.data.name))
-                dispatch(setToken(response.data.token))
-
             }
-        } catch (error) {
-            if (error.message.toString() === 'Request failed with status code 409') {
-                dispatch(authFailed())
-            }
+        } catch {
         }
     }
 )
@@ -40,10 +34,9 @@ export const login = createAsyncThunk(
                 localStorage.setItem('token', (response.data.token))
                 localStorage.setItem('avatarUrl', (response.data.avatarUrl))
                 localStorage.setItem('name', (response.data.name))
-                dispatch(setToken(response.data.token))
+
             }
         } catch {
-            dispatch(authFailed())
         }
     }
 )

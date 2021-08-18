@@ -16,6 +16,8 @@ import {AllPlayer} from "./allPlayers/allPlayer";
 import {useSelector} from "react-redux";
 import {RootState} from "../api/dto/types";
 import {UpdatePlayer} from "./updatePlayer/UpdatePlayer";
+import { v4 as uuidv4 } from 'uuid';
+
 
 
 export const Routes: FC = () => {
@@ -27,7 +29,7 @@ export const Routes: FC = () => {
                 <Menu/>
                 <Switch>
                     {Object.values(routes).filter((item) => item.type === 'private').map((item) => (
-                        <Route exact strict path={item.path} component={item.component}/>
+                        <Route key={uuidv4()} exact strict path={item.path} component={item.component}/>
                     ))}
                 </Switch>
             </div>
@@ -36,7 +38,7 @@ export const Routes: FC = () => {
         <Switch>
             {Object.values(routes).filter((item) => item.type === 'public')
                 .map((item) => (
-                    <Route exact path={item.path} component={item.component}/>
+                    <Route key={uuidv4()} exact path={item.path} component={item.component}/>
                 ))}
         </Switch>
 }

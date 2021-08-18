@@ -17,8 +17,8 @@ export const AddPlayersForm = () => {
     const [inputPosition, setInputPosition] = useState(false)
 
     useEffect(() => {
-        dispatch(getPositions())
-        dispatch(getTeams())
+        //dispatch(getPositions())
+        //dispatch(getTeams())
 
     }, [dispatch,inputPosition])
     const onSubmit: SubmitHandler<AddPlayersFormType> = data => {
@@ -71,7 +71,7 @@ export const AddPlayersForm = () => {
                                 className='input_form' {...register("position", {required: true})}>
                             <option className='default_option-in-select' style={{display: 'none'}} >Select...
                             </option>
-                            {players.positions?.map((position) => <option value={position}>{position}</option>)}
+                            {players.positions?.map((position,index) => <option key={index} value={position}>{position}</option>)}
                         </select>
 
 
@@ -87,7 +87,7 @@ export const AddPlayersForm = () => {
 
                         <option className='default_option-in-select' style={{display: 'none'}} >Select...
                         </option>
-                        {teams.map((team) => <option key={team.id}>{team.name}</option>)}
+                        {/*{teams.map((team) => <option key={team.id}>{team.name}</option>)}*/}
                     </select>
 
                     { errors.team?  <ErrorText>Team is required</ErrorText> : '' }

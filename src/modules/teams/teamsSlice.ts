@@ -1,25 +1,15 @@
-import { createSlice} from "@reduxjs/toolkit";
+import {createSlice} from "@reduxjs/toolkit";
 import {addImage, addTeam, getTeam, getTeams, updateTeam} from "./teamThunk";
 
 
 
 
 const initialState = {
-    data: [
-        {
-            name: '',
-            foundationYear: 0,
-            division: '',
-            conference: '',
-            imageUrl: '',
-            id: 0
-        }
-    ],
+    data:{},
     count: 0,
     page: 0,
     size: 0,
     isFetching: false,
-    status: 0,
     currentTeam: {
         name: '',
         foundationYear: 0,
@@ -28,8 +18,6 @@ const initialState = {
         imageUrl: '',
         id: 0
     }
-
-
 }
 
 
@@ -37,30 +25,23 @@ export const teamsSlice = createSlice({
     name: 'teams',
     initialState,
     reducers: {
-        setTeams(state: typeof initialState, action) {
+    },
+    extraReducers: builder => {
+
+        builder.addCase(getTeams.pending, (state:typeof initialState, action) => {
+            state.isFetching = true
+        })
+        builder.addCase(getTeams.fulfilled, (state, action:any) => {
             state.count = action.payload.count
             state.page = action.payload.page
             state.size = action.payload.size
             state.data = action.payload.data
-        },
-
-        setCurrentTeam(state, action) {
-            state.currentTeam.name = action.payload.name
-            state.currentTeam.foundationYear = action.payload.foundationYear
-            state.currentTeam.division = action.payload.division
-            state.currentTeam.conference = action.payload.conference
-            state.currentTeam.imageUrl = action.payload.imageUrl
-            state.currentTeam.id = action.payload.id
-        }
-    },
-    extraReducers: builder => {
-
-        builder.addCase(getTeams.pending, (state, action) => {
-            state.isFetching = true
-        })
-        builder.addCase(getTeams.fulfilled, (state, action) => {
             state.isFetching = false
         })
+        builder.addCase(getTeams.rejected, (state, action) => {
+            //показать страницу 404
+        })
+
 
         builder.addCase(addImage.pending, (state, action) => {
             state.isFetching = true
@@ -68,14 +49,33 @@ export const teamsSlice = createSlice({
         builder.addCase(addTeam.fulfilled, (state, action) => {
             state.isFetching = false
         })
+        builder.addCase(addTeam.rejected, (state, action) => {
+            //показать страницу 404
+        })
+
+
+
         builder.addCase(getTeam.pending, (state, action) => {
             state.isFetching = true
-            state.status = 2
+
         })
-        builder.addCase(getTeam.fulfilled, (state, action) => {
+        builder.addCase(getTeam.fulfilled, (state, action:any) => {
+            state.currentTeam.name = action.payload.name
+            state.currentTeam.foundationYear = action.payload.foundationYear
+            state.currentTeam.division = action.payload.division
+            state.currentTeam.conference = action.payload.conference
+            state.currentTeam.imageUrl = action.payload.imageUrl
+            state.currentTeam.id = action.payload.id
             state.isFetching = false
-            state.status = 0
+
         })
+        builder.addCase(getTeam.rejected, (state, action) => {
+            state.isFetching = false
+
+        })
+
+
+
         builder.addCase(updateTeam.fulfilled, (state, action) => {
             state.isFetching = false
 
@@ -85,5 +85,5 @@ export const teamsSlice = createSlice({
 
 export const TeamsSliceConst = teamsSlice.reducer
 
-export const {setTeams, setCurrentTeam} = teamsSlice.actions;
+export const {} = teamsSlice.actions;
 

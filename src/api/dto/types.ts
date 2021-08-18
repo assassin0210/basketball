@@ -22,7 +22,7 @@ export interface UserType {
 export interface authSliceType {
     showError: boolean,
     ChangeUser: null | string,
-    token: string | null
+    token: string |null
     isFetching: boolean,
     isAuth: boolean
 }
@@ -49,20 +49,19 @@ export interface StateType{
 export interface teamsSliceType {
     data: [
         {
-            name?: string | null,
-            foundationYear?: string | null,
-            division?: string | null,
-            conference?: string | null,
-            imageUrl?: string | null,
-            id?: string | null,
+            name: string ,
+            foundationYear:  number ,
+            division: string ,
+            conference: string ,
+            imageUrl: string ,
+            id: number,
         }
-    ] [] | undefined,
-    count: string | null,
-    page: string | null,
-    size: string | null,
-    status:null|boolean|string
+    ],
+    count: number,
+    page: number,
+    size: number,
     isFetching: boolean,
-    currentTeam: null | number
+    currentTeam: { }
 }
 
 export interface  DataTypeSubmin {
@@ -78,19 +77,19 @@ export interface  DataTypeSubmin {
     ],
 }
 export interface getTeamType {
-    data: [
+    data?: [
         {
-            name?: string | null,
-            foundationYear?: string | null,
-            division?: string | null,
-            conference?: string | null,
-            imageUrl?: string | null,
-            id?: string | null,
+            name?: string ,
+            foundationYear?: string ,
+            division?: string ,
+            conference?: string ,
+            imageUrl?: string ,
+            id?: string ,
         }
-    ],
-    count: string | null,
-    page: string | null,
-    size: string | null,
+    ] & undefined,
+    count: number ,
+    page: number ,
+    size: number ,
 }
 
 export interface DataType{

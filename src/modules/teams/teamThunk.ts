@@ -1,19 +1,14 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {instance} from "../../api/baseRequest";
 import {AddTeamIType, addTeamType, getTeamType, responsAddTeam, TeamType} from "../../api/dto/types";
-import {setCurrentTeam, setTeams} from "./teamsSlice";
 
 export const getTeams = createAsyncThunk(
     'teams/teams',
     async function (_, {dispatch}) {
         try {
-
             const response = await instance.get<getTeamType>('/api/Team/GetTeams', {})
-            dispatch(setTeams(response.data))
-
-
+            return response.data
         } catch {
-
         }
     }
 )
@@ -38,7 +33,6 @@ export const addImage = createAsyncThunk(
                 imageUrl: `http://dev.trainee.dex-it.ru${response.data}`,
                 id: data.id
             }
-
             !data.id ? dispatch(addTeam(team)) : dispatch(updateTeam(team))
 
         } catch {
@@ -75,7 +69,7 @@ export const getTeam = createAsyncThunk(
                     id: id
                 }
             })
-            dispatch(setCurrentTeam(response.data))
+            return response.data
         } catch {
         }
     }
@@ -91,6 +85,7 @@ export const deleteTeam = createAsyncThunk(
                     id: id
                 }
             })
+            return response.data
         } catch {
         }
     }
@@ -100,17 +95,16 @@ export const updateTeam = createAsyncThunk(
     'teams/updateTeam',
     async function (team: TeamType, {dispatch}) {
         try {
-
-
             const response = await instance.put<addTeamType>('/api/Team/Update', {
-                "name": `${team.name}`,
-                "foundationYear": team.foundationYear,
-                "division": `${team.division}`,
-                "conference": `${team.conference}`,
-                "imageUrl": `${team.imageUrl}`,
-                "id": team.id
-            },)
-
+                    "name": `${team.name}`,
+                    "foundationYear": team.foundationYear,
+                    "division": `${team.division}`,
+                    "conference": `${team.conference}`,
+                    "imageUrl": `${team.imageUrl}`,
+                    "id": team.id
+                },
+            )
+            return response.data
         } catch {
 
         }

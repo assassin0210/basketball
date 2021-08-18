@@ -1,31 +1,40 @@
 import at from './allTeams.module.scss'
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState, TeamType} from '../../api/dto/types';
+import { StateType } from '../../api/dto/types';
 import {Search} from "../../assets/icon/search";
 import {MissingTeams} from '../../ui/teamCard/missingTeams';
 import {useHistory} from "react-router";
 import {Preloader} from "../../ui/preloader/preloader";
 import {TeamCard} from "../../ui/teamCard/teamCard";
 import React from 'react';
-import { getTeams } from '../../modules/teams/teamThunk';
+import {getTeams} from '../../modules/teams/teamThunk';
+import { v4 as uuidv4 } from 'uuid';
 
+const teamsPlayers ={
+    930:{
+        205:{
+            height:222,
+            width: 200,
+        },
+        206:{
+            height:222,
+            width: 200,
+        },
+    },
+    931:{
+        
+    }
+}
 
 export const AllTeams = () => {
-
-    const teams = useSelector((state: RootState) => state.teams)
-    const token = useSelector((state: RootState) => state.auth.token)
-    const dispatch = useDispatch()
-
     const history = useHistory()
-
+    const dispatch = useDispatch()
     useEffect(() => {
-        if (token === null) {
-            history.push('/singIn')
-        }
         dispatch(getTeams())
-    }, [dispatch])
+    }, [])
 
+    const teams = useSelector((state: StateType) => state.teams)
     const handleHistoryPush = () => history.push('/teams/addTeams')
 
     return (
@@ -42,13 +51,13 @@ export const AllTeams = () => {
 
             {teams.isFetching && <Preloader/>}
             {teams.count === 0 ? <MissingTeams/> : <div className={at.contentWrapper}>
-                {teams.data.map((team: TeamType) => <TeamCard key={team.id}
-                                                              name={team.name}
-                                                              foundationYear={team.foundationYear}
-                                                              division={team.division}
-                                                              conference={team.conference}
-                                                              imageUrl={team.imageUrl}
-                                                              id={team.id}/>)}
+                {teams.data.map((team) => <TeamCard key={ uuidv4()}
+                                                    name={team.name}
+                                                    foundationYear={team.foundationYear}
+                                                    division={team.division}
+                                                    conference={team.conference}
+                                                    imageUrl={team.imageUrl}
+                                                    id={team.id}/>)}
             </div>}
             <div>
                 <div>пагинация</div>
