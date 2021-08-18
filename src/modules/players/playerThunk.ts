@@ -1,20 +1,20 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {instance} from "../../api/baseRequest";
-import {AddPlayersFormType, addTeamType, PositionsType, responsAddTeam, TeamType} from "../../api/dto/types";
+import {IGetPlayersType, IPlayerInfo,} from "../../api/dto/playerTypes";
+import {AddPlayersFormType, TeamType} from "../../api/dto/types";
+import {AxiosResponse} from "axios";
 
 
 export const getPositions = createAsyncThunk(
     'player/getPositions',
     async function (_, {dispatch}) {
         try {
-            const response = await instance.get<PositionsType>('/api/Player/GetPositions', {
+            const response = await instance.get('/api/Player/GetPositions', {
                 headers: {
                     'accept': '*/*',
                 }
             })
-            console.log(response.data)
             return response.data
-
         } catch {
 
         }
@@ -26,12 +26,8 @@ export const getPlayers = createAsyncThunk(
     'player/getPlayers',
     async function (_, {dispatch}) {
         try {
-            const response = await instance.get<PositionsType>('/api/Player/GetPlayers', {
-            })
-            console.log(response.data)
+            const response: AxiosResponse<IGetPlayersType> = await instance.get('/api/Player/GetPlayers', {})
             return response.data
-
-
         } catch {
 
         }
@@ -46,7 +42,7 @@ export const addImagePlayer = createAsyncThunk(
             const file = data.file
             const formData = new FormData()
             formData.append("file", file[0])
-            const response = await instance.post<string>('/api/Image/SaveImage', formData, {
+            const response = await instance.post('/api/Image/SaveImage', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 }
@@ -61,7 +57,6 @@ export const addImagePlayer = createAsyncThunk(
                 weight: data.weight,
                 avatarUrl: `http://dev.trainee.dex-it.ru${response.data}`,
             }
-            console.log(response.data)
             dispatch(addPlayer(player))
         } catch {
         }
@@ -82,7 +77,7 @@ export const addPlayer = createAsyncThunk(
                 'weight': player.weight,
                 'avatarUrl': `${player.avatarUrl}`,
             },)
-            console.log(response.data)
+            return response.data
         } catch {
 
         }
@@ -94,7 +89,7 @@ export const getPlayer = createAsyncThunk(
     'player/getPlayer',
     async function (id: number, {dispatch}) {
         try {
-            const response: responsAddTeam = await instance.get<addTeamType>('/api/Player/Get', {
+            const response = await instance.get<IPlayerInfo>('/api/Player/Get', {
                 params: {
                     id: id
                 }
@@ -111,35 +106,35 @@ export const deletePlayer = createAsyncThunk(
     'player/deletePlayer',
     async function (id: number, {dispatch}) {
         try {
-            const response: responsAddTeam = await instance.delete<addTeamType>('/api/Player/Delete', {
+            const response = await instance.delete<IPlayerInfo>('/api/Player/Delete', {
                 params: {
                     id: id
                 }
             })
-            console.log(response.data)
+            return response.data
         } catch {
         }
     }
 )
 
+/*
 export const updatePlayer = createAsyncThunk(
     'player/updatePlayer',
     async function (team: TeamType, {dispatch}) {
         try {
-
-
-            const response = await instance.put<addTeamType>('/api/Team/Update', {
+            const response = await instance.put<IPlayerInfo>('/api/Team/Update', {
                 "name": `${team.name}`,
                 "foundationYear": team.foundationYear,
                 "division": `${team.division}`,
                 "conference": `${team.conference}`,
                 "imageUrl": `${team.imageUrl}`,
                 "id": team.id
-            }, )
-            console.log(response.data)
+            },)
+            return response.data
 
         } catch {
 
         }
     }
 )
+*/

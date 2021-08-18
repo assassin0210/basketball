@@ -1,7 +1,6 @@
 import axios from "axios";
 
-const token = ()=> localStorage.getItem('token')
-
+const token = () => localStorage.getItem('token')
 export const instance = axios.create({
     baseURL: 'http://dev.trainee.dex-it.ru',
     headers: {
@@ -11,3 +10,8 @@ export const instance = axios.create({
     },
 });
 
+instance.interceptors.request.use(function (config) {
+    const token = localStorage.getItem('token');
+    config.headers.Authorization = token ? `Bearer ${token}` : '';
+    return config;
+});

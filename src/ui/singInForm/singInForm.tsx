@@ -18,16 +18,13 @@ export const SingInForm = () => {
     const showError = useSelector((state: typeof autSliceConst & RootStateOrAny) => state.auth.showError)
     const preloader = useSelector((state: typeof autSliceConst & RootStateOrAny) => state.auth.isLoading)
     const dispatch = useDispatch()
-    const history = useHistory()
 
     const showPassHandler = () => {
         setShowPass(!showPass)
     }
 
-    const onSubmit: SubmitHandler<InputsSingIn> = async (data) => {
-        dispatch(login(data))
-        await history.push('/teams')
-
+    const onSubmit: SubmitHandler<InputsSingIn> =(data) => {
+         dispatch(login(data))
     };
     return (
         <form onSubmit={handleSubmit(onSubmit)}>

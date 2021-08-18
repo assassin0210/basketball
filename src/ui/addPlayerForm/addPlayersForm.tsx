@@ -1,5 +1,5 @@
 import {SubmitHandler, useForm} from "react-hook-form";
-import {AddPlayersFormType, getTeamType, RootState,} from "../../api/dto/types";
+import {AddPlayersFormType, RootState,} from "../../api/dto/types";
 import atf from "../addTeamsForm/addTeamsForm.module.scss";
 import {AddPhotoIcon} from "../../assets/icon/addPhotoIcon";
 import React, {useEffect, useState} from "react";
@@ -11,7 +11,7 @@ import { getTeams } from "../../modules/teams/teamThunk";
 
 export const AddPlayersForm = () => {
     const players = useSelector((state: RootState) => state.players)
-    const teams = useSelector((state: RootState & getTeamType) => state.teams.data)
+    const teams = useSelector((state: RootState) => state.teams.data)
     const {register, handleSubmit, watch, formState: {errors}} = useForm<AddPlayersFormType>();
     const dispatch = useDispatch()
     const [inputPosition, setInputPosition] = useState(false)

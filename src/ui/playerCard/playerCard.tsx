@@ -1,7 +1,7 @@
 import React from 'react';
 import tc from '../teamCard/teamCard.module.scss'
 import {FC} from "react";
-import {AddPlayersFormType, RootState, teamsSliceType} from '../../api/dto/types';
+import {AddPlayersFormType, RootState} from '../../api/dto/types';
 import {useHistory} from "react-router";
 import { useSelector} from "react-redux";
 
@@ -10,14 +10,10 @@ import { useSelector} from "react-redux";
 export const PlayerCard:FC<AddPlayersFormType> =   ({number,name,team,id,avatarUrl})=>{
 
 
-    const teams = useSelector<RootState & teamsSliceType>(state=>state.teams.data)
-    const players = useSelector<RootState & teamsSliceType>(state=>state.players.data)
-
-
-    // @ts-ignore
+    const teams = useSelector<RootState>(state=>state.teams.data)
+    const players = useSelector<RootState >(state=>state.players.data)
+// @ts-ignore
     const teamName = teams.find(teamn => teamn.id === team).name
-    console.log(teamName)
-
     // @ts-ignore
     const selectedPlayer = players.filter((state) => state.id === id)
     const history = useHistory()

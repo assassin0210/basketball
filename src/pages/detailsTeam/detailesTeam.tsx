@@ -13,9 +13,8 @@ import {deleteTeam, getTeam} from '../../modules/teams/teamThunk';
 export const DetailsTeam = () => {
     const dispatch = useDispatch()
     const params: { id: string } = useParams()
-    console.log(params)
     const history = useHistory()
-    const  currentTeam = useSelector((state: RootState ) => state.teams.currentTeam)
+    const currentTeam = useSelector((state: RootState ) => state.teams.currentTeam)
     const isFetching =useSelector((state: RootState )=>state.teams.isFetching)
 
     useEffect(()=>{
@@ -26,7 +25,6 @@ export const DetailsTeam = () => {
         const question = window.confirm('are you sure you want to delete the player?')
         if(question){
             dispatch(deleteTeam(Number(params.id)))
-            console.log(Number(params.id))
         }
     }
 

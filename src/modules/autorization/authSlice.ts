@@ -1,9 +1,10 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {login, registered} from "./authThunk";
 import {authSliceType} from "../../api/dto/types";
+import { IInitialStateAuth } from "../../api/dto/authTypes";
 
 
-const initialState = {
+const initialState:IInitialStateAuth = {
     showError: false,
     token: localStorage.getItem('token'),
     isFetching: false,
@@ -23,33 +24,39 @@ const authSlice = createSlice({
         }
     },
     extraReducers: builder => {
-        builder.addCase(registered.pending, (state, action) => {
+        builder.addCase(registered.pending, (state) => {
             state.isFetching = true
         })
-        builder.addCase(registered.fulfilled, (state, action) => {
-            state.token =   localStorage.getItem('token')
+        builder.addCase(registered.fulfilled, (state) => {
             state.showError = false
             state.isFetching = false
             state.isAuth = true
         })
 
-        builder.addCase(registered.rejected, (state, action) => {
+        builder.addCase(registered.rejected, (state) => {
             state.showError = true
         })
 
 
 
 
-        builder.addCase(login.pending, (state , action) => {
+        builder.addCase(login.pending, (state ) => {
             state.isFetching = true
         })
-        builder.addCase(login.fulfilled, (state, action) => {
-            state.token =   localStorage.getItem('token')
-            state.showError = false
-            state.isFetching = false
-            state.isAuth = true
+        builder.addCase(login.fulfilled, (state,{payload}) => {
+            if(payload!== undefined){
+                localStorage.setItem('token', (payload.token))
+                localStorage.setItem('avatarUrl', (payload.avatarUrl))
+                localStorage.setItem('name', (payload.name))
+                state.token =   localStorage.getItem('token')
+                state.showError = false
+                state.isFetching = false
+                state.isAuth = true
+            }
+
+
         })
-        builder.addCase(login.rejected, (state , action) => {
+        builder.addCase(login.rejected, (state ) => {
             state.showError = true
         })
 

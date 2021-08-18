@@ -1,14 +1,16 @@
 import {createSlice} from "@reduxjs/toolkit";
+import { IInitialStatePlayer } from "../../api/dto/playerTypes";
 import {getPlayer, getPlayers, getPositions} from "./playerThunk";
 
 
-const initialState = {
-    data: {},
+const initialState:IInitialStatePlayer = {
+    data: [],
     count: 0,
     page: 0,
     size: 0,
     positions: [],
     isFetching: false,
+    error: false,
     currentPlayer: {
         name: '',
         number: 0,
@@ -19,43 +21,44 @@ const initialState = {
         weight: 0,
         avatarUrl: '',
         id: 0,
-        teamName: ''
-
     },
 }
 
 
 export const playerSlice = createSlice({
     name: 'teams',
-    initialState,
+    initialState : initialState,
     reducers: {},
     extraReducers: builder => {
-        /*  builder.addCase(getPositions.pending, (state, action) => {
+          builder.addCase(getPositions.pending, (state, action) => {
               state.isFetching = true
           })
-          builder.addCase(getPositions.fulfilled, (state, action:any) => {
+          builder.addCase(getPositions.fulfilled, (state, action) => {
               state.positions = action.payload
               state.isFetching = false
           })
           builder.addCase(getPositions.rejected, (state, action) => {
              //ошибка 404
           })
-  */
-
 
         builder.addCase(getPlayers.pending, (state, action) => {
             state.isFetching = true
         })
-        builder.addCase(getPlayers.fulfilled, (state, action: any) => {
-            state.data = action.payload.data
-            state.count = action.payload.count
-            state.page = action.payload.page
-            state.size = action.payload.size
-            state.isFetching = false
+        builder.addCase(getPlayers.fulfilled, (state, {payload}) => {
+            if(payload ===undefined){
+                state.error = true
+            }else{
+                state.data = payload.data
+                state.count = payload.count
+                state.page = payload.page
+                state.size = payload.size
+                state.isFetching = false
+            }
         })
         builder.addCase(getPlayers.rejected, (state, action) => {
             //ошибка 404
         })
+
 
 
         builder.addCase(getPlayer.pending, (state, action) => {

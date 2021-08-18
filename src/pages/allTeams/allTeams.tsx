@@ -1,7 +1,7 @@
 import at from './allTeams.module.scss'
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import { StateType } from '../../api/dto/types';
+import {RootState} from '../../api/dto/types';
 import {Search} from "../../assets/icon/search";
 import {MissingTeams} from '../../ui/teamCard/missingTeams';
 import {useHistory} from "react-router";
@@ -20,7 +20,7 @@ export const AllTeams = () => {
         dispatch(getTeams())
     }, [dispatch])
 
-    //const teams = useSelector((state: StateType) => state.teams)
+    const teams = useSelector((state: RootState) => state.teams)
     const handleHistoryPush = () => history.push('/teams/addTeams')
 
     return (
@@ -35,7 +35,7 @@ export const AllTeams = () => {
                        type="submit"/>
             </div>
 
-            {/*{teams.isFetching && <Preloader/>}
+            {teams.isFetching && <Preloader/>}
             {teams.count === 0 ? <MissingTeams/> : <div className={at.contentWrapper}>
                 {teams.data.map((team) => <TeamCard key={ uuidv4()}
                                                     name={team.name}
@@ -44,7 +44,7 @@ export const AllTeams = () => {
                                                     conference={team.conference}
                                                     imageUrl={team.imageUrl}
                                                     id={team.id}/>)}
-            </div>}*/}
+            </div>}
             <div>
                 <div>пагинация</div>
                 <div>пагинация</div>

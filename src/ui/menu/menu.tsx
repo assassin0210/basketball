@@ -5,7 +5,7 @@ import {TwoPersons} from '../../assets/icon/TwoPersons';
 import {SingOut} from '../../assets/icon/singOut';
 import React from 'react';
 import {useDispatch} from "react-redux";
-import { deleteToken } from '../../modules/autorization/authSlice';
+import {deleteToken} from '../../modules/autorization/authSlice';
 
 
 export const Menu = React.memo(() => {
@@ -20,18 +20,20 @@ export const Menu = React.memo(() => {
         history.push('/players')
     }
 
-    const  handleExit = async () => {
+    const handleExit = async () => {
         localStorage.clear()
         dispatch(deleteToken())
         await history.push('/singIn')
     }
 
     const checkLocation = () => {
-        if (location.pathname ===( "/players")) {
+        if (location.pathname === ("/players")) {
             return true
         } else if (location.pathname === "/players/addPlayer") {
             return true
-        }else if (location.pathname === "/players/") {
+        } else if (location.pathname === "/players/") {
+            return true
+        } else if (location.pathname === "/players/:id") {
             return true
         }
         return false
