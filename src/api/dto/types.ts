@@ -91,13 +91,12 @@ export type InputsSingUp = {
 };
 
 export interface AddTeamIType {
-    name: string;
-    division: string;
-    conference: string;
+    name: string
+    division: string
+    conference: string
     foundationYear: number
     file: any
     id?: string | number
-
 }
 
 export interface AddPlayersFormType {

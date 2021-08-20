@@ -12,11 +12,7 @@ export const registered = createAsyncThunk(
                 "login": data.login,
                 "password": data.password
             })
-            if (response.statusText === 'OK') {
-                localStorage.setItem('token', (response.data.token))
-                localStorage.setItem('avatarUrl', (response.data.avatarUrl))
-                localStorage.setItem('name', (response.data.name))
-            }
+            return response.data
         } catch {
         }
     }

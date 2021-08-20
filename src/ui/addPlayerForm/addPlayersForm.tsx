@@ -7,55 +7,47 @@ import {ErrorText} from "../errorText/errorText";
 import {ButtonCancel} from "../buttons/buttonCatcel";
 import {useDispatch, useSelector} from "react-redux";
 import {addImagePlayer, getPositions} from "../../modules/players/playerThunk";
-import { getTeams } from "../../modules/teams/teamThunk";
+import {getTeams} from "../../modules/teams/teamThunk";
+import {FileInput} from "../inputs/fileInput";
+
+
 
 export const AddPlayersForm = () => {
+    const [imageBG, setImageBG] = useState(null);
+    const [dataImageUrl, setDataImageUrl] = useState(null);
     const players = useSelector((state: RootState) => state.players)
     const teams = useSelector((state: RootState) => state.teams.data)
-    const {register, handleSubmit, watch, formState: {errors}} = useForm<AddPlayersFormType>();
+    const {control,register, handleSubmit, watch, formState: {errors}} = useForm<AddPlayersFormType>();
     const dispatch = useDispatch()
     const [inputPosition, setInputPosition] = useState(false)
 
     useEffect(() => {
-        //dispatch(getPositions())
-        //dispatch(getTeams())
+        dispatch(getPositions())
+        dispatch(getTeams())
 
     }, [dispatch,inputPosition])
+
     const onSubmit: SubmitHandler<AddPlayersFormType> = data => {
         // @ts-ignore
         const teamId = teams.find(team => team.name === data.team).id
         data.team = teamId
-        dispatch(addImagePlayer(data))
+        //dispatch(addImagePlayer(data))
+        console.log(data)
+        console.log(errors)
 
             setInputPosition(!inputPosition)
     };
 
 
-
-    const file = watch()
-    const checkFile = () => {
-        if (!file.file) {
-            return false
-        } else if (file.file.length === 0) {
-            return false
-        }
-        return true
-    }
-
-
     return (
         <form className={atf.container} onSubmit={handleSubmit(onSubmit)}>
             <div className={atf.testWrapper}>
-                <div className={atf.inputFile_wrapper}>
-                    <input accept="image/*" id="imgInp" type="file" {...register("file", {required: true})}/>
-                    <div className={atf.inputFile_bg}>
-                    </div>
-                    <AddPhotoIcon/>
-                    <div className={atf.BGimg}
-                         style={{backgroundImage: `url(${checkFile() ? URL.createObjectURL(file.file[0]) : ''})`}}>
-                    </div>
-
-                </div>
+                <FileInput imageBG={imageBG}
+                           setImageBG={setImageBG}
+                           control={control}
+                           dataImageUrl={dataImageUrl}
+                           setDataImageUrl={setDataImageUrl}
+                />
                 {errors.file && <span className={atf.errorLabel}>Image is required</span>}
             </div>
 
@@ -75,7 +67,7 @@ export const AddPlayersForm = () => {
                         </select>
 
 
-                        {errors.position &&<span className={atf.errorLabelPosition}>Position is required</span>}
+                        {errors.position  &&<span className={atf.errorLabelPosition}>Position is required</span>}
                     </div>
 
 
@@ -87,7 +79,7 @@ export const AddPlayersForm = () => {
 
                         <option className='default_option-in-select' style={{display: 'none'}} >Select...
                         </option>
-                        {/*{teams.map((team) => <option key={team.id}>{team.name}</option>)}*/}
+                       {teams.map((team) => <option key={team.id}>{team.name}</option>)}
                     </select>
 
                     { errors.team?  <ErrorText>Team is required</ErrorText> : '' }

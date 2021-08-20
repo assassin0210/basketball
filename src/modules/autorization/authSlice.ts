@@ -27,10 +27,16 @@ const authSlice = createSlice({
         builder.addCase(registered.pending, (state) => {
             state.isFetching = true
         })
-        builder.addCase(registered.fulfilled, (state) => {
-            state.showError = false
-            state.isFetching = false
-            state.isAuth = true
+        builder.addCase(registered.fulfilled, (state,{payload}) => {
+            if(payload!== undefined){
+                localStorage.setItem('token', (payload.token))
+                localStorage.setItem('avatarUrl', (payload.avatarUrl))
+                localStorage.setItem('name', (payload.name))
+                state.token =   localStorage.getItem('token')
+                state.showError = false
+                state.isFetching = false
+                state.isAuth = true
+            }
         })
 
         builder.addCase(registered.rejected, (state) => {

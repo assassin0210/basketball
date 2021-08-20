@@ -23,7 +23,7 @@ export const addImage = createAsyncThunk(
         try {
             const file = data.file
             const formData = new FormData()
-            formData.append("file", file[0])
+            formData.append("file", file)
             const response = await instance.post<string>('/api/Image/SaveImage', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
