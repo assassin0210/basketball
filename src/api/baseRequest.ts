@@ -6,7 +6,7 @@ export const instance = axios.create({
     headers: {
         'Content-Type': 'application/json',
         'accept': 'application/json',
-        'Authorization': `Bearer  ${token()}`
+
     },
 });
 

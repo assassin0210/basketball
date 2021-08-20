@@ -1,7 +1,7 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {instance} from "../../api/baseRequest";
 import {IGetPlayersType, IPlayerInfo,} from "../../api/dto/playerTypes";
-import {AddPlayersFormType, TeamType} from "../../api/dto/types";
+import {AddPlayersFormType} from "../../api/dto/types";
 import {AxiosResponse} from "axios";
 
 

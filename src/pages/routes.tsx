@@ -18,13 +18,8 @@ import {RootState} from "../api/dto/types";
 import {UpdatePlayer} from "./updatePlayer/UpdatePlayer";
 import { v4 as uuidv4 } from 'uuid';
 
-
-
 export const Routes: FC = () => {
-
-
     const token = useSelector((state: RootState) => state.auth.token)
-
     return token?
         <>
             <Header/>

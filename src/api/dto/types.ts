@@ -101,6 +101,7 @@ export interface AddTeamIType {
 }
 
 export interface AddPlayersFormType {
+    teamName?: {}
     name: string,
     number: 0,
     position: string,

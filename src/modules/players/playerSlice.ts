@@ -59,8 +59,6 @@ export const playerSlice = createSlice({
             //ошибка 404
         })
 
-
-
         builder.addCase(getPlayer.pending, (state, action) => {
             state.isFetching = true
         })
