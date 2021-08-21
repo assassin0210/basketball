@@ -11,28 +11,27 @@ import {FileInput} from "../inputs/fileInput";
 
 
 export const AddTeamsForm = () => {
-    const [imageBG, setImageBG] = useState(null);
-    const [dataImageUrl, setDataImageUrl] = useState(null);
-    const {register, control, handleSubmit, watch, formState: {errors}} = useForm<AddTeamIType>();
+
+
+    const {register, control, handleSubmit, getValues, formState: {errors}} = useForm<AddTeamIType>();
     const dispatch = useDispatch()
     const onSubmit: SubmitHandler<AddTeamIType> = data => {
-       // data.file = dataImageUrl
+
+        /*data.file = dataImageUrl*/
         console.log(data)
-        //dispatch(addImage(data))
+        //dispatch(addImage(data))npm
     };
 
-    console.log(errors)
+
+
     return (
 
         <form className={atf.container} onSubmit={handleSubmit(onSubmit)}>
             <div className={atf.testWrapper}>
-                <FileInput imageBG={imageBG}
-                           setImageBG={setImageBG}
-                           control={control}
-                           dataImageUrl={dataImageUrl}
-                           setDataImageUrl={setDataImageUrl}
+                <FileInput  control={control}
+
                 />
-                {dataImageUrl && <span className={atf.errorLabel}>Image is required</span>}
+                {errors.file && <span className={atf.errorLabel}>Image is required</span>}
             </div>
 
             <div className='formWrapper'>

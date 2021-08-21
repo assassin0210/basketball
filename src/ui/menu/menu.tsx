@@ -37,7 +37,6 @@ export const Menu = React.memo(() => {
             return true
         }
         return false
-
     }
 
     return (

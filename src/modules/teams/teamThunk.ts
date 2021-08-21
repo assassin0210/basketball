@@ -21,7 +21,7 @@ export const addImage = createAsyncThunk(
     'teams/addLogoTeam',
     async function (data: AddTeamIType, {dispatch}) {
         try {
-            const file = data.file
+            const file = data.file[0]
             const formData = new FormData()
             formData.append("file", file)
             const response = await instance.post<string>('/api/Image/SaveImage', formData, {

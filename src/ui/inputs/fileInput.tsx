@@ -1,41 +1,34 @@
-import React, {useState} from "react";
-import {Controller, useController} from "react-hook-form";
+import React, {FC, useState} from "react";
+import {Controller, FieldValues, useController} from "react-hook-form";
 import atf from "../addTeamsForm/addTeamsForm.module.scss";
 import {AddPhotoIcon} from "../../assets/icon/addPhotoIcon";
 
 
-// @ts-ignore
-export const FileInput = ({control, imageBG, setImageBG, dataImageUrl, setDataImageUrl}) => {
 
 
+export const FileInput: FC<FieldValues> = ({control}) => {
+    const [imageBG, setImageBG] = useState('');
     return (
 
         <div className={atf.inputFile_wrapper}>
             <Controller
                 name="file"
-                defaultValue={[dataImageUrl]}
                 control={control}
-                render={({field}) => (
+                rules={{required: true}}
+                defaultValue=""
+                render={(props) => (
                     <>
-                        <input  {...field}  type="file" id='file'
-                            /*    onChange={(e) => {
-                                    if (e.target.files) {
-                                        field.onChange(parseInt(e.target.value))
-                                        setDataImageUrl(dataImageUrl = e.target.files[0]);
-                                        setImageBG(URL.createObjectURL(e.target.files[0]))
-                                        console.log(field)
-                                    }
+                        <input
+                            type="file" id='file'
+                            onChange={(e => {
+                                if (e.target.files){
+                                    setImageBG(URL.createObjectURL(e.target.files[0]));
                                 }
-                                }*/
+                                props.field.onChange(e.target.files);
+                            })}
                         />
-
                     </>
-
                 )}
-                rules={{
-                    required: true
-                }}
-
             />
             <div className={atf.inputFile_bg}>
             </div>
@@ -44,8 +37,6 @@ export const FileInput = ({control, imageBG, setImageBG, dataImageUrl, setDataIm
                  style={{backgroundImage: `url(${imageBG !== '' ? imageBG : ''})`}}
             >
             </div>
-
-
         </div>
 
     );

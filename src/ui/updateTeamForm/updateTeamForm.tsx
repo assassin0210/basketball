@@ -30,6 +30,7 @@ export const UpdateTeamForm = React.memo(() => {
 
 
     const file = watch()
+    console.log(watch())
 
     const checkFile = () => {
         if (!file.file) {

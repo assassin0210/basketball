@@ -6,18 +6,17 @@ import React, {useEffect, useState} from "react";
 import {ErrorText} from "../errorText/errorText";
 import {ButtonCancel} from "../buttons/buttonCatcel";
 import {useDispatch, useSelector} from "react-redux";
-import {addImagePlayer, getPositions} from "../../modules/players/playerThunk";
+import {getPositions} from "../../modules/players/playerThunk";
 import {getTeams} from "../../modules/teams/teamThunk";
 import {FileInput} from "../inputs/fileInput";
 
 
 
 export const AddPlayersForm = () => {
-    const [imageBG, setImageBG] = useState(null);
-    const [dataImageUrl, setDataImageUrl] = useState(null);
+
     const players = useSelector((state: RootState) => state.players)
     const teams = useSelector((state: RootState) => state.teams.data)
-    const {control,register, handleSubmit, watch, formState: {errors}} = useForm<AddPlayersFormType>();
+    const {register, handleSubmit, control, formState: {errors}} = useForm<AddPlayersFormType>();
     const dispatch = useDispatch()
     const [inputPosition, setInputPosition] = useState(false)
 
@@ -27,7 +26,7 @@ export const AddPlayersForm = () => {
 
     }, [dispatch,inputPosition])
 
-    const onSubmit: SubmitHandler<AddPlayersFormType> = data => {
+    const onSubmit: SubmitHandler<AddPlayersFormType > = data => {
         // @ts-ignore
         const teamId = teams.find(team => team.name === data.team).id
         data.team = teamId
@@ -42,12 +41,7 @@ export const AddPlayersForm = () => {
     return (
         <form className={atf.container} onSubmit={handleSubmit(onSubmit)}>
             <div className={atf.testWrapper}>
-                <FileInput imageBG={imageBG}
-                           setImageBG={setImageBG}
-                           control={control}
-                           dataImageUrl={dataImageUrl}
-                           setDataImageUrl={setDataImageUrl}
-                />
+                <FileInput control={control} />
                 {errors.file && <span className={atf.errorLabel}>Image is required</span>}
             </div>
 
