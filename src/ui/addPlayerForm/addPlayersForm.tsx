@@ -59,26 +59,20 @@ export const AddPlayersForm = () => {
       </div>
       <div className="formWrapper">
         <div className="form-container">
-          <label style={{ marginTop: "0" }}> Name</label>
+          <label className="labelName">Name</label>
           <input
             className="input_form"
             {...register("name", { required: true })}
           />
           {errors.name && <ErrorText>Name is required</ErrorText>}
           <label> Position</label>
-          <div style={{ position: "relative" }}>
+          <div className="select-container">
             <select
-              style={{ width: "100%" }}
               placeholder="Selected"
               className="input_form"
               {...register("position", { required: true })}
             >
-              <option
-                className="default_option-in-select"
-                style={{ display: "none" }}
-              >
-                Select...
-              </option>
+              <option className="default_option-in-select">Select...</option>
               {positions}
             </select>
             {errors.position && (
@@ -89,17 +83,11 @@ export const AddPlayersForm = () => {
           </div>
           <label> Team</label>
           <select
-            style={{ width: "100%" }}
             placeholder="Selected"
             className="input_form"
             {...register("team", { required: true })}
           >
-            <option
-              className="default_option-in-select"
-              style={{ display: "none" }}
-            >
-              Select...
-            </option>
+            <option className="default_option-in-select">Select...</option>
             {teamsList}
           </select>
           {errors.team ? <ErrorText>Team is required</ErrorText> : ""}
