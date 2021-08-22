@@ -4,7 +4,7 @@ import {IInitialStateTeam} from "../../api/dto/teamTypes";
 
 import {addImage, addTeam, getTeam, getTeams, updateTeam} from "./teamThunk";
 
-const initialState: IInitialStateTeam = {
+const initialState: IInitialStateTeam  = {
     data: [],
     count: 0,
     page: 0,

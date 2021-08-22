@@ -9,12 +9,10 @@ import { AddPlayersForm } from '../../ui/addPlayerForm/addPlayersForm';
 
 export const AddPlayer =()=>{
     const history = useHistory()
-
     const isFetching = useSelector<StateType>(state=>state.players.isFetching)
     const handleHistoryPlayer=()=>{
         history.push('/players')
     }
-
     return(
        <div className={ap.container}>
            <div className={ap.block}>

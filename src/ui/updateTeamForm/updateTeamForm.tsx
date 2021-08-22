@@ -8,6 +8,7 @@ import {ButtonCancel} from "../buttons/buttonCatcel";
 import {AddTeamIType} from "../../api/dto/types";
 import {useHistory, useParams} from "react-router";
 import {addImage} from "../../modules/teams/teamThunk";
+import {FileInput} from "../inputs/fileInput";
 
 
 
@@ -17,7 +18,7 @@ export const UpdateTeamForm = React.memo(() => {
     const history = useHistory()
     const params: { id: string } = useParams()
 
-    const {register, handleSubmit, watch, formState: {errors}} = useForm<AddTeamIType>();
+    const {register, handleSubmit, control, formState: {errors}} = useForm<AddTeamIType>();
     const dispatch = useDispatch()
     const onSubmit: SubmitHandler<AddTeamIType> = data => {
         data.id = Number(params.id)
@@ -25,37 +26,12 @@ export const UpdateTeamForm = React.memo(() => {
         history.goBack()
 
     };
-
-
-
-
-    const file = watch()
-    console.log(watch())
-
-    const checkFile = () => {
-        if (!file.file) {
-            return false
-        } else if (file.file.length === 0) {
-            return false
-        }
-        return true
-    }
-
-
     return (
 
         <form className={atf.container} onSubmit={handleSubmit(onSubmit)}>
             <div className={atf.testWrapper}>
-                <div className={atf.inputFile_wrapper}>
-                    <input accept="image/*" id="imgInp" type="file" {...register("file", {required: true})}/>
-                    <div className={atf.inputFile_bg}>
-
-                    </div>
-                    <AddPhotoIcon/>
-                    <div className={atf.BGimg}
-                         style={{backgroundImage: `url(${checkFile() ? URL.createObjectURL(file.file[0]) : ''})`}}>
-                    </div>
-                </div>
+                <FileInput  control={control}/>
+                {errors.file && <span className={atf.errorLabel}>Image is required</span>}
             </div>
             <div className='formWrapper'>
 
