@@ -5,22 +5,30 @@ import { DeleteTeam } from "../../assets/icon/deleteTeam";
 import { useHistory, useParams } from "react-router";
 import { RosterList } from "../../ui/rosterList/rosterList";
 import { Update } from "../../assets/icon/update";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { Preloader } from "../../ui/preloader/preloader";
 import { deleteTeam, getTeam } from "../../modules/teams/teamThunk";
+import { getPlayers } from "../../modules/players/playerThunk";
 
 export const DetailsTeam = () => {
-  const dispatch = useDispatch();
   const params: { id: string } = useParams();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getTeam(Number(params.id)));
+    dispatch(getPlayers());
+  }, [dispatch, params.id]);
+
   const history = useHistory();
   const currentTeam = useSelector(
     (state: RootState) => state.teams.currentTeam
   );
   const isFetching = useSelector((state: RootState) => state.teams.isFetching);
+  const players = useSelector((state: RootState) => state.players.data);
 
-  useEffect(() => {
-    dispatch(getTeam(Number(params.id)));
-  }, [dispatch, params.id]);
+  const currentTeamRoster = players.filter(
+    (player) => player.team === Number(params.id)
+  );
+  console.log(currentTeamRoster);
 
   const handleDelete = () => {
     const question = window.confirm(
@@ -34,6 +42,23 @@ export const DetailsTeam = () => {
   const handleUpdate = () => {
     history.push(`/teams/updateTeam/${params.id}`);
   };
+
+  const rosterListForTeam = useMemo(() => {
+    return currentTeamRoster.map((player, index) => (
+      <RosterList
+        key={index}
+        team={player.id}
+        id={player.id}
+        height={player.height}
+        number={player.number}
+        name={player.name}
+        position={player.position}
+        weight={player.weight}
+        avatarUrl={player.avatarUrl}
+        birthday={player.birthday}
+      />
+    ));
+  }, [players]);
 
   return (
     <div className={dt.container}>
@@ -89,7 +114,7 @@ export const DetailsTeam = () => {
               <span>Age</span>
             </div>
           </li>
-          <RosterList />
+          {rosterListForTeam}
         </ul>
       </div>
     </div>

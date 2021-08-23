@@ -1,3 +1,4 @@
+import React from "react";
 import dt from "../detailsTeam/detailsTeam.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../api/dto/types";
@@ -6,9 +7,8 @@ import { useHistory, useParams } from "react-router";
 import { Update } from "../../assets/icon/update";
 import { useEffect } from "react";
 import { Preloader } from "../../ui/preloader/preloader";
-
-import React from "react";
 import { deletePlayer, getPlayer } from "../../modules/players/playerThunk";
+import { getAgePlayer } from "../../ui/secondaryFunctions";
 
 export const DetailsPlayer = () => {
   const params: { id: string } = useParams();
@@ -86,7 +86,7 @@ export const DetailsPlayer = () => {
             </div>
             <p>
               Age <br />
-              <span>{currentPlayer.birthday}</span>
+              <span>{getAgePlayer(currentPlayer.birthday)}</span>
             </p>
           </div>
         </div>

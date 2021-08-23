@@ -32,9 +32,12 @@ export const AddPlayersForm = () => {
 
   const onSubmit: SubmitHandler<AddPlayersFormType> = (data) => {
     const teamId = teams.find((team) => team.name === data.team)?.id;
-    // @ts-ignore
-    data.team = teamId;
-    dispatch(addImagePlayer(data));
+
+    const addPlayerData = {
+      data,
+      teamId,
+    };
+    dispatch(addImagePlayer(addPlayerData));
     setInputPosition(!inputPosition);
   };
   const teamsList = useMemo(() => {
