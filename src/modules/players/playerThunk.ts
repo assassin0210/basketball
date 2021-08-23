@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { instance } from "../../api/baseRequest";
 import { IGetPlayersType, IPlayerInfo } from "../../api/dto/playerTypes";
-import { AddPlayersFormType, IAddPlayerData } from "../../api/dto/types";
+import { AddPlayersFormType } from "../../api/dto/types";
 import { AxiosResponse } from "axios";
 
 export const getPositions = createAsyncThunk(
@@ -33,9 +33,9 @@ export const getPlayers = createAsyncThunk(
 
 export const addImagePlayer = createAsyncThunk(
   "player/addImagePlayer",
-  async function (addPlayerData: IAddPlayerData, { dispatch }) {
+  async function (data: AddPlayersFormType, { dispatch }) {
     try {
-      const file = addPlayerData.data.file;
+      const file = data.file;
       const formData = new FormData();
       if (file) {
         return formData.append("file", file[0]);
@@ -46,19 +46,18 @@ export const addImagePlayer = createAsyncThunk(
           "Content-Type": "multipart/form-data",
         },
       });
-      if (addPlayerData.teamId) {
-        const player: AddPlayersFormType = {
-          name: `${addPlayerData.data.name}`,
-          number: addPlayerData.data.number,
-          position: `${addPlayerData.data.position}`,
-          team: addPlayerData.teamId,
-          birthday: `${addPlayerData.data.birthday}`,
-          height: addPlayerData.data.height,
-          weight: addPlayerData.data.weight,
-          avatarUrl: `http://dev.trainee.dex-it.ru${response.data}`,
-        };
-        dispatch(addPlayer(player));
-      }
+
+      const player: AddPlayersFormType = {
+        name: `${data.name}`,
+        number: data.number,
+        position: `${data.position}`,
+        team: data.team,
+        birthday: `${data.birthday}`,
+        height: data.height,
+        weight: data.weight,
+        avatarUrl: `http://dev.trainee.dex-it.ru${response.data}`,
+      };
+      dispatch(addPlayer(player));
     } catch {}
   }
 );

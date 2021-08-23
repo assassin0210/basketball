@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { AddPlayersFormType, RootState } from "../../api/dto/types";
 import atf from "../addTeamsForm/addTeamsForm.module.scss";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ErrorText } from "../errorText/errorText";
 import { ButtonCancel } from "../buttons/buttonCatcel";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,6 +11,7 @@ import {
 } from "../../modules/players/playerThunk";
 import { getTeams } from "../../modules/teams/teamThunk";
 import { FileInput } from "../inputs/fileInput";
+import { SelectComponent } from "../inputs/select";
 
 export const AddPlayersForm = () => {
   const players = useSelector((state: RootState) => state.players);
@@ -29,27 +30,26 @@ export const AddPlayersForm = () => {
     dispatch(getTeams());
   }, [dispatch]);
 
-  const onSubmit: SubmitHandler<AddPlayersFormType> = (data) => {
-    const teamId = teams.find((team) => team.name === data.team)?.id;
+  const teamsDataForSelect = () => {
+    const teamsData = [];
+    for (let team of teams) {
+      teamsData.push({ value: team.id, label: team.name });
+    }
+    return teamsData;
+  };
 
-    const addPlayerData = {
-      data,
-      teamId,
-    };
-    dispatch(addImagePlayer(addPlayerData));
+  const positionsDataForSelect = () => {
+    const positionsAll = [];
+    for (let position of players.positions) {
+      positionsAll.push({ value: position, label: position });
+    }
+    return positionsAll;
+  };
+
+  const onSubmit: SubmitHandler<AddPlayersFormType> = (data) => {
+    dispatch(addImagePlayer(data));
     setInputPosition(!inputPosition);
   };
-  const teamsList = useMemo(() => {
-    return teams.map((team) => <option key={team.id}>{team.name}</option>);
-  }, [teams]);
-
-  const positions = useMemo(() => {
-    return players.positions.map((position, index) => (
-      <option key={index} value={position}>
-        {position}
-      </option>
-    ));
-  }, [players]);
 
   return (
     <form className={atf.container} onSubmit={handleSubmit(onSubmit)}>
@@ -69,14 +69,19 @@ export const AddPlayersForm = () => {
           {errors.name && <ErrorText>Name is required</ErrorText>}
           <label> Position</label>
           <div className="select-container">
-            <select
+            <SelectComponent
+              options={positionsDataForSelect()}
+              name={"position"}
+              control={control}
+            />
+            {/* <select
               placeholder="Selected"
               className="input_form"
               {...register("position", { required: true })}
             >
               <option className="default_option-in-select">Select...</option>
               {positions}
-            </select>
+            </select>*/}
             {errors.position && (
               <span className={atf.errorLabelPosition}>
                 Position is required
@@ -84,14 +89,20 @@ export const AddPlayersForm = () => {
             )}
           </div>
           <label> Team</label>
-          <select
+          <SelectComponent
+            {...register("team", { required: true })}
+            options={teamsDataForSelect()}
+            name={"team"}
+            control={control}
+          />
+          {/* <select
             placeholder="Selected"
             className="input_form"
             {...register("team", { required: true })}
           >
             <option className="default_option-in-select">Select...</option>
             {teamsList}
-          </select>
+          </select>*/}
           {errors.team ? <ErrorText>Team is required</ErrorText> : ""}
           <div className={atf.block_inputs}>
             <div>

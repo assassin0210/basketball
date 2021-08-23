@@ -46,10 +46,12 @@ export interface AddPlayersFormType {
   id?: number;
 }
 
+/*
 export interface IAddPlayerData {
   data: AddPlayersFormType;
   teamId: number | undefined;
 }
+*/
 
 export interface PropsType<T> {
   component: React.ElementType;

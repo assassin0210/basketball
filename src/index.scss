@@ -70,14 +70,15 @@ input[type='submit'] {
   }
 }
 
-select{
+select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   position: relative;
 
 }
-.default_option-in-select{
+
+.default_option-in-select {
   position: relative;
   display: none;
 }
@@ -191,15 +192,19 @@ input, select {
     flex-direction: column;
     width: 60%;
     min-width: 361px;
-    .select-container{
+
+    .select-container {
       position: relative;
     }
-    .labelName{
+
+    .labelName {
       margin-top: 0;
 
     }
-    select{
+
+    select {
       width: 100%;
+
     }
 
     label {
@@ -329,7 +334,8 @@ input[type='file'] {
 
   .two_photo {
     margin: 0 10px 0 24px;
-    img{
+
+    img {
       width: 52px;
       height: 38px;
     }
@@ -347,7 +353,7 @@ input[type='file'] {
   cursor: pointer;
 
   &:hover {
-    path{
+    path {
       fill: var(--darkRed);
     }
 
@@ -361,16 +367,18 @@ input[type='file'] {
   }
 
 }
-.update-icon{
+
+.update-icon {
   cursor: pointer;
 
-  &:hover{
-    path{
-      fill:var(--grey)
+  &:hover {
+    path {
+      fill: var(--grey)
     }
   }
-  path{
-    fill:var(--lightGrey);
+
+  path {
+    fill: var(--lightGrey);
     transition: all 0.2s ease;
   }
 }
@@ -380,13 +388,13 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   opacity: 1
 }
 
-.contentWrapper{
+.contentWrapper {
   padding: 10px;
   display: inline-grid;
   grid-template-columns: repeat(3, 1fr);
   align-items: start;
   justify-content: center;
-  gap: 24px ;
+  gap: 24px;
   overflow: scroll;
   height: 100%;
 }

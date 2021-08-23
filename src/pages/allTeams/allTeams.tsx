@@ -3,7 +3,7 @@ import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../api/dto/types";
 import { Search } from "../../assets/icon/search";
-import { MissingTeams } from "../../ui/teamCard/missingTeams";
+import { MissingTeams } from "../missingTeam/missingTeams";
 import { useHistory } from "react-router";
 import { Preloader } from "../../ui/preloader/preloader";
 import { TeamCard } from "../../ui/teamCard/teamCard";

@@ -17,6 +17,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../api/dto/types";
 import { UpdatePlayer } from "./updatePlayer/UpdatePlayer";
 import { v4 as uuidv4 } from "uuid";
+import { NotFound } from "./notFound/notFound";
 
 export const Routes: FC = () => {
   const token = useSelector((state: RootState) => state.auth.token);
@@ -63,6 +64,11 @@ const routes = {
     path: "/singIn",
     component: SingIn,
     type: "public",
+  },
+  notFound: {
+    path: "/notFound",
+    component: NotFound,
+    type: "private",
   },
 
   addTeam: {
