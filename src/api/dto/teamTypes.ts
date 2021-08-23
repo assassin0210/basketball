@@ -19,3 +19,6 @@ export interface IInitialStateTeam extends iGetTeamType {
   error: boolean;
   currentTeam: ITeamInfo;
 }
+export interface AddTeamIType extends ITeamInfo {
+  file: File;
+}

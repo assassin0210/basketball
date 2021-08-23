@@ -2,7 +2,7 @@ import { store } from "../../core/redux/store";
 import { persistStore } from "redux-persist";
 import { rootReducer } from "../../core/redux/rootReducer";
 import React from "react";
-import { IInitialStateTeam } from "./teamTypes";
+import { IInitialStateTeam, ITeamInfo } from "./teamTypes";
 import { IInitialStateAuth } from "./authTypes";
 import { IInitialStatePlayer } from "./playerTypes";
 
@@ -36,15 +36,6 @@ export type InputsSingUp = {
   doublePass: string;
   policy: boolean;
 };
-
-export interface AddTeamIType {
-  name: string;
-  division: string;
-  conference: string;
-  foundationYear: number;
-  file: any;
-  id?: number;
-}
 
 export interface AddPlayersFormType {
   teamName?: {};
@@ -91,17 +82,10 @@ export type addTeamType = {
   id: number;
 };
 
-export interface responsAddTeam {
-  data: {
-    name: string;
-    foundationYear: number;
-    division: string;
-    conference: string;
-    imageUrl: string;
-    id: number;
-  };
-}
+export type DeleteTeamType = {
+  handleDelete: () => void;
+};
 
-export interface UpdateType {
-  id: string;
-}
+export type updateType = {
+  handleUpdate: () => void;
+};

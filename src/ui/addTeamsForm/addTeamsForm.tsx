@@ -4,9 +4,9 @@ import atf from "./addTeamsForm.module.scss";
 import { ErrorText } from "../errorText/errorText";
 import { useDispatch } from "react-redux";
 import { ButtonCancel } from "../buttons/buttonCatcel";
-import { AddTeamIType } from "../../api/dto/types";
 import { addImage } from "../../modules/teams/teamThunk";
 import { FileInput } from "../inputs/fileInput";
+import { AddTeamIType } from "../../api/dto/teamTypes";
 
 export const AddTeamsForm = () => {
   const {

@@ -1,5 +1,5 @@
 import menu from "./menu.module.scss";
-import { useHistory, useLocation } from "react-router";
+import { useHistory } from "react-router";
 import { OnePerson } from "../../assets/icon/onePerson";
 import { TwoPersons } from "../../assets/icon/TwoPersons";
 import { SingOut } from "../../assets/icon/singOut";

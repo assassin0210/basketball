@@ -12,6 +12,7 @@ import { getPlayers } from "../../modules/players/playerThunk";
 
 export const DetailsTeam = () => {
   const params: { id: string } = useParams();
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getTeam(Number(params.id)));
@@ -28,7 +29,6 @@ export const DetailsTeam = () => {
   const currentTeamRoster = players.filter(
     (player) => player.team === Number(params.id)
   );
-  console.log(currentTeamRoster);
 
   const handleDelete = () => {
     const question = window.confirm(
@@ -58,7 +58,7 @@ export const DetailsTeam = () => {
         birthday={player.birthday}
       />
     ));
-  }, [players]);
+  }, [currentTeamRoster]);
 
   return (
     <div className={dt.container}>

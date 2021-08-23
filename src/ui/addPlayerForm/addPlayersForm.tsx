@@ -1,7 +1,6 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { AddPlayersFormType, RootState } from "../../api/dto/types";
 import atf from "../addTeamsForm/addTeamsForm.module.scss";
-import { AddPhotoIcon } from "../../assets/icon/addPhotoIcon";
 import React, { useEffect, useMemo, useState } from "react";
 import { ErrorText } from "../errorText/errorText";
 import { ButtonCancel } from "../buttons/buttonCatcel";

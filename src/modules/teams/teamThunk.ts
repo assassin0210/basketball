@@ -1,12 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { instance } from "../../api/baseRequest";
-import { iGetTeamType } from "../../api/dto/teamTypes";
-import {
-  AddTeamIType,
-  addTeamType,
-  responsAddTeam,
-  TeamType,
-} from "../../api/dto/types";
+import { AddTeamIType, iGetTeamType, ITeamInfo } from "../../api/dto/teamTypes";
+import { addTeamType } from "../../api/dto/types";
 
 export const getTeams = createAsyncThunk(
   "teams/teams",
@@ -38,7 +33,7 @@ export const addImage = createAsyncThunk(
           },
         }
       );
-      const team: TeamType = {
+      const team: ITeamInfo = {
         name: `${data.name}`,
         foundationYear: data.foundationYear,
         division: `${data.division}`,
@@ -53,7 +48,7 @@ export const addImage = createAsyncThunk(
 
 export const addTeam = createAsyncThunk(
   "teams/addFullTeam",
-  async function (team: TeamType, { dispatch }) {
+  async function (team: ITeamInfo, { dispatch }) {
     try {
       const response = await instance.post<addTeamType>("/api/Team/Add", {
         name: `${team.name}`,
@@ -62,6 +57,7 @@ export const addTeam = createAsyncThunk(
         conference: `${team.conference}`,
         imageUrl: `${team.imageUrl}`,
       });
+      return response.data;
     } catch {}
   }
 );
@@ -70,14 +66,11 @@ export const getTeam = createAsyncThunk(
   "teams/getTeam",
   async function (id: number, { dispatch }) {
     try {
-      const response: responsAddTeam = await instance.get<addTeamType>(
-        "/api/Team/Get",
-        {
-          params: {
-            id: id,
-          },
-        }
-      );
+      const response = await instance.get<addTeamType>("/api/Team/Get", {
+        params: {
+          id: id,
+        },
+      });
       return response.data;
     } catch {}
   }
@@ -87,14 +80,11 @@ export const deleteTeam = createAsyncThunk(
   "teams/deleteTeam",
   async function (id: number, { dispatch }) {
     try {
-      const response: responsAddTeam = await instance.delete<addTeamType>(
-        "/api/Team/Delete",
-        {
-          params: {
-            id: id,
-          },
-        }
-      );
+      const response = await instance.delete<addTeamType>("/api/Team/Delete", {
+        params: {
+          id: id,
+        },
+      });
       return response.data;
     } catch {}
   }
@@ -102,7 +92,7 @@ export const deleteTeam = createAsyncThunk(
 
 export const updateTeam = createAsyncThunk(
   "teams/updateTeam",
-  async function (team: TeamType, { dispatch }) {
+  async function (team: ITeamInfo, { dispatch }) {
     try {
       const response = await instance.put<addTeamType>("/api/Team/Update", {
         name: `${team.name}`,

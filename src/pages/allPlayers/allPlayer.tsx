@@ -40,7 +40,7 @@ export const AllPlayer = () => {
         id={player.id}
       />
     ));
-  }, [players.data]);
+  }, [players, team]);
 
   return (
     <div className={ap.container}>

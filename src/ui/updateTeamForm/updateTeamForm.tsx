@@ -3,12 +3,11 @@ import React  from "react";
 import atf from '../addTeamsForm/addTeamsForm.module.scss'
 import {ErrorText} from "../errorText/errorText";
 import {useDispatch} from "react-redux";
-import {AddPhotoIcon} from "../../assets/icon/addPhotoIcon";
 import {ButtonCancel} from "../buttons/buttonCatcel";
-import {AddTeamIType} from "../../api/dto/types";
 import {useHistory, useParams} from "react-router";
 import {addImage} from "../../modules/teams/teamThunk";
-import {FileInput} from "../inputs/fileInput";
+import { FileInput } from "../inputs/fileInput";
+import { AddTeamIType } from "../../api/dto/teamTypes";
 
 
 

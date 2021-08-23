@@ -1,7 +1,8 @@
 import React from "react";
 import { FC } from "react";
+import { updateType } from "../../api/dto/types";
 
-export const Update: FC<any> = React.memo(({ handleUpdate }) => {
+export const Update: FC<updateType> = React.memo(({ handleUpdate }) => {
   return (
     <svg
       className="update-icon"

@@ -9,21 +9,28 @@ import { useEffect } from "react";
 import { Preloader } from "../../ui/preloader/preloader";
 import { deletePlayer, getPlayer } from "../../modules/players/playerThunk";
 import { getAgePlayer } from "../../ui/secondaryFunctions";
+import { getTeams } from "../../modules/teams/teamThunk";
 
 export const DetailsPlayer = () => {
-  const params: { id: string } = useParams();
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getPlayer(Number(params.id)));
-  }, [dispatch, params.id]);
-  const history = useHistory();
   const currentPlayer = useSelector(
     (state: RootState) => state.players.currentPlayer
   );
   const isFetching = useSelector(
     (state: RootState) => state.players.isFetching
   );
+  const teams = useSelector((state: RootState) => state.teams);
+  const params: { id: string } = useParams();
+  const dispatch = useDispatch();
+
+  const teamName = teams.data.find(
+    (team) => team.id === currentPlayer.team
+  )?.name;
+
+  useEffect(() => {
+    dispatch(getPlayer(Number(params.id)));
+    dispatch(getTeams());
+  }, [dispatch, params.id]);
+  const history = useHistory();
 
   const handleDelete = () => {
     const question = window.confirm(
@@ -73,7 +80,7 @@ export const DetailsPlayer = () => {
                 Position <br /> <span>{currentPlayer.position}</span>
               </p>
               <p>
-                Team <br /> <span> {currentPlayer.team} </span>
+                Team <br /> <span> {teamName} </span>
               </p>
             </div>
             <div className={dt.YearFound_divisions}>

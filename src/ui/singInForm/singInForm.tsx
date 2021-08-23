@@ -1,7 +1,7 @@
 import { ErrorText } from "../errorText/errorText";
 import si from "../../pages/singIn/singIn.module.scss";
 import { autSliceConst } from "../../modules/autorization/authSlice";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
@@ -74,5 +74,3 @@ export const SingInForm = () => {
     </form>
   );
 };
-
-
