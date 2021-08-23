@@ -24,11 +24,6 @@ export interface StateType {
   players: IInitialStatePlayer;
 }
 
-export type InputsSingIn = {
-  login: string;
-  password: string;
-};
-
 export type InputsSingUp = {
   userName: string;
   login: string;
@@ -47,7 +42,7 @@ export interface AddPlayersFormType {
   height: number;
   weight: number;
   avatarUrl?: string;
-  file?: any;
+  file?: Array<File>;
   id?: number;
 }
 

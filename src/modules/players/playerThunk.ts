@@ -37,7 +37,10 @@ export const addImagePlayer = createAsyncThunk(
     try {
       const file = addPlayerData.data.file;
       const formData = new FormData();
-      formData.append("file", file[0]);
+      if (file) {
+        return formData.append("file", file[0]);
+      }
+
       const response = await instance.post("/api/Image/SaveImage", formData, {
         headers: {
           "Content-Type": "multipart/form-data",

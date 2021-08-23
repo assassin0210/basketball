@@ -5,17 +5,17 @@ import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
-import { InputsSingIn } from "../../api/dto/types";
 import { ShowPassword } from "../../assets/icon/showPassword";
 import { HidePassword } from "../../assets/icon/hidePassword";
 import { login } from "../../modules/autorization/authThunk";
+import { onSubmitDataFormType } from "../../api/dto/authTypes";
 
 export const SingInForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<InputsSingIn>({ mode: "onSubmit" });
+  } = useForm<onSubmitDataFormType>({ mode: "onSubmit" });
   const [showPass, setShowPass] = useState(false);
   const showError = useSelector(
     (state: typeof autSliceConst & RootStateOrAny) => state.auth.showError
@@ -29,7 +29,7 @@ export const SingInForm = () => {
     setShowPass(!showPass);
   };
 
-  const onSubmit: SubmitHandler<InputsSingIn> = (data) => {
+  const onSubmit: SubmitHandler<onSubmitDataFormType> = (data) => {
     dispatch(login(data));
   };
   return (
