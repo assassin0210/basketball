@@ -13,17 +13,18 @@ export const SelectComponent: FC<any> = forwardRef(
         render={(props) => {
           return (
             <Select
+              className="react-select-container"
+              classNamePrefix="react-select"
               theme={(theme) => ({
                 ...theme,
                 borderRadius: 0,
                 colors: {
                   ...theme.colors,
-                  primary25: "hotpink",
-                  primary: "black",
+
+                  primary: "#C60E2E",
                 },
               })}
               inputRef={props.field.ref}
-              classNamePrefix="select"
               options={options}
               onChange={(val) => props.field.onChange(val?.value)}
             />
