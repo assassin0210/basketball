@@ -207,7 +207,7 @@
   align-items: center;
   justify-content: space-between;
 }
-@media screen and(max-width: 710px){
+@media screen and(max-width: 890px){
   .container {
     width: 100vh;
     height: 100%;
@@ -217,7 +217,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-
     transition: all 0.2s ease;
   }
   .teamInfo {

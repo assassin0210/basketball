@@ -68,6 +68,7 @@ export const AddPlayersForm = () => {
           <div>
             <SelectComponent
               options={positionsDataForSelect()}
+              height="30px"
               name={"position"}
               control={control}
             />
