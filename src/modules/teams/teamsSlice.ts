@@ -5,8 +5,8 @@ import { addImage, addTeam, getTeam, getTeams, updateTeam } from "./teamThunk";
 const initialState: IInitialStateTeam = {
   data: [],
   count: 0,
-  page: 0,
-  size: 0,
+  page: 1,
+  size: 6,
   error: false,
   isFetching: false,
   currentTeam: {
@@ -22,7 +22,14 @@ const initialState: IInitialStateTeam = {
 export const teamsSlice = createSlice({
   name: "teams",
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    setSizeAction(state, action) {
+      state.size = action.payload;
+    },
+    setPageAction(state, action) {
+      state.page = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getTeams.pending, (state, action) => {
       state.isFetching = true;
@@ -87,4 +94,4 @@ export const teamsSlice = createSlice({
 
 export const TeamsSliceConst = teamsSlice.reducer;
 
-//export const {} = teamsSlice.actions;
+export const { setSizeAction, setPageAction } = teamsSlice.actions;

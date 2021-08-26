@@ -1,15 +1,27 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { instance } from "../../api/baseRequest";
-import { AddTeamIType, iGetTeamType, ITeamInfo } from "../../api/dto/teamTypes";
+import {
+  AddTeamIType,
+  iGetTeamType,
+  IInitialStateTeam,
+  ITeamInfo,
+} from "../../api/dto/teamTypes";
 import { addTeamType } from "../../api/dto/types";
 
 export const getTeams = createAsyncThunk(
   "teams/teams",
+
   async function (_, { dispatch, getState }) {
+    const { teams } = getState() as { teams: IInitialStateTeam };
     try {
       const response = await instance.get<iGetTeamType>(
-        "/api/Team/GetTeams",
-        {}
+        `/api/Team/GetTeams?Page=${teams.page}&PageSize=${teams.size}`,
+        {
+          /*params: {
+          Page: "1",
+          PageSize: "4",
+        },*/
+        }
       );
 
       return response.data;

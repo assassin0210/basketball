@@ -12,6 +12,7 @@ import { getTeams } from "../../modules/teams/teamThunk";
 import ap from "../allPlayers/allPlayers.module.scss";
 import { useForm } from "react-hook-form";
 import { SearchTeam } from "../../ui/inputs/serchTeam";
+import { Paginator } from "../../ui/paginator/paginator";
 
 export const AllTeams = () => {
   const history = useHistory();
@@ -84,15 +85,14 @@ export const AllTeams = () => {
         />
       </div>
 
-      {teams.isFetching && <Preloader />}
+      {/*{teams.isFetching && <Preloader />}*/}
       {teams.count === 0 ? (
         <MissingTeams />
       ) : (
         <div className={at.contentWrapper}>{teamsCardList}</div>
       )}
       <div>
-        <div>пагинация</div>
-        <div>пагинация</div>
+        <Paginator />
       </div>
     </div>
   );
