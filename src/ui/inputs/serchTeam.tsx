@@ -1,10 +1,15 @@
-import React, { forwardRef } from "react";
+import React from "react";
 import { FC } from "react";
 import Select from "react-select";
 import { Controller } from "react-hook-form";
 import "./selectCastom.css";
 
-export const SelectComponent: FC<any> = ({ options, control, name }) => {
+export const SearchTeam: FC<any> = ({
+  options,
+  control,
+  name,
+  setResultSearch,
+}) => {
   return (
     <Controller
       control={control}
@@ -20,11 +25,14 @@ export const SelectComponent: FC<any> = ({ options, control, name }) => {
             options={options}
             onChange={(e) => {
               console.log(e);
+              if (e) {
+                setResultSearch(e);
+              }
             }}
             /*onChange={(val) => {
-                props.field.onChange(val?.value);
-                console.log(val);
-              }}*/
+                            props.field.onChange(val?.value);
+                            console.log(val);
+                          }}*/
           />
         );
       }}

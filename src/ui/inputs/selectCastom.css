@@ -1,7 +1,10 @@
 
-
+.react-select__control{
+  width: 351px;
+}
 .react-select__value-container{
   height: 30px;
+
 }
 .react-select__single-value{
 top: 70%!important;
