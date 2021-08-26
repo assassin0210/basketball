@@ -16,8 +16,8 @@ import { AllPlayer } from "./allPlayers/allPlayer";
 import { useSelector } from "react-redux";
 import { RootState } from "../api/dto/types";
 import { UpdatePlayer } from "./updatePlayer/UpdatePlayer";
-import { v4 as uuidv4 } from "uuid";
 import { NotFound } from "./notFound/notFound";
+import { AdaptionMenu } from "../ui/adaptionMenu/adaptionMenu";
 
 export const Routes: FC = () => {
   const token = useSelector((state: RootState) => state.auth.token);
@@ -25,13 +25,15 @@ export const Routes: FC = () => {
     <>
       <Header />
       <div className={mp.main_container_children}>
+        <AdaptionMenu />
+
         <Menu />
         <Switch>
           {Object.values(routes)
             .filter((item) => item.type === "private")
-            .map((item) => (
+            .map((item, index) => (
               <Route
-                key={uuidv4()}
+                key={index}
                 exact
                 strict
                 path={item.path}
@@ -46,8 +48,8 @@ export const Routes: FC = () => {
     <Switch>
       {Object.values(routes)
         .filter((item) => item.type === "public")
-        .map((item) => (
-          <Route key={uuidv4()} path={item.path} component={item.component} />
+        .map((item, index) => (
+          <Route key={index} path={item.path} component={item.component} />
         ))}
       <Redirect from="/" to="/singIn" />
     </Switch>

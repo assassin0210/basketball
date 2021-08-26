@@ -9,7 +9,7 @@ import { Preloader } from "../../ui/preloader/preloader";
 import { TeamCard } from "../../ui/teamCard/teamCard";
 import React from "react";
 import { getTeams } from "../../modules/teams/teamThunk";
-import { v4 as uuidv4 } from "uuid";
+import ap from "../allPlayers/allPlayers.module.scss";
 
 export const AllTeams = () => {
   const history = useHistory();
@@ -22,9 +22,9 @@ export const AllTeams = () => {
   const handleHistoryPush = () => history.push("/teams/addTeams");
 
   const teamsCardList = useMemo(() => {
-    return teams.data.map((team) => (
+    return teams.data.map((team, index) => (
       <TeamCard
-        key={uuidv4()}
+        key={index}
         name={team.name}
         foundationYear={team.foundationYear}
         division={team.division}
@@ -39,14 +39,13 @@ export const AllTeams = () => {
     <div className={at.allTeams_container}>
       <div className={at.top_side}>
         <div className={at.search_block}>
-          <input className="input_search" placeholder="Search..." type="text" />
+          <input placeholder="Search..." type="text" />
           <Search />
         </div>
 
         <input
-          style={{ margin: "0" }}
           onClick={handleHistoryPush}
-          className="red-button"
+          className={ap.red_button}
           value="Add  +"
           type="submit"
         />

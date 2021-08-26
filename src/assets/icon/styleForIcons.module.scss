@@ -1,0 +1,49 @@
+.update_icon {
+  cursor: pointer;
+
+  &:hover {
+    path {
+      fill: var(--grey)
+    }
+  }
+
+  path {
+    fill: var(--lightGrey);
+    transition: all 0.2s ease;
+  }
+}
+.delete_icon {
+  cursor: pointer;
+
+  &:hover {
+    path {
+      fill: var(--darkRed);
+    }
+
+  }
+
+
+  path {
+    fill: var(--red);
+    transition: all 0.2s ease;
+
+  }
+
+}
+
+
+
+.solidMenu{
+  position: absolute;
+  display: none;
+  left: 15px;
+  cursor: pointer;
+}
+@media screen and(max-width: 1105px){
+  .solidMenu{
+    position: absolute;
+    display: inline-block!important;
+    left: 15px;
+    cursor: pointer;
+  }
+}

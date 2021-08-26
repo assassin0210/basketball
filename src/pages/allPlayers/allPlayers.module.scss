@@ -1,4 +1,4 @@
-.container{
+.container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -7,11 +7,13 @@
   background: var(--lightestGrey1);
   position: relative;
 }
-.top_side{
+
+.top_side {
   display: flex;
   justify-content: space-between;
   margin-bottom: 32px;
 }
+
 .search_block {
   position: relative;
   min-width: 364px;
@@ -21,6 +23,11 @@
     border-radius: 4px;
     border: 0.5px solid var(--lightestGray);
     outline: none;
+    background: var(--white);
+    &:hover {
+      background: var(--white);
+    }
+
   }
 
   svg {
@@ -29,14 +36,95 @@
     top: 10px;
   }
 }
-.contentWrapper{
+
+.contentWrapper {
   padding: 10px;
   display: inline-grid;
   grid-template-columns: repeat(3, 1fr);
   align-items: start;
   justify-content: center;
-  gap: 24px ;
+  gap: 24px;
   overflow: scroll;
   height: 100%;
 }
 
+
+
+.red_button {
+  padding: 8px 27px 8px 24px;
+  margin-top: 0 !important;
+  border: none;
+  border-radius: 4px;
+  background: var(--red);
+  color: var(--white);
+  transition: all 0.2s ease;
+  cursor: pointer;
+
+
+  &:hover {
+    background: var(--lightRed);
+
+    &:active {
+      background: var(--darkRed);
+    }
+  }
+}
+@media screen and(max-width: 1105px){
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0  !important;
+    width: 100%;
+    background: var(--lightestGrey1);
+    position: relative;
+  }
+
+  .contentWrapper {
+    margin: 10px 0;
+    padding: 0  0 0 0 ;
+    padding-bottom: 10px;
+    display: inline-grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: start;
+    justify-content: center;
+    gap: 12px ;
+    overflow: auto;
+    height: 100%;
+  }
+
+  .top_side {
+    margin-top: 10px;
+    height: 184px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+    input{
+      width: 351px;
+    }
+  }
+  .search_block {
+    position: relative;
+    min-width: 351px;
+
+    input {
+      padding: 8px 12px;
+      border-radius: 4px;
+      border: 0.5px solid var(--lightestGray);
+      outline: none;
+      background: var(--white);
+      &:hover {
+        background: var(--white);
+      }
+
+    }
+
+    svg {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+    }
+  }
+}

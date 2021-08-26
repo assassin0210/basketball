@@ -8,7 +8,6 @@ import { MissingPlayers } from "../../ui/playerCard/missingPlayers";
 import { useHistory } from "react-router";
 import { PlayerCard } from "../../ui/playerCard/playerCard";
 import { getPlayers } from "../../modules/players/playerThunk";
-import { v4 as uuidv4 } from "uuid";
 import { getTeams } from "../../modules/teams/teamThunk";
 
 export const AllPlayer = () => {
@@ -27,7 +26,7 @@ export const AllPlayer = () => {
   const playerCardList = useMemo(() => {
     return players.data.map((player, index) => (
       <PlayerCard
-        key={uuidv4()}
+        key={index}
         number={player.number}
         teamName={team[index]}
         name={player.name}
@@ -46,13 +45,16 @@ export const AllPlayer = () => {
     <div className={ap.container}>
       <div className={ap.top_side}>
         <div className={ap.search_block}>
-          <input className="input_search" placeholder="Search..." type="text" />
+          <input placeholder="Search..." type="text" />
+          <Search />
+        </div>
+        <div className={ap.search_block}>
+          <input placeholder="Search..." type="text" />
           <Search />
         </div>
         <input
-          style={{ margin: "0" }}
           onClick={handleHistoryPush}
-          className="red-button"
+          className={ap.red_button}
           value="Add  +"
           type="submit"
         />
@@ -61,7 +63,7 @@ export const AllPlayer = () => {
       {!players.count ? (
         <MissingPlayers />
       ) : (
-        <div className="contentWrapper">{playerCardList}</div>
+        <div className={ap.contentWrapper}>{playerCardList}</div>
       )}
       <div>
         <div>пагинация</div>

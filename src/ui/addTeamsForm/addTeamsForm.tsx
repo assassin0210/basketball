@@ -7,6 +7,7 @@ import { ButtonCancel } from "../buttons/buttonCatcel";
 import { addImage } from "../../modules/teams/teamThunk";
 import { FileInput } from "../inputs/fileInput";
 import { AddTeamIType } from "../../api/dto/teamTypes";
+import si from "../../pages/singIn/singIn.module.scss";
 
 export const AddTeamsForm = () => {
   const {
@@ -28,30 +29,30 @@ export const AddTeamsForm = () => {
           <span className={atf.errorLabel}>Image is required</span>
         )}
       </div>
-      <div className="formWrapper">
-        <div className="form-container">
+      <div className={atf.formWrapper}>
+        <div className={atf.form_container}>
           <label> Name</label>
           <input
-            className="input_form"
+            className={errors.name && si.input_Error}
             {...register("name", { required: true })}
           />
           {errors.name && <ErrorText>Name is required</ErrorText>}
           <label> Division</label>
           <input
-            className="input_form"
+            className={errors.division && si.input_Error}
             {...register("division", { required: true })}
           />
           {errors.division && <ErrorText>Division is required</ErrorText>}
           <label> Conference</label>
           <input
-            className="input_form"
+            className={errors.conference && si.input_Error}
             {...register("conference", { required: true })}
           />
           {errors.conference && <ErrorText>Conference is required</ErrorText>}
           <label> Year of foundation</label>
           <input
+            className={errors.foundationYear && si.input_Error}
             type="number"
-            className="input_form"
             {...register("foundationYear", {
               required: true,
               min: 1000,
@@ -65,7 +66,7 @@ export const AddTeamsForm = () => {
           )}
           <div className={atf.buttons_block}>
             <ButtonCancel />
-            <input value="Save" className="red-button" type="submit" />
+            <input value="Save" type="submit" />
           </div>
         </div>
       </div>

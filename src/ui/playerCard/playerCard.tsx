@@ -1,5 +1,5 @@
 import React from "react";
-import tc from "../teamCard/teamCard.module.scss";
+import pc from "./playerCard.module.scss";
 import { FC } from "react";
 import { AddPlayersFormType } from "../../api/dto/types";
 import { useHistory } from "react-router";
@@ -19,11 +19,11 @@ export const PlayerCard: FC<AddPlayersFormType> = ({
   };
 
   return (
-    <div onClick={handleCheckId} className={tc.teamCardContainer}>
-      <div className={tc.playerLogoBlock}>
+    <div onClick={handleCheckId} className={pc.teamCardContainer}>
+      <div className={pc.playerLogoBlock}>
         <img src={avatarUrl} alt="team" />
       </div>
-      <div className={tc.teamDescription}>
+      <div className={pc.teamDescription}>
         <h3>
           {name}
           <span> #{number}</span>

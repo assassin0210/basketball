@@ -1,10 +1,11 @@
 import React, { FC } from "react";
 import { DeleteTeamType } from "../../api/dto/types";
+import s from "./styleForIcons.module.scss";
 
 export const DeleteTeam: FC<DeleteTeamType> = React.memo(({ handleDelete }) => {
   return (
     <svg
-      className="delete-icon"
+      className={s.delete_icon}
       onClick={handleDelete}
       width="24"
       height="24"

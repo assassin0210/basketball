@@ -5,3 +5,6 @@ export const getAgePlayer = (birthday: string) => {
   const result = currentYear - Number(currentBirthday);
   return result;
 };
+export const userName = () => localStorage.getItem("name");
+
+export const avatarUrl = () => localStorage.getItem("avatarUrl") as string;

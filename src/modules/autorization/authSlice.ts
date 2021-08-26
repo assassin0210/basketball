@@ -54,6 +54,7 @@ const authSlice = createSlice({
     });
     builder.addCase(login.rejected, (state) => {
       state.showError = true;
+      state.isFetching = false;
     });
   },
 });

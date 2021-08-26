@@ -49,21 +49,38 @@ export const teamsSlice = createSlice({
     builder.addCase(getTeam.pending, (state) => {
       state.isFetching = true;
     });
-    builder.addCase(getTeam.fulfilled, (state, action: any) => {
-      state.currentTeam.name = action.payload.name;
-      state.currentTeam.foundationYear = action.payload.foundationYear;
-      state.currentTeam.division = action.payload.division;
-      state.currentTeam.conference = action.payload.conference;
-      state.currentTeam.imageUrl = action.payload.imageUrl;
-      state.currentTeam.id = action.payload.id;
-      state.isFetching = false;
+    builder.addCase(getTeam.fulfilled, (state, { payload }) => {
+      if (payload === undefined) {
+        state.error = true;
+      } else {
+        state.currentTeam.name = payload.name;
+        state.currentTeam.foundationYear = payload.foundationYear;
+        state.currentTeam.division = payload.division;
+        state.currentTeam.conference = payload.conference;
+        state.currentTeam.imageUrl = payload.imageUrl;
+        state.currentTeam.id = payload.id;
+        state.isFetching = false;
+      }
     });
     builder.addCase(getTeam.rejected, (state, action) => {
       state.isFetching = false;
     });
+    builder.addCase(updateTeam.pending, (state, action) => {
+      state.isFetching = true;
+    });
 
-    builder.addCase(updateTeam.fulfilled, (state, action) => {
-      state.isFetching = false;
+    builder.addCase(updateTeam.fulfilled, (state, { payload }) => {
+      if (payload === undefined) {
+        state.error = true;
+      } else {
+        state.currentTeam.name = payload.name;
+        state.currentTeam.foundationYear = payload.foundationYear;
+        state.currentTeam.division = payload.division;
+        state.currentTeam.conference = payload.conference;
+        state.currentTeam.imageUrl = payload.imageUrl;
+        state.currentTeam.id = payload.id;
+        state.isFetching = false;
+      }
     });
   },
 });

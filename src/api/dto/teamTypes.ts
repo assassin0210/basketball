@@ -20,5 +20,5 @@ export interface IInitialStateTeam extends iGetTeamType {
   currentTeam: ITeamInfo;
 }
 export interface AddTeamIType extends ITeamInfo {
-  file: File;
+  file: File[];
 }

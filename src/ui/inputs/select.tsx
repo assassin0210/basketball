@@ -13,8 +13,6 @@ export const SelectComponent: FC<any> = forwardRef(
         render={(props) => {
           return (
             <Select
-              className="react-select-container"
-              classNamePrefix="react-select"
               theme={(theme) => ({
                 ...theme,
                 borderRadius: 0,

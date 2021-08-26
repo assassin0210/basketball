@@ -1,10 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { instance } from "../../api/baseRequest";
 import { onSubmitDataFormType, UserType } from "../../api/dto/authTypes";
+import { RootState } from "../../api/dto/types";
 
 export const registered = createAsyncThunk(
   "auth/registeredAsync",
-  async function (data: onSubmitDataFormType, { dispatch }) {
+  async function (data: onSubmitDataFormType, { dispatch, getState }) {
     try {
       const response = await instance.post<UserType>("/api/Auth/SignUp", {
         userName: data.userName,
@@ -12,13 +13,17 @@ export const registered = createAsyncThunk(
         password: data.password,
       });
       return response.data;
-    } catch {}
+    } catch {
+      let state = getState() as RootState;
+      state.auth.showError = true;
+      state.auth.isFetching = false;
+    }
   }
 );
 
 export const login = createAsyncThunk(
   "auth/login",
-  async function (data: onSubmitDataFormType, { dispatch }) {
+  async function (data: onSubmitDataFormType, { dispatch, getState }) {
     try {
       const response = await instance.post<UserType>("/api/Auth/SignIn", {
         login: data.login,
@@ -27,6 +32,10 @@ export const login = createAsyncThunk(
       if (response.statusText === "OK") {
         return response.data;
       }
-    } catch {}
+    } catch {
+      let state = getState() as RootState;
+      state.auth.showError = true;
+      state.auth.isFetching = false;
+    }
   }
 );

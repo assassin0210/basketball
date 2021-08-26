@@ -1,11 +1,12 @@
 import React from "react";
 import { FC } from "react";
 import { updateType } from "../../api/dto/types";
+import s from "./styleForIcons.module.scss";
 
 export const Update: FC<updateType> = React.memo(({ handleUpdate }) => {
   return (
     <svg
-      className="update-icon"
+      className={s.update_icon}
       onClick={handleUpdate}
       width="24"
       height="24"

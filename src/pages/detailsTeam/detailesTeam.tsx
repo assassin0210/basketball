@@ -14,15 +14,15 @@ export const DetailsTeam = () => {
   const params: { id: string } = useParams();
 
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getTeam(Number(params.id)));
-    dispatch(getPlayers());
-  }, [dispatch, params.id]);
 
   const history = useHistory();
   const currentTeam = useSelector(
     (state: RootState) => state.teams.currentTeam
   );
+  useEffect(() => {
+    dispatch(getTeam(Number(params.id)));
+    dispatch(getPlayers());
+  }, [dispatch, params.id, currentTeam]);
   const isFetching = useSelector((state: RootState) => state.teams.isFetching);
   const players = useSelector((state: RootState) => state.players.data);
 
@@ -85,37 +85,37 @@ export const DetailsTeam = () => {
             <h2>{currentTeam.name}</h2>
             <div className={dt.YearFound_divisions}>
               <p>
-                Year of foundation <br />{" "}
+                <span>Year of foundation </span>
                 <span>{currentTeam.foundationYear}</span>
               </p>
               <p>
-                Division <br /> <span> {currentTeam.division}</span>
+                <span>Division</span> <span> {currentTeam.division}</span>
               </p>
             </div>
             <p>
-              Conference <br />
+              <span>Conference </span>
               <span>{currentTeam.conference}</span>
             </p>
           </div>
         </div>
-      </div>
-      <div className={dt.roster_container}>
-        <ul className={dt.roster_list}>
-          <li>Roster</li>
-          <li className={dt.second_li}>
-            <div>
-              <span className={dt.first_item}>#</span>
-              <span className={dt.second_item}>Player</span>
-              <span className={dt.no_items}> </span>
-            </div>
-            <div className={dt.charisma}>
-              <span>Height</span>
-              <span>Weight</span>
-              <span>Age</span>
-            </div>
-          </li>
-          {rosterListForTeam}
-        </ul>
+        <div className={dt.roster_container}>
+          <ul className={dt.roster_list}>
+            <li>Roster</li>
+            <li className={dt.second_li}>
+              <div>
+                <span className={dt.first_item}>#</span>
+                <span className={dt.second_item}>Player</span>
+                <span className={dt.no_items}> </span>
+              </div>
+              <div className={dt.charisma}>
+                <span>Height</span>
+                <span>Weight</span>
+                <span>Age</span>
+              </div>
+            </li>
+            {rosterListForTeam}
+          </ul>
+        </div>
       </div>
     </div>
   );

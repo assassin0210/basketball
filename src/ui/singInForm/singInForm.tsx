@@ -37,7 +37,7 @@ export const SingInForm = () => {
       <h1>Sing In</h1>
       <label> Login</label>
       <input
-        className={`  ${errors.login && "input_Error"} input_form`}
+        className={errors.login && si.input_Error}
         {...register("login", { required: true })}
       />
 
@@ -45,7 +45,7 @@ export const SingInForm = () => {
       <label> Password</label>
       <div className={si.inputPassWrapper}>
         <input
-          className={` input_form ${errors.password && "input_Error"}`}
+          className={errors.password && si.input_Error}
           type={showPass ? "text" : "password"}
           {...register("password", { required: true })}
         />
@@ -54,20 +54,15 @@ export const SingInForm = () => {
         </div>
       </div>
       {errors.password && <ErrorText>Password is required</ErrorText>}
-      <input
-        className="red-button red_submit"
-        disabled={preloader}
-        value="Sing In"
-        type="submit"
-      />
-      <label style={{ textAlign: "center" }}>
+      <input disabled={preloader} value="Sing In" type="submit" />
+      <label className={si.castom_label}>
         Not a member yet?{" "}
-        <Link className="linkSing" to="/singUp">
+        <Link className={si.linkSing} to="/singUp">
           Sign up <div></div>
         </Link>
       </label>
       {showError && (
-        <span className="error_message_login">
+        <span className={si.error_message_login}>
           User with the specified username / password was not found.
         </span>
       )}

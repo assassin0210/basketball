@@ -1,19 +1,16 @@
 import React from "react";
-import {useHistory} from "react-router";
+import { useHistory } from "react-router";
+import s from "./buttonCancel.module.scss";
 
+export const ButtonCancel = React.memo(() => {
+  const history = useHistory();
+  const handleGoBack = () => {
+    history.goBack();
+  };
 
-
-
-export const ButtonCancel = React.memo( () => {
-    const history = useHistory()
-    const handleGoBack =()=>{
-        history.goBack()
-    }
-
-    return (
-        <button onClick={handleGoBack} className='gray-button'>Cancel</button>
-
-
-
-    )
-})
+  return (
+    <button onClick={handleGoBack} className={s.gray_button}>
+      Cancel
+    </button>
+  );
+});

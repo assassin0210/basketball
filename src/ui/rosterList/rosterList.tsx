@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { IPlayerInfo } from "../../api/dto/playerTypes";
 import { getAgePlayer } from "../secondaryFunctions";
+import s from "./rosterList.module.scss";
 
 export const RosterList: FC<IPlayerInfo> = ({
   number,
@@ -14,21 +15,21 @@ export const RosterList: FC<IPlayerInfo> = ({
   id,
 }) => {
   return (
-    <li className="roster_container">
+    <li className={s.roster_container}>
       <div>
-        <span className="one_number">{number}</span>
-        <span className="two_photo">
+        <span className={s.one_number}>{number}</span>
+        <span className={s.two_photo}>
           <img src={avatarUrl} alt="avatar" />
         </span>
-        <span className="three_name">
+        <span className={s.three_name}>
           {name} <br />
           <p>{position}</p>
         </span>
       </div>
-      <div className="charisma">
-        <span className="four_height">{height}cm</span>
-        <span className="five_weight">{weight} kg</span>
-        <span className="six_age">{getAgePlayer(birthday)}</span>
+      <div className={s.charisma}>
+        <span className={s.four_height}>{height}cm</span>
+        <span className={s.five_weight}>{weight} kg</span>
+        <span className={s.six_age}>{getAgePlayer(birthday)}</span>
       </div>
     </li>
   );

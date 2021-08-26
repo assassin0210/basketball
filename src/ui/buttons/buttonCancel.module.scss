@@ -1,0 +1,23 @@
+.gray_button {
+  padding: 8px 62px;
+  border: 1px solid var(--lightGrey);
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 24px;
+  color: var(--lightGrey);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+
+  &:hover {
+    background: var(--lightestGrey);
+  }
+
+  &:active {
+    background: var(--lightGrey);
+    color: var(--grey);
+
+  }
+
+}

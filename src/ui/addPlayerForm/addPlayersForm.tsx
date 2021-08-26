@@ -59,29 +59,18 @@ export const AddPlayersForm = () => {
           <span className={atf.errorLabel}>Image is required</span>
         )}
       </div>
-      <div className="formWrapper">
-        <div className="form-container">
-          <label className="labelName">Name</label>
-          <input
-            className="input_form"
-            {...register("name", { required: true })}
-          />
+      <div className={atf.formWrapper}>
+        <div className={atf.form_container}>
+          <label className={atf.labelName}>Name</label>
+          <input {...register("name", { required: true })} />
           {errors.name && <ErrorText>Name is required</ErrorText>}
           <label> Position</label>
-          <div className="select-container">
+          <div>
             <SelectComponent
               options={positionsDataForSelect()}
               name={"position"}
               control={control}
             />
-            {/* <select
-              placeholder="Selected"
-              className="input_form"
-              {...register("position", { required: true })}
-            >
-              <option className="default_option-in-select">Select...</option>
-              {positions}
-            </select>*/}
             {errors.position && (
               <span className={atf.errorLabelPosition}>
                 Position is required
@@ -95,14 +84,6 @@ export const AddPlayersForm = () => {
             name={"team"}
             control={control}
           />
-          {/* <select
-            placeholder="Selected"
-            className="input_form"
-            {...register("team", { required: true })}
-          >
-            <option className="default_option-in-select">Select...</option>
-            {teamsList}
-          </select>*/}
           {errors.team ? <ErrorText>Team is required</ErrorText> : ""}
           <div className={atf.block_inputs}>
             <div>
@@ -112,10 +93,7 @@ export const AddPlayersForm = () => {
             </div>
             <div>
               <label> Weight (kg)</label>
-              <input
-                className="input_form"
-                {...register("weight", { required: true })}
-              />
+              <input {...register("weight", { required: true })} />
               {errors.weight && <ErrorText>Weight is required</ErrorText>}
             </div>
           </div>
@@ -132,7 +110,6 @@ export const AddPlayersForm = () => {
               <label> Number</label>
               <input
                 type="number"
-                className="input_form"
                 {...register("number", { required: true })}
               />
               {errors.number && <ErrorText>Number is required</ErrorText>}
@@ -140,7 +117,7 @@ export const AddPlayersForm = () => {
           </div>
           <div className={atf.buttons_block}>
             <ButtonCancel />
-            <input value="Save" className="red-button" type="submit" />
+            <input value="Save" type="submit" />
           </div>
         </div>
       </div>

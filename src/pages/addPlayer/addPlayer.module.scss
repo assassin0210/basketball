@@ -6,7 +6,7 @@
 .block{
   width: 80%;
   padding-bottom: 48px;
-  background: white;
+  background: var(--white);
   border-radius: 10px;
   margin: 32px auto;
   position: relative;
@@ -42,5 +42,49 @@
   span {
     color: var(--lightGrey);
     margin: 0 5px;
+  }
+}
+@media screen and(max-width: 1105px){
+  .headerContainer{
+    display: flex;
+    align-items: center;
+    padding-left: 0!important;
+    p {
+      margin: 24px 0;
+      color: var(--red);
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 24px;
+    }
+
+    span {
+      color: var(--lightGrey);
+      margin: 0 5px;
+    }
+  }
+
+  .block{
+    width: 100%;
+    padding: 0 16px;
+    padding-bottom: 48px;
+    background: var(--white);
+    border-radius: 10px;
+    margin: 16px auto;
+    position: relative;
+
+    p {
+      margin: 24px 0;
+      color: var(--red);
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 24px;
+
+
+      span {
+        color: var(--lightGrey);
+      }
+    }
   }
 }
