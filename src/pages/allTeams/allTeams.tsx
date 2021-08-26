@@ -23,7 +23,7 @@ export const AllTeams = () => {
   const dispatch = useDispatch();
   console.log(resultSearch);
   let mapFunc: any[] = [];
-  if (resultSearch !== undefined || null) {
+  if (resultSearch) {
     // @ts-ignore
     mapFunc.push(resultSearch.value);
   } else {

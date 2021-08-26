@@ -24,15 +24,8 @@ export const SearchTeam: FC<any> = ({
             inputRef={props.field.ref}
             options={options}
             onChange={(e) => {
-              console.log(e);
-              if (e) {
-                setResultSearch(e);
-              }
+              setResultSearch(e);
             }}
-            /*onChange={(val) => {
-                            props.field.onChange(val?.value);
-                            console.log(val);
-                          }}*/
           />
         );
       }}
