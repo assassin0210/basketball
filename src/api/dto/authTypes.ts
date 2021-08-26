@@ -3,6 +3,8 @@ export interface IInitialStateAuth {
   token: string | null;
   isFetching: boolean;
   isAuth: boolean;
+  name: string | null;
+  avatarUrl: string | null;
 }
 export interface UserType {
   name: string;

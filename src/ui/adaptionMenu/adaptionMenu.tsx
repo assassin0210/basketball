@@ -8,11 +8,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteToken } from "../../modules/autorization/authSlice";
 import { NavLink } from "react-router-dom";
 import { RootState } from "../../api/dto/types";
-import { avatarUrl, userName } from "../secondaryFunctions";
 import { DefaultAvatar } from "../../assets/icon/defaultAvatar";
 import { closeMenu } from "../../modules/interfaseResponse/interfaseResponseSlice";
 
 export const AdaptionMenu = () => {
+  const userData = useSelector((state: RootState) => state.auth);
   const visibleMenu = useSelector(
     (state: RootState) => state.interface.visibleMenu
   );
@@ -41,13 +41,13 @@ export const AdaptionMenu = () => {
         <div className={menu.wrapper_for_mod}>
           <div className={menu.profile_block}>
             <div className={menu.avatar_block}>
-              {avatarUrl() ? (
+              {userData.avatarUrl === "null" ? (
                 <DefaultAvatar />
               ) : (
-                <img src={avatarUrl()} alt="avatar" />
+                <img src={userData.avatarUrl as string} alt="avatar" />
               )}
             </div>
-            <p className={menu.profile_name}>{userName()}</p>
+            <p className={menu.profile_name}>{userData.name}</p>
           </div>
           <NavLink
             onClick={handleCloseMenu}

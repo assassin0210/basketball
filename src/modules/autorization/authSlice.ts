@@ -5,6 +5,8 @@ import { IInitialStateAuth } from "../../api/dto/authTypes";
 const initialState: IInitialStateAuth = {
   showError: false,
   token: localStorage.getItem("token"),
+  name: localStorage.getItem("name"),
+  avatarUrl: localStorage.getItem("avatarUrl"),
   isFetching: false,
   isAuth: false,
 };
@@ -28,6 +30,8 @@ const authSlice = createSlice({
         localStorage.setItem("avatarUrl", payload.avatarUrl);
         localStorage.setItem("name", payload.name);
         state.token = localStorage.getItem("token");
+        state.name = localStorage.getItem("name");
+        state.avatarUrl = localStorage.getItem("avatarUrl");
         state.showError = false;
         state.isFetching = false;
         state.isAuth = true;
@@ -47,6 +51,8 @@ const authSlice = createSlice({
         localStorage.setItem("avatarUrl", payload.avatarUrl);
         localStorage.setItem("name", payload.name);
         state.token = localStorage.getItem("token");
+        state.name = localStorage.getItem("name");
+        state.avatarUrl = localStorage.getItem("avatarUrl");
         state.showError = false;
         state.isFetching = false;
         state.isAuth = true;
