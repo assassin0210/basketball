@@ -1,0 +1,100 @@
+
+
+.roster_container {
+  border: 0.5px solid var(--lightGrey);
+
+  span {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 19px;
+    color: var(--grey);
+
+    p {
+      color: var(--lightesGrey);
+    }
+  }
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  padding: 0 32px 0 32px;
+
+  div {
+    display: flex;
+  }
+
+  .one_number {
+    width: 19px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+  }
+
+  .two_photo {
+    margin: 0 10px 0 24px;
+    img{
+      width: 52px;
+      height: 38px;
+    }
+  }
+
+  .charisma {
+    width: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+@media screen and(max-width: 1105px){
+  .roster_container {
+    border: 0.5px solid var(--lightGrey);
+
+    span {
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 19px;
+      color: var(--grey);
+
+      p {
+        color: var(--lightesGrey);
+      }
+    }
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    padding: 0 32px 0 32px;
+
+    div {
+      display: flex;
+    }
+
+    .one_number {
+      width: 19px;
+      height: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 10px;
+    }
+
+    .two_photo {
+      margin: 0 10px 0 24px;
+      img{
+        width: 52px;
+        height: 38px;
+      }
+    }
+
+    .charisma {
+      width: 400px;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+}
