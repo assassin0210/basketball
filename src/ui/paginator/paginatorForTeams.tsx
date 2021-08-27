@@ -19,7 +19,7 @@ export const PaginatorForTeams = () => {
     dispatch(setPageAction(currentPage));
     dispatch(setSizeAction(size));
     dispatch(getTeams());
-  }, [currentPage, size]);
+  }, [currentPage, size, dispatch]);
 
   const handlePageClick = (e: { selected: number }) => {
     setCurrentPage(e.selected + 1);

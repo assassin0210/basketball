@@ -4,12 +4,12 @@ import ReactPaginate from "react-paginate";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../api/dto/types";
 import { ArrowUp } from "../../assets/icon/arrowUp";
-import { getTeams } from "../../modules/teams/teamThunk";
 import { ArrowSelect } from "../../assets/icon/arrowSelect";
 import {
   setPagePlayers,
   setSizePlayers,
 } from "../../modules/players/playerSlice";
+import { getPlayers } from "../../modules/players/playerThunk";
 
 export const PaginatorForPlayers = () => {
   const dispatch = useDispatch();
@@ -21,8 +21,8 @@ export const PaginatorForPlayers = () => {
   useEffect(() => {
     dispatch(setPagePlayers(currentPage));
     dispatch(setSizePlayers(size));
-    dispatch(getTeams());
-  }, [currentPage, size]);
+    dispatch(getPlayers());
+  }, [currentPage, size, dispatch]);
 
   const handlePageClick = (e: { selected: number }) => {
     setCurrentPage(e.selected + 1);

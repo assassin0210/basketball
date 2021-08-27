@@ -8,5 +8,5 @@ export const rootReducer = combineReducers({
   teams: TeamsSliceConst,
   auth: autSliceConst,
   players: PlayersSliceConst,
-  interface: interfaceResponseConst,
+  interfaceData: interfaceResponseConst,
 });

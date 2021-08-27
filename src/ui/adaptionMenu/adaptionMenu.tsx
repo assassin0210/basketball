@@ -14,7 +14,7 @@ import { closeMenu } from "../../modules/interfaseResponse/interfaseResponseSlic
 export const AdaptionMenu = () => {
   const userData = useSelector((state: RootState) => state.auth);
   const visibleMenu = useSelector(
-    (state: RootState) => state.interface.visibleMenu
+    (state: RootState) => state.interfaceData.visibleMenu
   );
 
   const dispatch = useDispatch();

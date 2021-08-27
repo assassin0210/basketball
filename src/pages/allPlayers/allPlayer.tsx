@@ -1,7 +1,6 @@
 import ap from "./allPlayers.module.scss";
 import { Search } from "../../assets/icon/search";
 import React, { useEffect, useMemo, useState } from "react";
-import { Preloader } from "../../ui/preloader/preloader";
 import { useDispatch, useSelector } from "react-redux";
 import { AddPlayersFormType, StateType } from "../../api/dto/types";
 import { MissingPlayers } from "../../ui/playerCard/missingPlayers";
@@ -18,15 +17,29 @@ import { setResultSearchStatePlayers } from "../../modules/players/playerSlice";
 
 export const AllPlayer = () => {
   const dispatch = useDispatch();
-
   const players = useSelector((state: StateType) => state.players);
   const teams = useSelector((state: StateType) => state.teams);
   const team = teams.data.map((item) => item.name);
   const history = useHistory();
   const handleHistoryPush = () => history.push("/players/addPlayer");
+  const { control } = useForm<AddPlayersFormType>();
+  const [resultSearch, setResultSearch] = useState();
+
+  const filterForRenderPlayerCard = useMemo(() => {
+    if (players.optionsData.length > 0) {
+      return players.optionsData;
+    } else {
+      return players.data;
+    }
+  }, [players]);
+
+  useEffect(() => {
+    dispatch(getPlayers());
+    dispatch(getTeams());
+  }, [players.resultSearch, dispatch]);
 
   const playerCardList = useMemo(() => {
-    return players.data.map((player, index) => (
+    return filterForRenderPlayerCard.map((player, index) => (
       <PlayerCard
         key={index}
         number={player.number}
@@ -41,34 +54,7 @@ export const AllPlayer = () => {
         id={player.id}
       />
     ));
-  }, [players, team]);
-  const {
-    register,
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = useForm<AddPlayersFormType>();
-
-  const [resultSearch, setResultSearch] = useState(null);
-  let mapFunc: any[] = [];
-  if (resultSearch) {
-    // @ts-ignore
-    mapFunc.push(resultSearch.value);
-  } else {
-    mapFunc = teams.data;
-  }
-
-  const positionsDataForSelect = () => {
-    const positionsAll = [];
-    for (let team of teams.data) {
-      positionsAll.push({ value: team, label: team.name });
-    }
-    return positionsAll;
-  };
-
-  useEffect(() => {
-    dispatch(getPlayers());
-  }, [dispatch, players.resultSearch]);
+  }, [team, filterForRenderPlayerCard]);
 
   return (
     <div className={ap.container}>
@@ -88,7 +74,6 @@ export const AllPlayer = () => {
         </div>
 
         <SearchTeam
-          options={positionsDataForSelect()}
           name={"resultSearchPlayersInTeam"}
           control={control}
           resultSearch={resultSearch}
@@ -101,7 +86,6 @@ export const AllPlayer = () => {
           type="submit"
         />
       </div>
-      {players.isFetching && <Preloader />}
       {!players.count ? (
         <MissingPlayers />
       ) : (

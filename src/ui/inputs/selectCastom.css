@@ -9,3 +9,16 @@
 .react-select__single-value{
 top: 70%!important;
 }
+.next_ten{
+  cursor: pointer;
+  text-align: center;
+  background-color: var(--lightRed);
+  font-size: 18px;
+  color: var(--darkGrey)
+}
+.next_ten div :hover{
+  background: black;
+}
+.displayNone{
+  display: none;
+}

@@ -5,8 +5,8 @@ import { addImage, addTeam, getTeam, getTeams, updateTeam } from "./teamThunk";
 const initialState: IInitialStateTeam = {
   data: [],
   count: 0,
-  page: 1,
-  size: 6,
+  page: 0,
+  size: 0,
   error: false,
   isFetching: false,
   resultSearch: "",

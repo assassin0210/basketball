@@ -1,13 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IInitialStatePlayer } from "../../api/dto/playerTypes";
-import { getPlayer, getPlayers, getPositions } from "./playerThunk";
+import {
+  getPlayer,
+  getPlayerFromSelect,
+  getPlayers,
+  getPositions,
+} from "./playerThunk";
 
 const initialState: IInitialStatePlayer = {
   data: [],
   count: 0,
-  page: 0,
-  size: 0,
+  page: 1,
+  size: 6,
   resultSearch: "",
+  optionsData: [],
   positions: [],
   isFetching: false,
   error: false,
@@ -25,7 +31,7 @@ const initialState: IInitialStatePlayer = {
 };
 
 export const playerSlice = createSlice({
-  name: "teams",
+  name: "player",
   initialState: initialState,
   reducers: {
     setSizePlayers(state, action) {
@@ -76,6 +82,20 @@ export const playerSlice = createSlice({
       state.isFetching = false;
     });
     builder.addCase(getPlayer.rejected, (state, action) => {
+      state.isFetching = false;
+    });
+    builder.addCase(getPlayerFromSelect.pending, (state, action) => {
+      state.isFetching = true;
+    });
+    builder.addCase(getPlayerFromSelect.fulfilled, (state, { payload }) => {
+      if (payload !== undefined) {
+        for (let player of payload.data) {
+          state.optionsData.push(player);
+        }
+        state.isFetching = false;
+      }
+    });
+    builder.addCase(getPlayerFromSelect.rejected, (state, action) => {
       state.isFetching = false;
     });
   },

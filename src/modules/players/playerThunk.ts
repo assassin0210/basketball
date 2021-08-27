@@ -7,6 +7,7 @@ import {
 } from "../../api/dto/playerTypes";
 import { AddPlayersFormType } from "../../api/dto/types";
 import { AxiosResponse } from "axios";
+import { iGetTeamType } from "../../api/dto/teamTypes";
 
 export const getPositions = createAsyncThunk(
   "player/getPositions",
@@ -107,6 +108,24 @@ export const getPlayer = createAsyncThunk(
   }
 );
 
+export const getPlayerFromSelect = createAsyncThunk(
+  "player/getPlayerFromSelect",
+  async function (id: number, { dispatch }) {
+    try {
+      const response: AxiosResponse<IGetPlayersType> = await instance.get(
+        "/api/Player/GetPlayers",
+        {
+          params: {
+            TeamIds: id,
+          },
+        }
+      );
+      console.log(response.data);
+      return response.data;
+    } catch {}
+  }
+);
+
 export const deletePlayer = createAsyncThunk(
   "player/deletePlayer",
   async function (id: number, { dispatch }) {
@@ -119,6 +138,22 @@ export const deletePlayer = createAsyncThunk(
           },
         }
       );
+      return response.data;
+    } catch {}
+  }
+);
+
+export const getTeamsSelect = createAsyncThunk(
+  "player/getTenOptions",
+
+  async function (_, { dispatch, getState }) {
+    try {
+      const response = await instance.get<iGetTeamType>(`/api/Team/GetTeams`, {
+        params: {
+          PageSize: 10,
+        },
+      });
+      /*?Page=${teams.page}&PageSize=${teams.size}*/
       return response.data;
     } catch {}
   }

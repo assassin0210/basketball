@@ -18,6 +18,7 @@ export interface IGetPlayersType {
 }
 
 export interface IInitialStatePlayer extends IGetPlayersType {
+  optionsData: IPlayerInfo[];
   positions: [];
   error: boolean;
   isFetching: boolean;
