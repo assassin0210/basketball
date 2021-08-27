@@ -7,6 +7,7 @@ import {
   ITeamInfo,
 } from "../../api/dto/teamTypes";
 import { addTeamType } from "../../api/dto/types";
+import { toUpperFirst } from "../../ui/secondaryFunctions";
 
 export const getTeams = createAsyncThunk(
   "teams/teams",
@@ -14,16 +15,14 @@ export const getTeams = createAsyncThunk(
   async function (_, { dispatch, getState }) {
     const { teams } = getState() as { teams: IInitialStateTeam };
     try {
-      const response = await instance.get<iGetTeamType>(
-        `/api/Team/GetTeams?Page=${teams.page}&PageSize=${teams.size}`,
-        {
-          /*params: {
-          Page: "1",
-          PageSize: "4",
-        },*/
-        }
-      );
-
+      const response = await instance.get<iGetTeamType>(`/api/Team/GetTeams`, {
+        params: {
+          Page: `${teams.page}`,
+          PageSize: `${teams.size}`,
+          Name: `${teams.resultSearch}`,
+        },
+      });
+      /*?Page=${teams.page}&PageSize=${teams.size}*/
       return response.data;
     } catch {}
   }
@@ -46,7 +45,7 @@ export const addImage = createAsyncThunk(
         }
       );
       const team: ITeamInfo = {
-        name: `${data.name}`,
+        name: `${toUpperFirst(data.name)}`,
         foundationYear: data.foundationYear,
         division: `${data.division}`,
         conference: `${data.conference}`,

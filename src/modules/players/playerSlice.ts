@@ -7,6 +7,7 @@ const initialState: IInitialStatePlayer = {
   count: 0,
   page: 0,
   size: 0,
+  resultSearch: "",
   positions: [],
   isFetching: false,
   error: false,
@@ -26,7 +27,17 @@ const initialState: IInitialStatePlayer = {
 export const playerSlice = createSlice({
   name: "teams",
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    setSizePlayers(state, action) {
+      state.size = action.payload;
+    },
+    setPagePlayers(state, action) {
+      state.page = action.payload;
+    },
+    setResultSearchStatePlayers(state, action) {
+      state.resultSearch = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getPositions.pending, (state, action) => {
       state.isFetching = true;
@@ -72,4 +83,5 @@ export const playerSlice = createSlice({
 
 export const PlayersSliceConst = playerSlice.reducer;
 
-//export const { } = playerSlice.actions;
+export const { setSizePlayers, setPagePlayers, setResultSearchStatePlayers } =
+  playerSlice.actions;

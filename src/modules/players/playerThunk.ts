@@ -1,6 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { instance } from "../../api/baseRequest";
-import { IGetPlayersType, IPlayerInfo } from "../../api/dto/playerTypes";
+import {
+  IGetPlayersType,
+  IInitialStatePlayer,
+  IPlayerInfo,
+} from "../../api/dto/playerTypes";
 import { AddPlayersFormType } from "../../api/dto/types";
 import { AxiosResponse } from "axios";
 
@@ -20,11 +24,18 @@ export const getPositions = createAsyncThunk(
 
 export const getPlayers = createAsyncThunk(
   "player/getPlayers",
-  async function (_, { dispatch }) {
+  async function (_, { dispatch, getState }) {
+    const { players } = getState() as { players: IInitialStatePlayer };
     try {
       const response: AxiosResponse<IGetPlayersType> = await instance.get(
         "/api/Player/GetPlayers",
-        {}
+        {
+          params: {
+            Page: `${players.page}`,
+            PageSize: `${players.size}`,
+            Name: `${players.resultSearch}`,
+          },
+        }
       );
       return response.data;
     } catch {}

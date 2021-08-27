@@ -17,6 +17,7 @@ export interface iGetTeamType {
 export interface IInitialStateTeam extends iGetTeamType {
   isFetching: boolean;
   error: boolean;
+  resultSearch: string;
   currentTeam: ITeamInfo;
 }
 export interface AddTeamIType extends ITeamInfo {

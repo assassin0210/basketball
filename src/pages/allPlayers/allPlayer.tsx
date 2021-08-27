@@ -11,13 +11,13 @@ import { getPlayers } from "../../modules/players/playerThunk";
 import { getTeams } from "../../modules/teams/teamThunk";
 import { SearchTeam } from "../../ui/inputs/serchTeam";
 import { useForm } from "react-hook-form";
+import at from "../allTeams/allTeams.module.scss";
+import { toUpperFirst } from "../../ui/secondaryFunctions";
+import { PaginatorForPlayers } from "../../ui/paginator/paginatorForPlayers";
+import { setResultSearchStatePlayers } from "../../modules/players/playerSlice";
 
 export const AllPlayer = () => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getTeams());
-    dispatch(getPlayers());
-  }, [dispatch]);
 
   const players = useSelector((state: StateType) => state.players);
   const teams = useSelector((state: StateType) => state.teams);
@@ -66,24 +66,27 @@ export const AllPlayer = () => {
     return positionsAll;
   };
 
+  useEffect(() => {
+    dispatch(getPlayers());
+  }, [dispatch, players.resultSearch]);
+
   return (
     <div className={ap.container}>
       <div className={ap.top_side}>
-        {/* <div className={ap.search_block}>
-          <input placeholder="Search..." type="text" />
+        <div className={at.search_block}>
+          <input
+            type="text"
+            placeholder="Search"
+            value={players.resultSearch}
+            onChange={(e) => {
+              dispatch(
+                setResultSearchStatePlayers(toUpperFirst(e.currentTarget.value))
+              );
+            }}
+          />
           <Search />
-        </div>*/}
-        {/* <div className={ap.search_block}>
-          <input placeholder="Search..." type="text" />
-          <Search />
-        </div>*/}
-        <SearchTeam
-          options={positionsDataForSelect()}
-          name={"resultSearchPlayer"}
-          control={control}
-          resultSearch={resultSearch}
-          setResultSearch={setResultSearch}
-        />
+        </div>
+
         <SearchTeam
           options={positionsDataForSelect()}
           name={"resultSearchPlayersInTeam"}
@@ -104,10 +107,7 @@ export const AllPlayer = () => {
       ) : (
         <div className={ap.contentWrapper}>{playerCardList}</div>
       )}
-      <div>
-        <div>пагинация</div>
-        <div>пагинация</div>
-      </div>
+      <PaginatorForPlayers />
     </div>
   );
 };

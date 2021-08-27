@@ -9,6 +9,7 @@ const initialState: IInitialStateTeam = {
   size: 6,
   error: false,
   isFetching: false,
+  resultSearch: "",
   currentTeam: {
     name: "",
     foundationYear: 0,
@@ -28,6 +29,9 @@ export const teamsSlice = createSlice({
     },
     setPageAction(state, action) {
       state.page = action.payload;
+    },
+    setResultSearchState(state, action) {
+      state.resultSearch = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -94,4 +98,5 @@ export const teamsSlice = createSlice({
 
 export const TeamsSliceConst = teamsSlice.reducer;
 
-export const { setSizeAction, setPageAction } = teamsSlice.actions;
+export const { setSizeAction, setPageAction, setResultSearchState } =
+  teamsSlice.actions;
