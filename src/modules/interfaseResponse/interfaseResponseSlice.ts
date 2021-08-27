@@ -21,7 +21,7 @@ const interfaceResponseSlice = createSlice({
       state.visibleMenu = true;
     },
     moreOptionsItSelect(state) {
-      state.page = state.page + 10;
+      state.page = state.page + 1;
     },
   },
   extraReducers: (builder) => {

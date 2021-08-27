@@ -59,6 +59,9 @@ export const SearchTeam: FC<any> = ({ control, name, setResultSearch }) => {
 
 const MenuList = (props: any) => {
   const teamsCount = useSelector((state: RootState) => state.teams.count);
+  const selectSize = useSelector(
+    (state: RootState) => state.interfaceData.size
+  );
   const dispatch = useDispatch();
   const optionsHandler = () => {
     dispatch(moreOptionsItSelect());
@@ -75,7 +78,7 @@ const MenuList = (props: any) => {
         className={`next_ten ${teamsCount > 10 ? "" : ""}`}
         style={menuHeaderStyle}
       >
-        Show next 10 of {teamsCount}
+        Show next 10 of {teamsCount < selectSize ? 0 : selectSize - teamsCount}
       </div>
       {props.children}
     </components.MenuList>
