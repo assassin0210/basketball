@@ -12,9 +12,12 @@ import {
 import { getTeams } from "../../modules/teams/teamThunk";
 import { FileInput } from "../inputs/fileInput";
 import { SelectComponent } from "../inputs/select";
+import { useHistory, useParams } from "react-router";
 import { IPlayerInfo } from "../../api/dto/playerTypes";
 
-export const AddPlayersForm = () => {
+export const UpdatePlayerForm = () => {
+  const history = useHistory();
+  const params: { id: string } = useParams();
   const players = useSelector((state: RootState) => state.players);
   const teams = useSelector((state: RootState) => state.teams.data);
   const {
@@ -48,8 +51,11 @@ export const AddPlayersForm = () => {
   };
 
   const onSubmit: SubmitHandler<IPlayerInfo> = (data) => {
+    data.id = +params.id;
     dispatch(addImagePlayer(data));
+    console.log(data);
     setInputPosition(!inputPosition);
+    history.push(`/players/${params.id}`);
   };
 
   return (

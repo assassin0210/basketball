@@ -37,7 +37,7 @@ export interface AddPlayersFormType {
   name: string;
   number: number;
   position: string;
-  team: number | string;
+  team?: number;
   birthday: string;
   height: number;
   weight: number;

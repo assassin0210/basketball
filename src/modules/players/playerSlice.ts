@@ -5,7 +5,9 @@ import {
   getPlayerFromSelect,
   getPlayers,
   getPositions,
+  updatePlayer,
 } from "./playerThunk";
+import { updateTeam } from "../teams/teamThunk";
 
 const initialState: IInitialStatePlayer = {
   data: [],
@@ -97,6 +99,26 @@ export const playerSlice = createSlice({
     });
     builder.addCase(getPlayerFromSelect.rejected, (state, action) => {
       state.isFetching = false;
+    });
+    builder.addCase(updatePlayer.pending, (state, action) => {
+      state.isFetching = true;
+    });
+
+    builder.addCase(updatePlayer.fulfilled, (state, { payload }) => {
+      if (payload === undefined) {
+        state.error = true;
+      } else {
+        state.currentPlayer.name = payload.name;
+        state.currentPlayer.number = payload.number;
+        state.currentPlayer.weight = payload.weight;
+        state.currentPlayer.team = payload.team;
+        state.currentPlayer.position = payload.position;
+        state.currentPlayer.birthday = payload.birthday;
+        state.currentPlayer.height = payload.height;
+        state.currentPlayer.id = payload.id;
+        state.currentPlayer.avatarUrl = payload.avatarUrl;
+        state.isFetching = false;
+      }
     });
   },
 });

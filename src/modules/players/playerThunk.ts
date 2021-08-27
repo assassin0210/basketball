@@ -45,21 +45,23 @@ export const getPlayers = createAsyncThunk(
 
 export const addImagePlayer = createAsyncThunk(
   "player/addImagePlayer",
-  async function (data: AddPlayersFormType, { dispatch }) {
+  async function (data: IPlayerInfo, { dispatch }) {
     try {
-      const file = data.file;
+      // @ts-ignore
+      const file = data.file[0];
       const formData = new FormData();
-      if (file) {
-        return formData.append("file", file[0]);
-      }
+      formData.append("file", file);
+      const response = await instance.post<string>(
+        "/api/Image/SaveImage",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
-      const response = await instance.post("/api/Image/SaveImage", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-
-      const player: AddPlayersFormType = {
+      const player: IPlayerInfo = {
         name: `${data.name}`,
         number: data.number,
         position: `${data.position}`,
@@ -67,16 +69,18 @@ export const addImagePlayer = createAsyncThunk(
         birthday: `${data.birthday}`,
         height: data.height,
         weight: data.weight,
+        id: data.id,
         avatarUrl: `http://dev.trainee.dex-it.ru${response.data}`,
       };
-      dispatch(addPlayer(player));
+      console.log(player);
+      data.id ? dispatch(updatePlayer(player)) : dispatch(addPlayer(player));
     } catch {}
   }
 );
 
 export const addPlayer = createAsyncThunk(
   "player/addPlayer",
-  async function (player: AddPlayersFormType, { dispatch }) {
+  async function (player: IPlayerInfo, { dispatch }) {
     try {
       const response = await instance.post("/api/Player/Add", {
         name: `${player.name}`,
@@ -120,7 +124,6 @@ export const getPlayerFromSelect = createAsyncThunk(
           },
         }
       );
-      console.log(response.data);
       return response.data;
     } catch {}
   }
@@ -153,30 +156,27 @@ export const getTeamsSelect = createAsyncThunk(
           PageSize: 10,
         },
       });
-      /*?Page=${teams.page}&PageSize=${teams.size}*/
       return response.data;
     } catch {}
   }
 );
 
-/*
 export const updatePlayer = createAsyncThunk(
-    'player/updatePlayer',
-    async function (team: TeamType, {dispatch}) {
-        try {
-            const response = await instance.put<IPlayerInfo>('/api/Team/Update', {
-                "name": `${team.name}`,
-                "foundationYear": team.foundationYear,
-                "division": `${team.division}`,
-                "conference": `${team.conference}`,
-                "imageUrl": `${team.imageUrl}`,
-                "id": team.id
-            },)
-            return response.data
-
-        } catch {
-
-        }
-    }
-)
-*/
+  "player/updatePlayer",
+  async function (player: IPlayerInfo, { dispatch }) {
+    try {
+      const response = await instance.put<IPlayerInfo>("/api/Player/Update", {
+        name: `${player.name}`,
+        number: +player.number,
+        position: `${player.position}`,
+        team: player.team,
+        birthday: `${player.birthday}`,
+        height: player.height,
+        weight: player.weight,
+        avatarUrl: player.avatarUrl,
+        id: player.id,
+      });
+      return response.data;
+    } catch {}
+  }
+);

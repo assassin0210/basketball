@@ -2,12 +2,13 @@ export interface IPlayerInfo {
   name: string;
   number: number;
   position: string;
-  team: number;
+  team?: number;
   birthday: string;
   height: number;
   weight: number;
   avatarUrl: string;
-  id: number;
+  id: number | undefined;
+  file?: File[];
 }
 
 export interface IGetPlayersType {
