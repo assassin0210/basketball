@@ -51,7 +51,7 @@ export const Paginator: React.FC<any> = ({}) => {
         previousLabel={<ArrowSelect />}
         nextLabel={<ArrowSelect />}
         breakLabel={<div>...</div>}
-        breakClassName={`${s.breakMe}`}
+        /*breakClassName={`${s.breakMe}`}*/
         pageCount={teamData.count / size}
         marginPagesDisplayed={5}
         pageRangeDisplayed={6}
