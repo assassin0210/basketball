@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FC } from "react";
 import Select, { components } from "react-select";
 import { Controller } from "react-hook-form";
@@ -8,14 +8,16 @@ import { RootState } from "../../api/dto/types";
 import { getTeamsSelect } from "../../modules/interfaseResponse/interfaseResponseThunk";
 import { moreOptionsItSelect } from "../../modules/interfaseResponse/interfaseResponseSlice";
 import { getPlayerFromSelect } from "../../modules/players/playerThunk";
+import { menuHeaderStyle, stylesForSelect } from "../../assets/styles/styles";
 
 export const SearchTeam: FC<any> = ({ control, name, setResultSearch }) => {
   const dispatch = useDispatch();
   const selectData = useSelector((state: RootState) => state.interfaceData);
+  const [valuess, getValuess] = useState([]);
 
   useEffect(() => {
     dispatch(getTeamsSelect());
-  }, [selectData.page, dispatch]);
+  }, [selectData.page, dispatch, valuess]);
 
   const setOptionsForSelect = () => {
     const positionsAll = [];
@@ -33,21 +35,18 @@ export const SearchTeam: FC<any> = ({ control, name, setResultSearch }) => {
         return (
           <>
             <Select
+              styles={stylesForSelect}
               isMulti
               isClearable
-              className="react-select"
-              classNamePrefix="react-select"
               inputRef={props.field.ref}
               options={setOptionsForSelect()}
               components={{ MenuList }}
               openMenuOnClick
+              getValue
               onChange={(e) => {
                 setResultSearch(e);
-                let blabla = e.map((item) => item.value);
-                if (e.length > 0) {
-                  dispatch(getPlayerFromSelect(blabla[blabla.length - 1]));
-                  console.log(blabla[blabla.length - 1]);
-                }
+                let value = e.map((item) => item.value);
+                dispatch(getPlayerFromSelect(value[value.length - 1]));
               }}
             />
           </>
@@ -67,10 +66,6 @@ const MenuList = (props: any) => {
     dispatch(moreOptionsItSelect());
   };
 
-  const menuHeaderStyle = {
-    padding: "8px 12px",
-    color: "black",
-  };
   return (
     <components.MenuList {...props}>
       <div

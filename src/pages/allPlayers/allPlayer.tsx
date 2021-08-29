@@ -73,12 +73,14 @@ export const AllPlayer = () => {
           <Search />
         </div>
 
-        <SearchTeam
-          name={"resultSearchPlayersInTeam"}
-          control={control}
-          resultSearch={resultSearch}
-          setResultSearch={setResultSearch}
-        />
+        <div className={ap.teamSearch}>
+          <SearchTeam
+            name={"resultSearchPlayersInTeam"}
+            control={control}
+            resultSearch={resultSearch}
+            setResultSearch={setResultSearch}
+          />
+        </div>
         <input
           onClick={handleHistoryPush}
           className={ap.red_button}

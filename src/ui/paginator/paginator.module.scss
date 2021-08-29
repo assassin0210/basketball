@@ -58,6 +58,7 @@
   bottom: calc(100% + 4px);
   margin: 0;
   width: 100%;
+  color: var(--darkGrey);
   li {
     padding: 8px 54px 8px 22px;
     cursor: pointer;
@@ -77,10 +78,13 @@
   border-radius: 4px;
   background: var(--white);
   cursor: pointer;
-  span:after {
-    content: "";
-    border-right: 0.5px solid var(--lightestGrey);
-    margin-left: 20px;
+  span{
+    color: var(--darkGrey);
+    &:after {
+      content: "";
+      border-right: 0.5px solid var(--lightestGrey);
+      margin-left: 20px;
+    }
   }
   svg{
     margin-left: 12px;
@@ -108,4 +112,120 @@
 }
 .display_none{
   display: none;
+}
+@media screen and(max-width: 1105px) {
+
+  .pagination_wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 40px;
+    margin-bottom: 32px;
+    margin-top: 10px;
+    padding: 0 20px;
+  }
+
+  .pagination {
+    display: flex;
+    align-items: center;
+
+    .active {
+      background: var(--red);
+      border-radius: 4px;
+      color: var(--white);
+      text-align: center;
+      a {
+        outline: none;
+        text-align: center;
+      }
+    }
+    li {
+      padding: 2px 9px;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 15px;
+      line-height: 25px;
+    }
+    li:first-child a,  li:last-child a {
+      display: block;
+      width: 25px;
+      height: 25px;
+      border: none;
+      background-position: center;
+      background-repeat: no-repeat;
+      transform: rotate(-90deg);
+      margin-right: 33px;
+      margin-left: 20px;
+      &:focus{
+        outline: none;
+      }
+    }
+  }
+
+  .pagination_selectCountCard {
+    position: relative;
+  }
+  .pagination_setCountCard {
+    flex-direction: column;
+    background: var(--white);
+    border: 0.5px solid var(--lightestGrey);
+    box-sizing: border-box;
+    border-radius: 4px;
+    position: absolute;
+    bottom: calc(100% + 4px);
+    margin: 0;
+    width: 100%;
+       li {
+      padding: 8px 54px 8px 22px;
+      cursor: pointer;
+      color: var(--darkGrey);
+      &:hover{
+        background-color: var(--lightRed);
+      }
+    }
+    li:nth-child(even) {
+      border-top: 0.5px solid var(--lightestGrey);
+      border-bottom: 0.5px solid var(--lightestGrey);
+    }
+  }
+
+  .pagination_currentCard {
+    border: 0.5px solid var(--lightestGrey);
+    padding: 8px 12px 8px 15px;
+    border-radius: 4px;
+    background: var(--white);
+    cursor: pointer;
+    span:after {
+      content: "";
+      border-right: 0.5px solid var(--lightestGrey);
+      margin-left: 13px;
+    }
+    svg{
+      margin-left: 12px;
+    }
+  }
+
+  .previous{
+    transform: rotate(180deg);
+  }
+
+  .previous, .next{
+    a{
+      display: flex!important;
+      align-items: center;
+      justify-content: center;
+      margin: 0!important;
+      svg{
+        width: 9px;
+        height: 12px;
+        path{
+          fill: var(--grey)
+        }
+      }
+    }
+  }
+  .display_none{
+    display: none;
+  }
+
 }

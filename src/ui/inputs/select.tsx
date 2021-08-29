@@ -3,6 +3,7 @@ import { FC } from "react";
 import Select from "react-select";
 import { Controller } from "react-hook-form";
 import "./selectCastom.css";
+import { stylesForSelect } from "../../assets/styles/styles";
 
 export const SelectComponent: FC<any> = forwardRef(
   ({ options, control, name }, ref) => {
@@ -14,9 +15,8 @@ export const SelectComponent: FC<any> = forwardRef(
         render={(props) => {
           return (
             <Select
+              styles={stylesForSelect}
               isClearable
-              className="react-select"
-              classNamePrefix="react-select"
               inputRef={props.field.ref}
               options={options}
               onChange={(val) => {

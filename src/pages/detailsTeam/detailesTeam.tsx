@@ -37,6 +37,7 @@ export const DetailsTeam = () => {
     if (question) {
       dispatch(deleteTeam(Number(params.id)));
     }
+    console.log(Number(params.id));
   };
 
   const handleUpdate = () => {

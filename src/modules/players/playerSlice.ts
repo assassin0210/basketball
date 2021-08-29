@@ -7,7 +7,6 @@ import {
   getPositions,
   updatePlayer,
 } from "./playerThunk";
-import { updateTeam } from "../teams/teamThunk";
 
 const initialState: IInitialStatePlayer = {
   data: [],
