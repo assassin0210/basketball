@@ -9,6 +9,35 @@
 
 }
 
+.clearIndicator {
+  cursor: pointer;
+  &:hover {
+    svg {
+      path {
+        fill: var(--grey);
+      }
+    }
+  }
+
+  svg {
+    path {
+      fill: var(--lightGrey);
+    }
+  }
+}
+
+.input {
+  border: 0.5px solid var(--lightestGrey);
+
+  &:focus {
+    background: var(--lightestGrey1);
+  }
+
+  &:hover {
+    background: var(--lightestGrey1) !important;
+  }
+}
+
 .search_block {
   position: relative;
   min-width: 364px;
@@ -16,9 +45,9 @@
   input {
     padding: 8px 12px;
     border-radius: 4px;
-    border: 0.5px solid var(--lightestGray);
     outline: none;
     background: var(--white);
+
     &:hover {
       background: var(--white);
     }
@@ -37,85 +66,74 @@
   justify-content: space-between;
   margin-bottom: 32px;
 }
-.contentWrapper{
+
+.contentWrapper {
   padding: 10px;
   display: inline-grid;
   grid-template-columns: repeat(3, 1fr);
   align-items: start;
   justify-content: center;
-  gap: 24px ;
+  gap: 24px;
   overflow: scroll;
   height: 100%;
 }
 
 
-
-.mod{
-  p{
+.mod {
+  p {
     font-weight: 500;
     font-size: 12px;
     line-height: 150%;
-    color:var(--lightGrey)
+    color: var(--lightGrey)
   }
 }
 
-@media screen and(max-width: 1405px){
-  .contentWrapper{
-  /*  padding: 10px;
-    display: inline-grid;
-    grid-template-columns: repeat(3, 1fr);
-    align-items: start;
-    justify-content: center;
-    gap: 24px ;
-    overflow: scroll;
-    height: 100%;*/
+@media screen and(max-width: 1405px) {
+  .contentWrapper {
     display: inline-grid;
     grid-template-columns: repeat(3, 1fr);
     flex-direction: column;
-
     padding: 32px 80px 0 32px;
     width: 100%;
     background: var(--lightestGrey1);
     position: relative;
-
   }
-
-
-
 
 }
 
-@media screen and(max-width: 1105px){
+@media screen and(max-width: 1105px) {
   .allTeams_container {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 0  !important;
+    padding: 0 !important;
     width: 100%;
     background: var(--lightestGrey1);
     position: relative;
 
   }
-  .contentWrapper{
+  .contentWrapper {
     margin: 10px 0;
-    padding: 0  !important;
+    padding: 0 !important;
     display: inline-grid;
     grid-template-columns: repeat(2, 1fr);
     align-items: start;
     justify-content: center;
-    gap: 12px ;
+    gap: 12px;
     overflow: auto;
     height: 100%;
   }
   .top_side {
-    margin-top: 10px;
+    margin-top: 16px;
     height: 112px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 0;
-    input{
+    gap: 16px;
+
+    input {
       width: 351px;
     }
   }
@@ -129,6 +147,7 @@
       border: 0.5px solid var(--lightestGray);
       outline: none;
       background: var(--white);
+
       &:hover {
         background: var(--white);
       }

@@ -43,6 +43,7 @@ export const AllTeams = () => {
       <div className={at.top_side}>
         <div className={at.search_block}>
           <input
+            className={at.input}
             type="text"
             placeholder="Search"
             value={teams.resultSearch}

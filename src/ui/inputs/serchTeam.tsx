@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import at from "../../pages/allTeams/allTeams.module.scss";
 import { FC } from "react";
 import Select, { components } from "react-select";
 import { Controller } from "react-hook-form";
@@ -9,16 +10,13 @@ import { getTeamsSelect } from "../../modules/interfaseResponse/interfaseRespons
 import { moreOptionsItSelect } from "../../modules/interfaseResponse/interfaseResponseSlice";
 import { getPlayerFromSelect } from "../../modules/players/playerThunk";
 import { menuHeaderStyle, stylesForSelect } from "../../assets/styles/styles";
+import { ClearIndicatorCustom } from "../../assets/icon/clearIndicator";
+import { clearIndicatorCust } from "../../modules/players/playerSlice";
 
 export const SearchTeam: FC<any> = ({ control, name, setResultSearch }) => {
   const dispatch = useDispatch();
   const selectData = useSelector((state: RootState) => state.interfaceData);
   const [valuess, getValuess] = useState([]);
-
-  useEffect(() => {
-    dispatch(getTeamsSelect());
-  }, [selectData.page, dispatch, valuess]);
-
   const setOptionsForSelect = () => {
     const positionsAll = [];
     for (let team of selectData.data) {
@@ -26,6 +24,11 @@ export const SearchTeam: FC<any> = ({ control, name, setResultSearch }) => {
     }
     return positionsAll;
   };
+
+  useEffect(() => {
+    dispatch(getTeamsSelect());
+  }, [selectData.page, dispatch, valuess]);
+
   return (
     <Controller
       control={control}
@@ -36,11 +39,12 @@ export const SearchTeam: FC<any> = ({ control, name, setResultSearch }) => {
           <>
             <Select
               styles={stylesForSelect}
+              ClearIndicator
               isMulti
               isClearable
               inputRef={props.field.ref}
               options={setOptionsForSelect()}
-              components={{ MenuList }}
+              components={{ MenuList, ClearIndicator }}
               openMenuOnClick
               getValue
               onChange={(e) => {
@@ -77,5 +81,25 @@ const MenuList = (props: any) => {
       </div>
       {props.children}
     </components.MenuList>
+  );
+};
+const ClearIndicator = (props: any) => {
+  const dispatch = useDispatch();
+  const clearIndicatorHandler = () => {
+    dispatch(clearIndicatorCust([]));
+  };
+  return (
+    <div>
+      <components.ClearIndicator {...props}>
+        <div
+          onMouseDown={(e: any) => {
+            clearIndicatorHandler();
+          }}
+          className={at.clearIndicator}
+        >
+          <ClearIndicatorCustom />
+        </div>
+      </components.ClearIndicator>
+    </div>
   );
 };

@@ -1,3 +1,7 @@
+@font-face {
+  font-family: 'Avenir';
+  src: local('Avenir'), url(./assets/fonts/Avenir.woff) format('woff');
+}
 * {
   margin: 0;
   padding: 0;
@@ -21,12 +25,13 @@
   --white: #ffffff;
 }
 body {
-  font-family: 'Lato', sans-serif;
+  font-family: 'Avenir', sans-serif;
   font-size: 16px
 }
 
 input[type='text'] {
   width: 100%;
+
 
 }
 
@@ -34,6 +39,7 @@ input[type='password'] {
   font-size: 14px;
   font-weight: 500;
   width: 100%;
+
 
 }
 input[type="date"]::-webkit-calendar-picker-indicator {
@@ -70,6 +76,7 @@ select {
 }
 input, select {
   background: var(--lightestGrey1);
+  font-family: Avenir,sans-serif;
   border: none;
   height: 40px;
   padding-left: 12px;
@@ -81,6 +88,10 @@ input, select {
   border-radius: 4px;
   position: relative;
   transition: all 0.2s ease-in-out;
+  &::placeholder{
+    font-size: 16px;
+    color:var(--lightGrey)
+  }
 
   &:hover {
     transition: background 0.2s ease-in-out;

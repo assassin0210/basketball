@@ -24,6 +24,7 @@ export const AllPlayer = () => {
   const handleHistoryPush = () => history.push("/players/addPlayer");
   const { control } = useForm<AddPlayersFormType>();
   const [resultSearch, setResultSearch] = useState();
+  console.log(resultSearch);
 
   const filterForRenderPlayerCard = useMemo(() => {
     if (players.optionsData.length > 0) {
@@ -61,8 +62,9 @@ export const AllPlayer = () => {
       <div className={ap.top_side}>
         <div className={at.search_block}>
           <input
+            className={at.input}
             type="text"
-            placeholder="Search"
+            placeholder="Search..."
             value={players.resultSearch}
             onChange={(e) => {
               dispatch(

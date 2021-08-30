@@ -22,7 +22,7 @@ export const stylesForSelect = {
     color: state.isSelected ? "red" : "var(--lightGrey)",
     backgroundColor: "none",
   }),
-  menuList: (provided: any, state: any) => ({
+  menuList: (provided: any) => ({
     ...provided,
     borderRadius: "5px",
     padding: 0,
@@ -42,12 +42,12 @@ export const stylesForSelect = {
         : "0.5px solid var(--lightestGrey)",
     },
     backgroundColor: state.isFocused ? "var(--lightestGrey1)" : "var(--white)",
-    minHeight: 30,
-    minWidth: 351,
+    /* minHeight: 30,
+    maxWidth: 351,*/
   }),
   container: (provided: any, state: any) => ({
     ...provided,
-    width: 351,
+    width: "100%",
     height: 40,
   }),
   valueContainer: (base: any) => ({

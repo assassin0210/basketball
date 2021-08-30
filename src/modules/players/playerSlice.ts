@@ -44,6 +44,9 @@ export const playerSlice = createSlice({
     setResultSearchStatePlayers(state, action) {
       state.resultSearch = action.payload;
     },
+    clearIndicatorCust(state, action) {
+      state.optionsData = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getPositions.pending, (state, action) => {
@@ -89,12 +92,13 @@ export const playerSlice = createSlice({
       state.isFetching = true;
     });
     builder.addCase(getPlayerFromSelect.fulfilled, (state, { payload }) => {
+      console.log(payload);
       if (payload !== undefined) {
         for (let player of payload.data) {
           state.optionsData.push(player);
         }
-        state.isFetching = false;
       }
+      state.isFetching = false;
     });
     builder.addCase(getPlayerFromSelect.rejected, (state, action) => {
       state.isFetching = false;
@@ -124,5 +128,9 @@ export const playerSlice = createSlice({
 
 export const PlayersSliceConst = playerSlice.reducer;
 
-export const { setSizePlayers, setPagePlayers, setResultSearchStatePlayers } =
-  playerSlice.actions;
+export const {
+  clearIndicatorCust,
+  setSizePlayers,
+  setPagePlayers,
+  setResultSearchStatePlayers,
+} = playerSlice.actions;

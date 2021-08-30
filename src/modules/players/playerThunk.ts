@@ -5,7 +5,6 @@ import {
   IInitialStatePlayer,
   IPlayerInfo,
 } from "../../api/dto/playerTypes";
-import { AddPlayersFormType } from "../../api/dto/types";
 import { AxiosResponse } from "axios";
 import { iGetTeamType } from "../../api/dto/teamTypes";
 
@@ -114,7 +113,9 @@ export const getPlayer = createAsyncThunk(
 
 export const getPlayerFromSelect = createAsyncThunk(
   "player/getPlayerFromSelect",
-  async function (id: number, { dispatch }) {
+  async function (id: number, { dispatch, getState }) {
+    const { players } = getState() as { players: IInitialStatePlayer };
+
     try {
       const response: AxiosResponse<IGetPlayersType> = await instance.get(
         "/api/Player/GetPlayers",
@@ -124,6 +125,10 @@ export const getPlayerFromSelect = createAsyncThunk(
           },
         }
       );
+      if (id === undefined) {
+        players.optionsData = [];
+        return;
+      }
       return response.data;
     } catch {}
   }
