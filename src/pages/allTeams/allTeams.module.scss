@@ -25,6 +25,22 @@
     }
   }
 }
+.next_ten{
+  cursor: pointer;
+  text-align: center;
+  background: linear-gradient(var(--lightRed), var(--red),var(--lightRed) );
+  font-size: 16px;
+  color: var(--white);
+  border-bottom: 0.2px solid var(--lightGrey);
+
+  &:hover{
+    background: var(--red)
+  }
+}
+
+.displayNone{
+  display: none;
+}
 
 .input {
   border: 0.5px solid var(--lightestGrey);

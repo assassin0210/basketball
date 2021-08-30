@@ -96,6 +96,5 @@ export const stylesForSelect = {
 };
 export const menuHeaderStyle = {
   padding: "8px 12px",
-  color: "black",
   margin: "0",
 };

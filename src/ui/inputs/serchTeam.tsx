@@ -12,11 +12,15 @@ import { getPlayerFromSelect } from "../../modules/players/playerThunk";
 import { menuHeaderStyle, stylesForSelect } from "../../assets/styles/styles";
 import { ClearIndicatorCustom } from "../../assets/icon/clearIndicator";
 import { clearIndicatorCust } from "../../modules/players/playerSlice";
+import { SelectComponentsProps } from "react-select/base";
 
-export const SearchTeam: FC<any> = ({ control, name, setResultSearch }) => {
+export const SearchTeam: FC<SelectComponentsProps> = ({
+  control,
+  name,
+  setResultSearch,
+}) => {
   const dispatch = useDispatch();
   const selectData = useSelector((state: RootState) => state.interfaceData);
-  const [valuess, getValuess] = useState([]);
   const setOptionsForSelect = () => {
     const positionsAll = [];
     for (let team of selectData.data) {
@@ -27,7 +31,7 @@ export const SearchTeam: FC<any> = ({ control, name, setResultSearch }) => {
 
   useEffect(() => {
     dispatch(getTeamsSelect());
-  }, [selectData.page, dispatch, valuess]);
+  }, [selectData.page, dispatch]);
 
   return (
     <Controller
@@ -62,11 +66,13 @@ export const SearchTeam: FC<any> = ({ control, name, setResultSearch }) => {
 
 const MenuList = (props: any) => {
   const teamsCount = useSelector((state: RootState) => state.teams.count);
+  const [count, setCount] = useState(teamsCount);
   const selectSize = useSelector(
     (state: RootState) => state.interfaceData.size
   );
   const dispatch = useDispatch();
   const optionsHandler = () => {
+    setCount(count - 10);
     dispatch(moreOptionsItSelect());
   };
 
@@ -74,7 +80,7 @@ const MenuList = (props: any) => {
     <components.MenuList {...props}>
       <div
         onClick={optionsHandler}
-        className={`next_ten ${teamsCount > 10 ? "" : ""}`}
+        className={`${at.next_ten} ${count > 10 ? "" : at.displayNone}`}
         style={menuHeaderStyle}
       >
         Show next 10 of {teamsCount < selectSize ? 0 : selectSize - teamsCount}
@@ -91,12 +97,7 @@ const ClearIndicator = (props: any) => {
   return (
     <div>
       <components.ClearIndicator {...props}>
-        <div
-          onMouseDown={(e: any) => {
-            clearIndicatorHandler();
-          }}
-          className={at.clearIndicator}
-        >
+        <div onMouseDown={clearIndicatorHandler} className={at.clearIndicator}>
           <ClearIndicatorCustom />
         </div>
       </components.ClearIndicator>
