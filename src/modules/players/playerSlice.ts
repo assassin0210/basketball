@@ -92,7 +92,6 @@ export const playerSlice = createSlice({
       state.isFetching = true;
     });
     builder.addCase(getPlayerFromSelect.fulfilled, (state, { payload }) => {
-      console.log(payload);
       if (payload !== undefined) {
         for (let player of payload.data) {
           state.optionsData.push(player);

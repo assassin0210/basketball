@@ -24,7 +24,6 @@ export const AllPlayer = () => {
   const handleHistoryPush = () => history.push("/players/addPlayer");
   const { control } = useForm<AddPlayersFormType>();
   const [resultSearch, setResultSearch] = useState();
-  console.log(resultSearch);
 
   const filterForRenderPlayerCard = useMemo(() => {
     if (players.optionsData.length > 0) {
