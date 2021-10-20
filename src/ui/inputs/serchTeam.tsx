@@ -13,6 +13,7 @@ import {menuHeaderStyle, stylesForSelect} from "../../assets/styles/styles";
 import {ClearIndicatorCustom} from "../../assets/icon/clearIndicator";
 import {clearIndicatorCust} from "../../modules/players/playerSlice";
 import {SelectComponentsProps} from "react-select/base";
+import {useMemo} from "react";
 
 export const SearchTeam: FC<SelectComponentsProps> = ({
                                                           control,
@@ -21,13 +22,31 @@ export const SearchTeam: FC<SelectComponentsProps> = ({
                                                       }) => {
     const dispatch = useDispatch();
     const selectData = useSelector((state: RootState) => state.interfaceData);
+    const teams = useSelector((state: RootState) => state.teams.data);
     const setOptionsForSelect = () => {
         const positionsAll = [];
         for (let team of selectData.data) {
-            positionsAll.push({value: team.id, label: team.name, src:"https://cdn-icons.flaticon.com/png/512/5818/premium/5818467.png?token=exp=1634714740~hmac=33bb6a6cb034267ab3ddc95347b10af3"});
+            positionsAll.push({
+                value: team.id,
+                label: team.name,
+                src: "https://cdn-icons.flaticon.com/png/512/5818/premium/5818467.png?token=exp=1634714740~hmac=33bb6a6cb034267ab3ddc95347b10af3"
+            });
         }
         return positionsAll;
     };
+
+
+    const tests = useMemo(
+        () =>
+            teams.map((team, index) => ({
+                value: team.id,
+                label: team.name,
+                src: `${index}.png`
+            })),
+        [teams],
+    );
+    console.log(tests)
+
 
     useEffect(() => {
         dispatch(getTeamsSelect());
@@ -47,7 +66,7 @@ export const SearchTeam: FC<SelectComponentsProps> = ({
                             isMulti
                             isClearable
                             inputRef={props.field.ref}
-                            options={setOptionsForSelect()}
+                            options={tests}
                             components={{MenuList, ClearIndicator, Option: CustomOption}}
                             openMenuOnClick
                             getValue
@@ -106,8 +125,7 @@ const ClearIndicator = (props: any) => {
 };
 
 const CustomOption = ({innerRef, innerProps, ...rest}: any) => {
-    console.log(rest)
-    return (<div ref={innerRef} {...innerProps}><img className={at.image}
-                                                     src={rest.data.src}
-                                                     alt=""/><p>{rest.data.label}</p></div>)
+    return (<div className={at.wrapperImg} ref={innerRef} {...innerProps}><img className={at.image}
+                                                                               src={`${rest.data.src}`}
+                                                                               alt=""/><p>{rest.data.label}</p></div>)
 }

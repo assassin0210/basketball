@@ -19,7 +19,9 @@ export const Header: FC = () => {
   return (
     <div className={s.header_container}>
       <SolidMenu toggleHandler={toggleHandler} />
+        <img style={{width:"50px", height:"50px"}} src="../../assets/icon/0.png" alt=""/>
       <NavLink to="/teams">
+
         <MainLogo />
       </NavLink>
 
